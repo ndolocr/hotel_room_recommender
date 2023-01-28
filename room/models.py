@@ -13,7 +13,7 @@ class RoomElement(models.Model):
         return self.name
 
 
-class roomType(models.Model):
+class RoomType(models.Model):
     name = models.CharField(max_length=255, null=True)
     description = models.TextField(null=True)
     max_capacity = models.IntegerField(null=True)
@@ -23,3 +23,6 @@ class roomType(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
