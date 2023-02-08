@@ -1,4 +1,5 @@
 from django.db import models
+from hotel.models import Hotel
 
 # Create your models here.
 class RoomElement(models.Model):
@@ -26,3 +27,10 @@ class RoomType(models.Model):
 
 
 
+class Room(models.Model):
+    floor = models.CharField(max_length=255, null=True)
+    image = models.CharField(max_length=255, null=True)
+    cost_per_night = models.FloatField(null=True)
+    availabilty = models.CharField(max_length=255, null=True)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
