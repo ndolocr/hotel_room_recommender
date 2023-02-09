@@ -7,4 +7,5 @@ def index(request):
     return render(request, 'core/index.html', context=context)
 
 def dashboard(request):
-    pass
+    context = {}
+    return render(request, 'core/dashboard.html', context=context)
