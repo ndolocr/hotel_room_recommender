@@ -1,0 +1,139 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="create_case_app">                    
+                    <div>
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-2">
+                                    <label for="device" class="col-form-label">Device</label>
+                                    <input type="text" class="form-control" id="device" name="device"
+                                        placeholder="Device" v-model="device">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="channel" class="col-form-label">Channel</label>
+                                    <input type="text" class="form-control" id="channel"
+                                        name="channel" placeholder="Channel"
+                                        v-model="channel">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="bank_branch" class="col-form-label">Bank Branch</label>
+                                    <input type="text" class="form-control" id="bank_branch"
+                                        name="bank_branch" placeholder="Bank Branch"
+                                        v-model="bank_branch">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="account_number" class="col-form-label">Account Number</label>
+                                    <input type="text" class="form-control" id="account_number"
+                                        name="account_number"  placeholder="Account Number"
+                                        v-model="account_number">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="account_name" class="col-form-label">Account Name</label>
+                                    <input type="text" class="form-control" id="account_name"
+                                        name="account_name"  placeholder="Account Name"
+                                        v-model="account_name">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="beneficiary_account" class="col-form-label">Beneficiary Account</label>
+                                    <input type="text" class="form-control" id="beneficiary_account"
+                                        name="beneficiary_account"  placeholder="Beneficiary Account"
+                                        v-model="beneficiary_account">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="recovered_amount" class="col-form-label">Recovered
+                                        Amount</label>
+                                    <input type="number" min="0" class="form-control" id="recovered_amount"
+                                        name="recovered_amount"  placeholder="Revceived Amount"
+                                        v-model="recovered_amount" value="0" step="any">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="target_amount" class="col-form-label">Target
+                                        Amount</label>
+                                    <input type="number" min="0" class="form-control" id="target_amount"
+                                        name="target_amount"  placeholder="Target Amount"
+                                        v-model="target_amount" value="0" step="any">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="lost_amount" class="col-form-label">Lost
+                                        Amount</label>
+                                    <input type="number" min="0" class="form-control" id="lost_amount"
+                                        name="lost_amount"  placeholder="Lost Amount"
+                                        v-model="lost_amount" value="0" step="any">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="phone_number" class="col-form-label">Phone Number</label>
+                                    <input type="text" class="form-control" id="phone_number"
+                                        name="phone_number"  placeholder="Phone Number"
+                                        v-model="phone_number">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="phone_number" class="col-form-label">Fraud Scheme</label>
+                                    <select name="fraud_scheme" id="fraud_scheme" class="form-control">
+                                        <optgroup label="Account Take Over">                                            
+                                            <option value="sim_swap">SIM Swap</option>
+                                            <option value="impostor">Impostor</option>
+                                            <option value="loss_of_phone">Loss of Phone</option>                                            
+                                            <option value="theft_robbery">Theft & Robbery</option>
+                                            <option value="drugging_of_customer">Drugging of Customer</option>
+                                            <option value="identify_theft_fraud">Identify Theft/Fraud</option>
+                                            <option value="fraudulent_data_change">Fraudulent Data Change</option>
+                                            <option value="fraudulent_banking_apps">Fraudulent Banking Apps</option>
+                                            <option value="unauthorised_account_linkage">Unauthorised Account Linkage</option>
+                                        </optgroup>
+
+                                        <optgroup label="Authorized Push Payments">
+                                            <option value="compromise">Compromise</option>
+                                            <option value="business_email">Business Email</option>
+                                            <option value="social_engineering">Social Engineering</option> 
+                                        </optgroup>
+                                    </select>
+                                    
+                                </div>
+                                
+                                
+                                <div class="form-group col-md-12">
+                                    <label for="beneficiary_account" class="col-form-label">Comments</label>
+                                    <textarea name="comments" class="form-control" rows="10"></textarea>
+                                    
+                                </div>
+
+                                <div class="form-group col-md-3">                                   
+                                    <input type="reset" class="btn btn-danger" id="cancel" name="cancel" value="Cancel">
+                                </div>
+                                
+                                <div class="form-group col-md-3">                                   
+                                    <input type="submit" class="btn btn-primary" id="submit" name="submit" value="Save">
+                                </div>
+                                
+                            </div>
+                           
+                        </form>
+                    </div>
+                    <!--<End Form>-->
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,7 +1,130 @@
-{% extends 'apps/base.html' %}
+{% extends 'app/base.html' %}
 {% load static %}
 
 {% block content %}
+<!-- Begin Slideshow Row -->
+<div class="row">
 
+    <!-- Begin Column One -->
+    <div class="col-lg-12 slide_show">
+        
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="{% static 'assets/img/slideshow/banners.jpg' %}" alt="First slide">
+              </div>
+            </div>
+          </div>
+        
+    </div>
+    <!-- End Column One -->
+
+</div>
+<!-- End Slideshow Row -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Offers</h3>
+        Promotions, deals and special offers for you
+    </div>
+</div>
+<!-- Begin Special Offers Row -->
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card" style="background: url('/static/assets/img/slideshow/hiking.jpeg'); background-size: 100% 100%;" >
+            <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Book a hike</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card" style="background: url('/static/assets/img/slideshow/safari.jpeg'); background-size: 100% 100%;">
+            <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Temeba Kenya</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card card_board" style="background: url('/static/assets/img/slideshow/diving.jpeg'); background-size: 100% 100%;">
+            <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Discover our seas</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- End Special Offers Row -->
+
+<!-- Begin Advert -->
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10 advert">
+        <div class="row">
+            <div class="col-lg-2 pic">
+                <img src="{% static 'assets/img/slideshow/globe.png' %}" >
+            </div>
+
+            <div class="col-lg-10 info">
+                <h3>Get Instant disconts</h3>
+                Simply sign into your Booking.com account and look for the blue Genius logo to save
+                <br><br>
+                <a href="#" class="btn btn-outline-primary">Sign Up</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1"></div>
+</div>
+<!-- End Advert -->
+
+
+<!--  -->
+<div class="row">
+    <div class="col-lg-12"> <br> <h3>Browse by property type</h3> </div>
+    <br>
+
+    <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{% static 'assets/img/slideshow/singleroom.jpeg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Single Rooms</h5>
+              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+              <a href="#" class="btn btn-primary">View</a>
+            </div>
+          </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{% static 'assets/img/slideshow/doubleroom.jpeg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Double Rooms</h5>
+              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+              <a href="#" class="btn btn-primary">View</a>
+            </div>
+          </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{% static 'assets/img/slideshow/executiveroom.jpeg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Executive Rooms</h5>
+              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+              <a href="#" class="btn btn-primary">View</a>
+            </div>
+          </div>
+    </div>
+
+</div>
+<!--  -->
 {% endblock %}
 

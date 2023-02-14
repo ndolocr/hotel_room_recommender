@@ -25,3 +25,36 @@
     text-align: left;
     padding-top: 5%;
 }
+
+.slide_show{
+    margin-bottom: 10px;
+    width: 100% !important;
+    height: 400px !important;
+    overflow: hidden !important;
+    background: #000000 !important;
+}
+
+.card_board{
+    color: #ffffff !important;
+}
+
+.advert{
+    width: 70%;
+    height: 150px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: solid 1px #666666;
+}
+
+.pic{ 
+    height: 150px;
+}
+.advert .pic img{
+    height: 100%;
+}
+
+.info h3{
+    padding: 5px;
+    font-weight: bold;
+
+}
