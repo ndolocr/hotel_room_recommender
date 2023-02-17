@@ -56,3 +56,9 @@ class Disability(StructuredNode):
     diasability_description = StringProperty()
 
     guest = RelationshipTo(Guest, 'Guest disability')
+
+class Illness(StructuredNode):
+    name = StringProperty()
+    description = StringProperty()
+
+    guest = RelationshipTo(Guest, 'Guest suffers from')
