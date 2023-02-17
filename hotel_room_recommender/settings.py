@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,6 +41,10 @@ INSTALLED_APPS = [
     
     # Apps
     'core',
+    'room',
+    'hotel',
+    'administrator',
+    'django_neomodel',
 ]
 
 MIDDLEWARE = [
@@ -76,13 +81,19 @@ WSGI_APPLICATION = 'hotel_room_recommender.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+NEOMODEL_NEO4J_BOLT_URL = os.environ.get('hotel','bolt://neo4j:12345678@localhost:7687')
+
+# NEOMODEL_SIGNALS = True
+# NEOMODEL_FORCE_TIMEZONE = False
+# NEOMODEL_ENCRYPTED_CONNECTION = True
+# NEOMODEL_MAX_POOL_SIZE = 50
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
