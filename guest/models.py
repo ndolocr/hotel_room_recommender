@@ -49,3 +49,10 @@ class Allergy(StructuredNode):
     name = StringProperty()
     description = StringProperty()
     guest = RelationshipTo(Guest, 'Guest allergy')
+
+class Disability(StructuredNode):
+    name = StringProperty()
+    disability_type = StringProperty()
+    diasability_description = StringProperty()
+
+    guest = RelationshipTo(Guest, 'Guest disability')
