@@ -45,8 +45,7 @@ class GuestAttributes(StructuredNode):
 
     guest = RelationshipTo(Guest, 'Attributes of Guest')
     
-    
-
-    
-    
-
+class Allergy(StructuredNode):
+    name = StringProperty()
+    description = StringProperty()
+    guest = RelationshipTo(Guest, 'Guest allergy')
