@@ -37,7 +37,15 @@ class Pet(StructuredNode):
     name = StringProperty()
     pet_type = StringProperty()
 
-    guest = RelationshipTo(Guest, 'Pet of')
+    guest = RelationshipTo(Guest, 'Pet of Guest')
+
+class GuestAttributes(StructuredNode):
+    is_smoker = StringProperty()
+    health_condition = StringProperty()
+
+    guest = RelationshipTo(Guest, 'Attributes of Guest')
+    
+    
 
     
     
