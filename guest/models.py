@@ -31,7 +31,14 @@ class childGuest(StructuredNode):
     gender = StringProperty()
     date_of_birth = DateProperty()
 
-    guest_relation = RelationshipTo(Guest, 'Child od')
+    guest = RelationshipTo(Guest, 'Child of')
+
+class Pet(StructuredNode):
+    name = StringProperty()
+    pet_type = StringProperty()
+
+    guest = RelationshipTo(Guest, 'Pet of')
+
     
     
 
