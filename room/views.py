@@ -18,23 +18,25 @@ def getAllRooms(request):
         try:
             rooms  = Room.nodes.all()
             response = []
+            context = {}
             for room in rooms:
                 room_obj = {
                     
-                    'image': room.image,
                     'floor' : room.floor,
                     'hotel ' : room.hotel,
                     'room_type ' : room.room_type,
+                    'created_on' : room.created_on,
                     'availabilty': room.availabilty,
                     'room_number': room.room_number,
                     'room_element ' : room.room_element,
-                    'cost_per_night': room.cost_per_night,
+                    'cost_per_night': room.cost_per_night,                    
                 }
 
                 response.append(room_obj)
-            return JsonResponse(response, safe=False)
+            context = {"data": response}
+            return render(request, 'room/room_pages/view_all.html', context)
         except Exception as e:
-            response = {"error": "Error occurred"}
+            response = {"Error": "Error occurred while getting room records - {}".format(e)}
             return JsonResponse(response, safe=False)
 
 @csrf_exempt
@@ -65,46 +67,96 @@ def getRoomDetails(request):
 @csrf_exempt
 def addRoom(request):
     if request.method == 'POST':
-        json_data = json.loads(request.body)
+        floor = request.POST['floor']
+        availabilty = request.POST['availabilty']
+        room_number  =request.POST['room_number']
+        cost_per_night = float(request.POST['cost_per_night'])
 
-        floor = json_data['floor']
-        image = json_data['image']
-        hotel = json_data['hotel']
-        room_type = json_data['room_type']
-        availabilty = json_data['availabilty']
-        room_number  =json_data['room_number']
-        room_element = json_data['room_element']
-        cost_per_night = int(json_data['cost_per_night'])
+        hotel = request.POST['hotel']
+        room_type = request.POST['room_type']
+        room_element_list = request.POST.getlist('checks[]')
         
         try:
             room = Room(
-                floor=floor, 
-                image=image, 
-                hotel=hotel, 
-                room_type=room_type,
+                floor=floor,
                 availabilty=availabilty, 
-                room_number=room_number, 
-                room_element=room_element, 
-                cost_per_night=cost_per_night
+                room_number=room_number,  
+                cost_per_night=cost_per_night,
+                created_on = datetime.today()
             )
-
             room.save()
 
-            response = {
-                    
-                    'image': room.image,
-                    'floor' : room.floor,
-                    'hotel ' : room.hotel,
-                    'room_type ' : room.room_type,
-                    'availabilty': room.availabilty,
-                    'room_number': room.room_number,
-                    'room_element ' : room.room_element,
-                    'cost_per_night': room.cost_per_night,
-                }
-            return JsonResponse(response, safe=False)
+            room_type_obj = RoomType.nodes.get(uid = room_type)
+            room_type_connection = room.room_type.connect(room_type_obj)
+
+            hotel_obj = Hotel.nodes.get(uid = hotel)
+            hotel_room_connection = room.hotel.connect(hotel_obj)
+
+            for data in room_element_list:
+                room_element_obj = RoomElement.nodes.get(uid = data)
+                room_element_connection = room.room_element.connect(room_element_obj)
+
+            return render(request, 'room/room_pages/add.html')
+
         except Exception as e:
-            response = {"error": "Error occurred"}
+            response = {"ERROR": "Error occurred while adding room - {}".format(e)}
             return JsonResponse(response, safe=False)
+    else:
+        try:
+            room_types = RoomType.nodes.all()
+            room_type_response = []
+            context = {}
+
+            for room_type in room_types:
+                room_type_data = {
+                    "uid" : room_type.uid,
+                    "Name": room_type.name,
+                    "Maximum_Capacity": room_type.max_capacity,
+                    "created_on": room_type.created_on,
+                    "Description": room_type.description,
+                }
+
+                room_type_response.append(room_type_data)
+            
+            room_elements = RoomElement.nodes.all()
+            room_element_response = []
+
+            for room_element in room_elements:
+                room_element_data = {
+                    "uid" : room_element.uid,
+                    "Name": room_element.name,
+                    "Element_type": room_element.elementType,
+                    "created_on": room_element.created_on,
+                    "Description": room_element.description,
+                }
+
+                room_element_response.append(room_element_data)
+            
+            hotels = Hotel.nodes.all()
+            hotel_response = []
+
+            for hotel in hotels:
+                hotel_data = {
+                    "uid" : hotel.uid,
+                    "Name": hotel.name,
+                    "City": hotel.city,
+                    "Address": hotel.address,
+                    "created_on": hotel.created_on,
+                    "Description": hotel.description,
+                }
+
+                hotel_response.append(hotel_data)
+
+            context = {
+                "hotels": hotel_response,
+                "room_types": room_type_response,
+                "room_elements" : room_element_response
+            }
+            return render(request, 'room/room_pages/add.html', context)  
+        except Exception as e:
+            response = {"ERROR": "Error occurred while fethcing room types - {}".format(e)}
+            return JsonResponse(response, safe=False)
+        
 
 @csrf_exempt
 def editRoom(request):
