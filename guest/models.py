@@ -25,6 +25,9 @@ class Guest(StructuredNode):
     country_of_residence = StringProperty()
     email = StringProperty(unique_index=True)    
     id_num = StringProperty(unique_index=True)
+    
+    relaton_to_guest = StringProperty()
+    guest = RelationshipTo('Guest', 'Guest of')
 
 class childGuest(StructuredNode):
     name = StringProperty()
