@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block title %} Hotels {% endblock %}
-{% block page_breadcrumb %} View All Hotels {% endblock %}
+{% block page_breadcrumb %} View Room Types {% endblock %}
 {% block content %}
     <div style=" padding: 20px"> </div>
     <!-- BEGIN SAMPLE TABLE PORTLET-->
-    <div class="portlet box blue">
+    <div class="portlet box yellow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-cogs"></i>View all Hotel Information </div>
+                <i class="fa fa-cogs"></i>View all Room Types Information </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"> </a>                
                 <!-- <a href="javascript:;" class="remove"> </a> -->
@@ -22,8 +22,7 @@
                         <tr>
                             <th> # </th>
                             <th> Name </th>
-                            <th> Address </th>
-                            <th> Location </th>                            
+                            <th> Maximum Capacity </th>                          
                             <th> Created On </th>
                             <th> view </th>
                         </tr>
@@ -33,10 +32,9 @@
                         <tr>
                             <td> {{ forloop.counter }} </td>
                             <td> {{ record.Name }} </td>
-                            <td> {{ record.Address }} </td>
-                            <td> {{ record.City }} </td>
+                            <td> {{ record.Maximum_Capacity }} </td>
                             <td> {{ record.created_on }} </td>
-                            <td style="text-align: center;"> <a href="{% url 'hotel-get-single' record.uid %}"> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td>
+                            <td style="text-align: center;"> <a href="{% url 'room-type-view-single' record.uid %}"> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td>
                         </tr>
                         {% endfor %}
                         

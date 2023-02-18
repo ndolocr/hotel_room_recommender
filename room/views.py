@@ -194,28 +194,76 @@ def addRoomElement(request):
 
 @csrf_exempt
 def addRoomType(request):
-    json_data = json.loads(request.body)
-    try:
-        room_type = RoomType(
-            name = json_data['name'],
-            description = json_data['description'],
-            max_capacity = json_data['max_capacity'],
-            created_on = datetime.today()
-        )
+    if request.method == "POST":
+        # json_data = json.loads(request.body)
+        try:
+            room_type = RoomType(
+                name = request.POST['name'],
+                description = request.POST['description'],
+                max_capacity = request.POST['max_capacity'],
+                created_on = datetime.today()
+            )
 
-        room_type.save()
+            room_type.save()
 
-        response = {
-            "name" : room_type.name,
-            "description" : room_type.description,
-            "max_capacity" : room_type.max_capacity,
-            "created_on" : room_type.created_on
-        }
+            response = {
+                "name" : room_type.name,
+                "description" : room_type.description,
+                "max_capacity" : room_type.max_capacity,
+                "created_on" : room_type.created_on
+            }
 
-        return JsonResponse(response, safe=False)
-    except Exception as e:
-        response = {"Error": "Error on saving Room Type - {}".format(e)}
-        return JsonResponse(response, safe=False)
+            # return JsonResponse(response, safe=False)
+            return render(request, 'room/room_type/add.html')
+        except Exception as e:
+            response = {"Error": "Error on saving Room Type - {}".format(e)}
+            return JsonResponse(response, safe=False)
+    else:
+        return render(request, 'room/room_type/add.html')
+
+def getAllRoomTypes(request):
+    if request.method == "GET":
+        try:
+            room_types = RoomType.nodes.all()
+            response = []
+            context = {}
+
+            for room_type in room_types:
+                room_type_data = {
+                    "uid" : room_type.uid,
+                    "Name": room_type.name,
+                    "Maximum_Capacity": room_type.max_capacity,
+                    "created_on": room_type.created_on,
+                    "Description": room_type.description,
+                }
+
+                response.append(room_type_data)
+
+            context = {"data": response}
+            # return JsonResponse(response, safe=False)
+            return render(request, 'room/room_type/view_all.html', context)
+        except Exception as e:
+            response = { "ERROR": "Error getting all Room Type records - {}".format(e)}
+            return JsonResponse(response, safe=False)
+
+@csrf_exempt
+def getSingleRoomType(request, uid):
+    if request.method == "GET":
+        try:
+            record = RoomType.nodes.get(uid=uid)
+
+            response = {
+                "uid" : record.uid,
+                "Name": record.name,
+                "Maximum_Capacity": record.max_capacity,
+                "created_on": record.created_on,
+                "Description": record.description,
+            }
+            # return JsonResponse(response, safe=False)
+            return render(request, 'room/room_type/view_single.html', context=response)
+        except Exception as e:
+            response = { "ERROR": "Error getting hotel record - {}".format(e)}
+            return JsonResponse(response, safe=False)
 
 # ***********************************************************************************
 # CONNECTORS
