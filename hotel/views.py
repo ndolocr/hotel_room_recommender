@@ -69,6 +69,7 @@ def updateHotel(request, uid):
             response = {"ERROR": "Error on updating hotel information - {}".format(e)}
             return JsonResponse(response, safe=False)
 
+@csrf_exempt
 def deleteHotel(request, uid):
     if request.method == "DELETE":
         try:
@@ -80,5 +81,43 @@ def deleteHotel(request, uid):
             response = { "ERROR": "Error on deleting hotel record - {}".format(e)}
             return JsonResponse(response, safe=False)
 
+@csrf_exempt
+def getSingleHotel(request, uid):
+    if request.method == "GET":
+        try:
+            hotel = Hotel.nodes.get(uid=uid)
 
+            response = {
+                "uid" : hotel.uid,
+                "Name": hotel.name,
+                "City": hotel.city,
+                "Address": hotel.address,
+                "created_on": hotel.created_on,
+                "Description": hotel.description,
+            }
+            return JsonResponse(response, safe=False)
+        except Exception as e:
+            response = { "ERROR": "Error getting hotel record - {}".format(e)}
+            return JsonResponse(response, safe=False)
 
+def getAllHotels(request):
+    if request.method == "GET":
+        try:
+            hotels = Hotel.nodes.all()
+            response = []
+
+            for hotel in hotels:
+                hotel_data = {
+                    "uid" : hotel.uid,
+                    "Name": hotel.name,
+                    "City": hotel.city,
+                    "Address": hotel.address,
+                    "created_on": hotel.created_on,
+                    "Description": hotel.description,
+                }
+
+                response.append(hotel_data)
+            return JsonResponse(response, safe=False)
+        except Exception as e:
+            response = { "ERROR": "Error getting all hotel records - {}".format(e)}
+            return JsonResponse(response, safe=False)
