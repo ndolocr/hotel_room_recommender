@@ -29,7 +29,7 @@ class Guest(StructuredNode):
     relaton_to_guest = StringProperty()
     guest = RelationshipTo('Guest', 'Guest of')
 
-class childGuest(StructuredNode):
+class ChildGuest(StructuredNode):
     name = StringProperty(required = False)
     gender = StringProperty(required = False)
     date_of_birth = DateProperty(required = False)
