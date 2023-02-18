@@ -2,8 +2,9 @@ from django.urls import path
 from room import views
 
 urlpatterns = [
+    # Room
+    path('add', views.addRoom, name='room-add'),
     path('', views.getAllRooms, name='get-all-rooms'),
-    path('add', views.addRoom, name='room-details'),
 
     # Room Type
     path('type/add', views.addRoomType, name='room-type-add'),
