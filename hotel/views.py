@@ -35,3 +35,38 @@ def addHotel(request):
         except Exception as e:
             response = { "Error": "Error adding Hotel information - {}".format(e)}
             return JsonResponse(response, safe=False)
+
+@csrf_exempt
+def uodateHotel(request, uid):
+    if request.method == "PUT":
+        json_data = json.loads(request.body)
+
+        name = json_data["name"]
+        city = json_data["city"]
+        address = json_data["address"]
+        description = json_data["description"]
+
+        try:
+            hotel = Hotel.nodes.get(uid=uid)
+
+            hotel.name = name
+            hotel.city = city
+            hotel.address = address
+            hotel.descrption = description
+
+            hotel.save()
+
+            response = {
+                "Success" : "Hotel Successfully Updates",
+                "Name": hotel.name,
+                "City": hotel.city,
+                "Address": hotel.address,
+                "Description": hotel.description
+            }
+
+            return JsonResponse(response, safe=False)
+        except Exception as e:
+            response = {"ERROR": "Error on updating hotel information - {}".format(e)}
+            return JsonResponse(response, safe=False)
+
+
