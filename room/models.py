@@ -9,7 +9,8 @@ from neomodel import (
     UniqueIdProperty,
     IntegerProperty,
     ArrayProperty, 
-    DateProperty
+    DateProperty, 
+    FloatProperty
 )
 # Create your models here.
 class RoomElement(StructuredNode):
@@ -30,12 +31,11 @@ class RoomType(StructuredNode):
 
 class Room(StructuredNode):
     uid = UniqueIdProperty()
-    name = StringProperty()
     floor = StringProperty()
-    image = StringProperty()
     availabilty = StringProperty()
     room_number  = StringProperty()
-    cost_per_night = IntegerProperty()
+    cost_per_night = FloatProperty()
+    created_on = DateProperty()
 
     hotel = RelationshipTo(Hotel, 'Room in a Hotel')
     room_type = RelationshipTo(RoomType, 'Room Type')
