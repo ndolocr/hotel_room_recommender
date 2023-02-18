@@ -37,7 +37,7 @@ def addHotel(request):
             return JsonResponse(response, safe=False)
 
 @csrf_exempt
-def uodateHotel(request, uid):
+def updateHotel(request, uid):
     if request.method == "PUT":
         json_data = json.loads(request.body)
 
@@ -68,5 +68,17 @@ def uodateHotel(request, uid):
         except Exception as e:
             response = {"ERROR": "Error on updating hotel information - {}".format(e)}
             return JsonResponse(response, safe=False)
+
+def deleteHotel(request, uid):
+    if request.method == "DELETE":
+        try:
+            hotel = Hotel.nodes.get(uid=uid)
+            hotel.delete()
+            response = {"success": "Hotel successfully deleted"}
+            return JsonResponse(response, safe=False)
+        except Exception as e:
+            response = { "ERROR": "Error on deleting hotel record - {}".format(e)}
+            return JsonResponse(response, safe=False)
+
 
 
