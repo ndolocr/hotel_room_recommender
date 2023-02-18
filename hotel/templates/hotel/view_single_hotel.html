@@ -1,0 +1,52 @@
+{% extends 'app/layout.html' %}
+{% load static %}
+
+{% block title %} Hotels {% endblock %}
+{% block page_breadcrumb %} View Hotels Record {% endblock %}
+{% block content %}
+    <div style=" padding: 20px"> </div>
+    <!-- BEGIN SAMPLE TABLE PORTLET-->
+    <div class="portlet box blue">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>View Single Hotel Information </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"> </a>                
+                <!-- <a href="javascript:;" class="remove"> </a> -->
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <th> UID </th> <td> {{ uid }} </td>
+                    </tr>
+                    <tr>
+                        <th> Name </th> <td> {{ Name }} </td>
+                    </tr>
+                    <tr>
+                        <th> Address </th> <td> {{ Address }} </td>
+                    </tr>
+                    <tr>
+                        <th> Location </th> <td> {{ City }} </td>
+                    </tr>
+                    <tr>
+                        <th> Created On </th> <td> {{ created_on }} </td>
+                    </tr>
+                    <tr> <th colspan="2" style="text-align: center;"> Description</th> </tr>
+                    <tr> <td colspan="2" style="text-align: center;"> {{ Description }} </td> </tr>
+                    <tr> 
+                        <td colspan="2"> 
+                            <a class="btn btn-primary" href="{% url 'hotel-update' uid %}"> 
+                                <i class="fa fa-pencil" aria-hidden="true"></i> 
+                                Update
+                            </a> 
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- END SAMPLE TABLE PORTLET-->
+{% endblock %}

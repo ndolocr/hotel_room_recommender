@@ -55,12 +55,22 @@ def addHotel(request):
 @csrf_exempt
 def updateHotel(request, uid):
     if request.method == "PUT":
-        json_data = json.loads(request.body)
+        # json_data = json.loads(request.body)
 
-        name = json_data["name"]
-        city = json_data["city"]
-        address = json_data["address"]
-        description = json_data["description"]
+        # name = json_data["name"]
+        # city = json_data["city"]
+        # address = json_data["address"]
+        # description = json_data["description"]
+
+        name = request.POST["name"]
+        city = request.POST["city"]
+        address = request.POST["address"]
+        description = request.POST["description"]
+
+        print("Name -->", name)
+        print("Address -->", address)
+        print("City -->", city)
+        print("Description -->", description)
 
         try:
             hotel = Hotel.nodes.get(uid=uid)
@@ -80,12 +90,27 @@ def updateHotel(request, uid):
                 "Description": hotel.description
             }
 
-            return JsonResponse(response, safe=False)
+            # return JsonResponse(response, safe=False)
+            return render(request, 'hotel/update_hotel_information.html', context=response)
         except Exception as e:
             response = {"ERROR": "Error on updating hotel information - {}".format(e)}
             return JsonResponse(response, safe=False)
-    elif request.method == "GET":
-        return render(request, 'hotel/update_hotel_information.html')
+    else:
+        try:
+            hotel = Hotel.nodes.get(uid=uid)
+
+            response = {
+                "uid" : hotel.uid,
+                "Name": hotel.name,
+                "City": hotel.city,
+                "Address": hotel.address,
+                "created_on": hotel.created_on,
+                "Description": hotel.description,
+            }
+            return render(request, 'hotel/update_hotel_information.html', context=response)
+        except Exception as e:
+            response = {"ERROR": "Error on updating hotel information - {}".format(e)}
+            return JsonResponse(response, safe=False)
 
 @csrf_exempt
 def deleteHotel(request, uid):
