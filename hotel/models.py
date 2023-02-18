@@ -8,17 +8,19 @@ from neomodel import (
     UniqueIdProperty,
     IntegerProperty,
     ArrayProperty, 
-    DateProperty
+    DateProperty,
+    FloatProperty,
+    DateTimeProperty
 )
 
 # Create your models here.
 class Hotel(StructuredNode):
+    uid = UniqueIdProperty()
     name = StringProperty()
     city = StringProperty()
     address = StringProperty()
-    description = StringProperty()
-
     created_on = DateProperty()
+    description = StringProperty()
 
 
 # class Hotel(models.Model):
