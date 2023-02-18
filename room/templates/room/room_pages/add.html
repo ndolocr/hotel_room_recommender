@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block title %} Hotels {% endblock %}
-{% block page_breadcrumb %} Add Room Type {% endblock %}
+{% block page_breadcrumb %} Add Room {% endblock %}
 {% block content %}
 <div class="col-md-12">
-    <div class="portlet box yellow">
+    <div class="portlet box red">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-university"></i>Add New Room Type </div>
+                <i class="fa fa-university"></i>Add New Room </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"> </a>
                 <!-- <a href="javascript:;" class="remove"> </a> -->
@@ -16,27 +16,73 @@
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="{% url 'room-type-add' %}" method="POST">
+            <form action="{% url 'room-add' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-body">
-                    <div class="form-group">
-                        <label class="control-label">Name</label>
-                        <input type="text" class="form-control" placeholder="Enter Room Type Name" name="name">                        
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Room Number</label>
+                            <input type="text" class="form-control" placeholder="Enter Room Number" name="room_number">                        
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Floor</label>
+                            <input type="text" class="form-control" placeholder="Floor" name="floor">                        
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Cost Per Night</label>
+                            <input type="number" class="form-control" placeholder="Enter Cost per Night" name="cost_per_night">                                          
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label">Maximum Capacity</label>
-                        <input type="text" class="form-control" placeholder="Enter maximum capacity for room" name="max_capacity">                        
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Hotel</label>
+                            <select class="form-control" name="hotel">
+                                <option value="none" selected disabled hidden >------ Hotel ---------</option>
+                                {% for hotel in hotels %}
+                                    <option value="{{ hotel.uid }}" > {{ hotel.Name }} </option>
+                                {% endfor %}
+                            </select>                        
+                        </div>
+                        
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Availablity</label>
+                            <select class="form-control" name="availabilty">
+                                <option value="none" selected disabled hidden >------ Availability ---------</option>
+                                <option value="booked" > Booked </option>
+                                <option value="reserved" > Reserved </option>
+                                <option value="available" > Available </option>
+                                <option value="unavailable" > Unavailable </option>
+                            </select>                        
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Room Type</label>
+                            <select class="form-control" name="room_type">
+                                <option value="none" selected disabled hidden >------ Room Type ---------</option>
+                                {% for room_type in room_types %}
+                                    <option value="{{ room_type.uid }}" > {{ room_type.Name }} </option>
+                                {% endfor %}
+                            </select>                        
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label">Description</label>
-                        <textarea class="form-control" placeholder="Enter Address" name="description">
-
-                        </textarea>                                          
-                    </div>
-
                     
+                    <hr>
+                    Room Element
+                    <hr>
+                    
+                    <div class="row">                        
+                        {% for item in room_elements %}
+                            <div class="form-group col-md-2">
+                                <label class="control-label">{{item.Name}}</label>                        
+                                <input type="checkbox" class="form-control" value="{{item.uid}}" name="checks[]" />                                                 
+                            </div>
+                        {% endfor %}
+                    </div>                    
+                    <hr>
+
                 <div class="form-actions">
                     <button type="submit" class="btn green">Submit</button>
                     <button type="button" class="btn default">Cancel</button>
