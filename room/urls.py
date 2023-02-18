@@ -4,7 +4,6 @@ from room import views
 urlpatterns = [
     path('', views.getAllRooms, name='get-all-rooms'),
     path('add', views.addRoom, name='room-details'),
-    path('hotel/add', views.addHotel, name='hotel-add'),
     path('element/add', views.addRoomElement, name='element-add'),
     path('room/type/add', views.addRoomType, name='room-type-add'),
     path('connect/to/hotel', views.connectHotelToRoom, name="connect-hotel-to-room"),

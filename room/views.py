@@ -218,35 +218,6 @@ def addRoomType(request):
         return JsonResponse(response, safe=False)
 
 # ***********************************************************************************
-# HOTEL
-@csrf_exempt
-def addHotel(request):
-    json_data = json.loads(request.body)
-
-    try:
-        hotel = Hotel(
-            name = json_data["name"],
-            city = json_data["city"],
-            address = json_data["address"],
-            description = json_data["description"],
-            created_on = datetime.today()
-        )
-
-        hotel.save()
-        response = {
-            "name" : hotel.name,
-            "city" : hotel.city,
-            "address" : hotel.address,
-            "description" : hotel.description,
-            "created_on" : hotel.created_on
-        }
-
-        return JsonResponse(response, safe=False)
-    except Exception as e:
-        response = { "Error": "Error adding Hotel information - {}".format(e)}
-        return JsonResponse(response, safe=False)
-
-# ***********************************************************************************
 # CONNECTORS
 @csrf_exempt
 def connectHotelToRoom(request):

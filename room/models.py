@@ -13,6 +13,7 @@ from neomodel import (
 )
 # Create your models here.
 class RoomElement(StructuredNode):
+    uid = UniqueIdProperty()
     name = StringProperty()
     description = StringProperty()
     elementType = StringProperty()
@@ -20,6 +21,7 @@ class RoomElement(StructuredNode):
     created_on = DateProperty()
 
 class RoomType(StructuredNode):
+    uid = UniqueIdProperty()
     name = StringProperty()
     description = StringProperty()
     max_capacity = IntegerProperty()
@@ -27,6 +29,8 @@ class RoomType(StructuredNode):
     created_on = DateProperty()
 
 class Room(StructuredNode):
+    uid = UniqueIdProperty()
+    name = StringProperty()
     floor = StringProperty()
     image = StringProperty()
     availabilty = StringProperty()

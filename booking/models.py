@@ -21,3 +21,5 @@ from guest.models import Disability
 from guest.models import GuestAttributes
 # Create your models here.
 
+class Reservation(StructuredNode):
+    pass
