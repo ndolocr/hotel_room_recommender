@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block title %} Hotels {% endblock %}
-{% block page_breadcrumb %} View Hotels Record {% endblock %}
+{% block page_breadcrumb %} View Room Element Record {% endblock %}
 {% block content %}
     <div style=" padding: 20px"> </div>
     <!-- BEGIN SAMPLE TABLE PORTLET-->
-    <div class="portlet box yellow">
+    <div class="portlet box blue-hoki">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-cogs"></i>View Single Hotel Information </div>
+                <i class="fa fa-cogs"></i>View Single Element Information </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"> </a>                
                 <!-- <a href="javascript:;" class="remove"> </a> -->
@@ -25,7 +25,7 @@
                         <th> Name </th> <td> {{ Name }} </td>
                     </tr>
                     <tr>
-                        <th> Maximum Capacity </th> <td> {{ Maximum_Capacity }} </td>
+                        <th> Element Type </th> <td> {{ Element_type }} </td>
                     </tr>
                     <tr>
                         <th> Created On </th> <td> {{ created_on }} </td>

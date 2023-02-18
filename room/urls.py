@@ -4,13 +4,17 @@ from room import views
 urlpatterns = [
     path('', views.getAllRooms, name='get-all-rooms'),
     path('add', views.addRoom, name='room-details'),
-    path('element/add', views.addRoomElement, name='element-add'),
-    
+
     # Room Type
     path('type/add', views.addRoomType, name='room-type-add'),
     path('type/view/all', views.getAllRoomTypes, name='room-type-view-all'),
     path('type/view/<str:uid>', views.getSingleRoomType, name="room-type-view-single"),
-
+    
+    # Room Element
+    path('element/add', views.addRoomElement, name='room-element-add'),
+    path('element/view/all', views.getAllRoomElements, name='room-element-view-all'),
+    path('element/view/<str:uid>', views.getSingleRoomElement, name="room-element-view-single"),
+    
 
     path('connect/to/hotel', views.connectHotelToRoom, name="connect-hotel-to-room"),
     path('connect/to/room/type', views.connectRoomTypeToRoom, name="connect-room-type-to-room"),
