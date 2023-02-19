@@ -36,7 +36,8 @@ Admin Portal
 
 - Add Room Information
 
-<img width="1280" alt="Screen Shot 2023-02-19 at 13 22 06" src="https://user-images.githubusercontent.com/5158478/219942137-1f121062-3bdd-41f5-aeb2-7f97c028cfac.png">
+<img width="1280" alt="Screen Shot 2023-02-19 at 13 31 06" src="https://user-images.githubusercontent.com/5158478/219942573-8a0ef57e-3ddd-4e91-bb31-a2e72a0cf401.png">
+
 
 - View All Room Information
 <img width="1280" alt="Screen Shot 2023-02-19 at 13 28 39" src="https://user-images.githubusercontent.com/5158478/219942471-541f3f19-a052-4a28-af74-615fce5b365e.png">
