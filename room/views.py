@@ -52,20 +52,20 @@ def getSingleRoom(request, uid):
             }
             
             # Get Hotel
-            hotel = Hotel.nodes.get(uid=room.hotel_uid)
+            hotel = Hotel.nodes.get(uid=room.hotel_id)
             hotel_response = {
                 'hotel_uid': hotel.uid,
                 'hotel_name': hotel.name,                
             }
             
             # Get Room Type
-            room_type =RoomType.nodes.get(uid=room.room_type_uid)
+            room_type =RoomType.nodes.get(uid=room.room_type_id)
             room_type_response = {
                 'room_type_uid': room_type.uid,
                 'room_type_name': room_type.name,                
             }
             all_room_element_list = []
-            room_element_list = room.room_element_uid
+            room_element_list = room.room_element_id
             for room_ele in room_element_list:
                 room_element_obj = RoomElement.nodes.get(uid=room_ele)
                 room_element_response = {
@@ -82,7 +82,7 @@ def getSingleRoom(request, uid):
                 'room_element': all_room_element_list,
             }
             
-            return render(request, 'room/room_pages/view_single.html')
+            return render(request, 'room/room_pages/view_single.html', context)
         except Exception as e:
             response = {"error": "Error occurred"}
             return JsonResponse(response, safe=False)
@@ -102,13 +102,13 @@ def addRoom(request):
         try:
             room = Room(
                 floor=floor,
-                hotel_uid = hotel,
+                hotel_id = hotel,
                 availabilty=availabilty, 
                 room_number=room_number,  
-                room_type_uid = room_type,
+                room_type_id = room_type,
                 cost_per_night=cost_per_night,
                 created_on = datetime.today(),                            
-                room_element_uid = room_element_list
+                room_element_id = room_element_list
             )
             room.save()
 

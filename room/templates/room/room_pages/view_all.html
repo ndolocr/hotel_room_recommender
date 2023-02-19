@@ -38,7 +38,7 @@
                             <td> {{ record.cost_per_night }} </td>
                             <td> {{ record.availabilty }} </td>
                             <td> {{ record.created_on }} </td>
-                            <td style="text-align: center;"> <a href=""> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td>
+                            <td style="text-align: center;"> <a href="{% url 'room-view-single' record.uid %}"> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td>
                         </tr>
                         {% endfor %}
                         
