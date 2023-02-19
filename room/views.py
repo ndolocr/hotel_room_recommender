@@ -23,15 +23,14 @@ def getAllRooms(request):
                 room_obj = {
                     
                     'floor' : room.floor,
-                    'hotel ' : room.hotel,
-                    'room_type ' : room.room_type,
+                    'hotel' : room.hotel_uid,                    
                     'created_on' : room.created_on,
                     'availabilty': room.availabilty,
                     'room_number': room.room_number,
-                    'room_element ' : room.room_element,
-                    'cost_per_night': room.cost_per_night,                    
+                    'room_type' : room.room_type_uid,
+                    'cost_per_night': room.cost_per_night,
+                    'room_element' : room.room_element_uid,                    
                 }
-
                 response.append(room_obj)
             context = {"data": response}
             return render(request, 'room/room_pages/view_all.html', context)
@@ -40,26 +39,50 @@ def getAllRooms(request):
             return JsonResponse(response, safe=False)
 
 @csrf_exempt
-def getRoomDetails(request):
+def getSingleRoom(request, uid):
     if request.method == 'GET':
-        # Get single room details
-        hotel = request.GET.get('hotel')
-        room_number = request.GET.get('room_number')
-        
+        # Get single room details                
         try:
-            room = Room.nodes.get(room_number = room_number, hotel = hotel)
-            response = {
-                    
-                    'image': room.image,
-                    'floor' : room.floor,
-                    'hotel ' : room.hotel,
-                    'room_type ' : room.room_type,
+            room = Room.nodes.get(uid=uid)
+            room_response = {
+                    'floor' : room.floor,                    
                     'availabilty': room.availabilty,
-                    'room_number': room.room_number,
-                    'room_element ' : room.room_element,
-                    'cost_per_night': room.cost_per_night,
+                    'room_number': room.room_number,                    
+                    'cost_per_night': room.cost_per_night,                    
+            }
+            
+            # Get Hotel
+            hotel = Hotel.nodes.get(uid=room.hotel_uid)
+            hotel_response = {
+                'hotel_uid': hotel.uid,
+                'hotel_name': hotel.name,                
+            }
+            
+            # Get Room Type
+            room_type =RoomType.nodes.get(uid=room.room_type_uid)
+            room_type_response = {
+                'room_type_uid': room_type.uid,
+                'room_type_name': room_type.name,                
+            }
+            all_room_element_list = []
+            room_element_list = room.room_element_uid
+            for room_ele in room_element_list:
+                room_element_obj = RoomElement.nodes.get(uid=room_ele)
+                room_element_response = {
+                    'room_element_uid': room_element_obj.uid,
+                    'room_element_name': room_element_obj.name,
                 }
-            return JsonResponse(response, safe=False)
+
+                all_room_element_list.append(room_element_response)
+
+            context = {
+                'room': room_response,
+                'hotel': hotel_response,
+                'room_type': room_type_response,
+                'room_element': all_room_element_list,
+            }
+            
+            return render(request, 'room/room_pages/view_single.html')
         except Exception as e:
             response = {"error": "Error occurred"}
             return JsonResponse(response, safe=False)
@@ -79,10 +102,13 @@ def addRoom(request):
         try:
             room = Room(
                 floor=floor,
+                hotel_uid = hotel,
                 availabilty=availabilty, 
                 room_number=room_number,  
+                room_type_uid = room_type,
                 cost_per_night=cost_per_night,
-                created_on = datetime.today()
+                created_on = datetime.today(),                            
+                room_element_uid = room_element_list
             )
             room.save()
 
