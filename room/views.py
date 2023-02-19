@@ -1,4 +1,6 @@
+import ast
 import json
+
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -21,15 +23,15 @@ def getAllRooms(request):
             context = {}
             for room in rooms:
                 room_obj = {
-                    
+                    'uid': room.uid,
                     'floor' : room.floor,
-                    'hotel' : room.hotel_uid,                    
+                    'hotel' : room.hotel_id,                    
                     'created_on' : room.created_on,
-                    'availabilty': room.availabilty,
+                    'availability': room.availability,
                     'room_number': room.room_number,
-                    'room_type' : room.room_type_uid,
+                    'room_type' : room.room_type_id,
                     'cost_per_night': room.cost_per_night,
-                    'room_element' : room.room_element_uid,                    
+                    'room_element' : room.room_element_id,                    
                 }
                 response.append(room_obj)
             context = {"data": response}
@@ -45,9 +47,10 @@ def getSingleRoom(request, uid):
         try:
             room = Room.nodes.get(uid=uid)
             room_response = {
-                    'floor' : room.floor,                    
-                    'availabilty': room.availabilty,
-                    'room_number': room.room_number,                    
+                    'floor' : room.floor,
+                    'created_on': room.created_on,        
+                    'availability': room.availability,
+                    'room_number': room.room_number,                     
                     'cost_per_night': room.cost_per_night,                    
             }
             
@@ -65,8 +68,11 @@ def getSingleRoom(request, uid):
                 'room_type_name': room_type.name,                
             }
             all_room_element_list = []
-            room_element_list = room.room_element_id
+            room_element_list = ast.literal_eval(room.room_element_id)
+            print("All ELEMENT UDI ==>", room_element_list)
+            print("All ELEMENT UDI TYPE ==>", type(room_element_list))
             for room_ele in room_element_list:
+                print("Room Ele UID ====>", room_ele)
                 room_element_obj = RoomElement.nodes.get(uid=room_ele)
                 room_element_response = {
                     'room_element_uid': room_element_obj.uid,
@@ -84,14 +90,14 @@ def getSingleRoom(request, uid):
             
             return render(request, 'room/room_pages/view_single.html', context)
         except Exception as e:
-            response = {"error": "Error occurred"}
+            response = {"Error": "Error occurred while viewing single room record - {}".format(e)}
             return JsonResponse(response, safe=False)
 
 @csrf_exempt
 def addRoom(request):
     if request.method == 'POST':
         floor = request.POST['floor']
-        availabilty = request.POST['availabilty']
+        availability = request.POST['availability']
         room_number  =request.POST['room_number']
         cost_per_night = float(request.POST['cost_per_night'])
 
@@ -103,7 +109,7 @@ def addRoom(request):
             room = Room(
                 floor=floor,
                 hotel_id = hotel,
-                availabilty=availabilty, 
+                availability=availability, 
                 room_number=room_number,  
                 room_type_id = room_type,
                 cost_per_night=cost_per_night,
@@ -196,7 +202,7 @@ def editRoom(request):
             room.image = json_data['image']
             room.hotel = json_data['hotel']
             room.room_type = json_data['room_type']
-            room.availabilty = json_data['availabilty']
+            room.availability = json_data['availability']
             room.room_number  =json_data['room_number']
             room.room_element = json_data['room_element']
             room.cost_per_night = int(json_data['cost_per_night'])
@@ -207,7 +213,7 @@ def editRoom(request):
                         'floor' : room.floor,
                         'hotel ' : room.hotel,
                         'room_type ' : room.room_type,
-                        'availabilty': room.availabilty,
+                        'availability': room.availability,
                         'room_number': room.room_number,
                         'room_element ' : room.room_element,
                         'cost_per_night': room.cost_per_night,
