@@ -32,10 +32,13 @@ class RoomType(StructuredNode):
 class Room(StructuredNode):
     uid = UniqueIdProperty()
     floor = StringProperty()
+    created_on = DateProperty()
+    hotel_uid = StringProperty()    
     availabilty = StringProperty()
     room_number  = StringProperty()
     cost_per_night = FloatProperty()
-    created_on = DateProperty()
+    room_type_uid = StringProperty()
+    room_element_uid = StringProperty()
 
     hotel = RelationshipTo(Hotel, 'Room in a Hotel')
     room_type = RelationshipTo(RoomType, 'Room Type')
