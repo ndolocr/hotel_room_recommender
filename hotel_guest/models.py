@@ -13,7 +13,7 @@ from neomodel import (
 )
 
 # Create your models here.
-class HotelGuest(models.Model):
+class HotelGuest(StructuredNode):
     uid = UniqueIdProperty()
     title = StringProperty()
     gender = StringProperty()
@@ -34,7 +34,7 @@ class HotelGuest(models.Model):
     created_on = DateProperty()
 
 
-class GuestChild(models.Model):
+class GuestChild(StructuredNode):
     uid = UniqueIdProperty()
     gender = StringProperty()
     last_name = StringProperty()
@@ -46,4 +46,11 @@ class GuestChild(models.Model):
     created_on = DateProperty()
     
 
+class GuestAttributes(StructuredNode):
+    uid = UniqueIdProperty()
+    isSmoker = StringProperty()
     
+
+    dob = DateProperty()
+    updated_on = DateProperty()
+    created_on = DateProperty()
