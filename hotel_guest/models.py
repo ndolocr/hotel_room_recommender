@@ -35,14 +35,15 @@ class HotelGuest(models.Model):
 
 
 class GuestChild(models.Model):
-    gender = models.CharField(max_length=255, null=True)
-    last_name = models.CharField(max_length=255, null=True)
-    first_name = models.CharField(max_length=255, null=True)
-    middle_name = models.CharField(max_length=255, null=True) 
+    uid = UniqueIdProperty()
+    gender = StringProperty()
+    last_name = StringProperty()
+    first_name = StringProperty()
+    middle_name = StringProperty()
 
-    dob = models.DateTimeField(auto_now=False)
-    updated_on = models.DateTimeField(auto_now=True)
-    created_on = models.DateTimeField(auto_now_add=True)
+    dob = DateProperty()
+    updated_on = DateProperty()
+    created_on = DateProperty()
     
 
     
