@@ -50,7 +50,11 @@ class GuestAttributes(StructuredNode):
     uid = UniqueIdProperty()
     isSmoker = StringProperty()
     
-
-    dob = DateProperty()
     updated_on = DateProperty()
     created_on = DateProperty()
+
+
+class Disability(StructuredNode):
+    name = StringProperty()
+    disability_type = StringProperty()
+    disability_description = StringProperty()
