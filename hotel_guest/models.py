@@ -76,3 +76,10 @@ class Illness(StructuredNode):
 
     updated_on = DateProperty()
     created_on = DateProperty()
+
+class Pet(StructuredNode):
+    name = StringProperty()
+    pet_type = StringProperty()
+
+    updated_on = DateProperty()
+    created_on = DateProperty()
