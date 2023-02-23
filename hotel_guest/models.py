@@ -55,6 +55,7 @@ class GuestAttributes(StructuredNode):
 
 
 class Disability(StructuredNode):
+    uid = UniqueIdProperty()
     name = StringProperty()
     disability_type = StringProperty()
     disability_description = StringProperty()
@@ -63,6 +64,7 @@ class Disability(StructuredNode):
     created_on = DateProperty()
 
 class Allergy(StructuredNode):
+    uid = UniqueIdProperty()
     name = StringProperty()
     allergy_type = StringProperty()
     allergy_description = StringProperty()
@@ -71,6 +73,7 @@ class Allergy(StructuredNode):
     created_on = DateProperty()
 
 class Illness(StructuredNode):
+    uid = UniqueIdProperty()
     name = StringProperty()
     illness_description = StringProperty()
 
@@ -78,8 +81,19 @@ class Illness(StructuredNode):
     created_on = DateProperty()
 
 class Pet(StructuredNode):
+    uid = UniqueIdProperty()
     name = StringProperty()
     pet_type = StringProperty()
 
+    updated_on = DateProperty()
+    created_on = DateProperty()
+
+class Child(StructuredNode):
+    uid = UniqueIdProperty()
+    name = StringProperty()
+    gender = StringProperty()
+    guest = StringProperty()
+
+    dob = DateProperty()
     updated_on = DateProperty()
     created_on = DateProperty()
