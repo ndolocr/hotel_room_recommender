@@ -58,3 +58,14 @@ class Disability(StructuredNode):
     name = StringProperty()
     disability_type = StringProperty()
     disability_description = StringProperty()
+
+    updated_on = DateProperty()
+    created_on = DateProperty()
+
+class Allergy(StructuredNode):
+    name = StringProperty()
+    allergy_type = StringProperty()
+    allergy_description = StringProperty()
+
+    updated_on = DateProperty()
+    created_on = DateProperty()
