@@ -33,6 +33,12 @@ class HotelGuest(StructuredNode):
     updated_on = DateProperty()
     created_on = DateProperty()
 
+    spouse = RelationshipTo('HotelGuest', 'Spouse to')    
+    friend = RelationshipTo('HotelGuest', 'Friend to')    
+    parent = RelationshipTo('HotelGuest', 'Parent to')
+    sibling = RelationshipTo('HotelGuest', 'Sibling to')
+    colleague = RelationshipTo('HotelGuest', 'Colleague to')
+
 
 class GuestChild(StructuredNode):
     uid = UniqueIdProperty()
@@ -44,6 +50,8 @@ class GuestChild(StructuredNode):
     dob = DateProperty()
     updated_on = DateProperty()
     created_on = DateProperty()
+
+    guardian = RelationshipTo(HotelGuest, 'Child to')
     
 
 class GuestAttributes(StructuredNode):
@@ -63,6 +71,8 @@ class Disability(StructuredNode):
     updated_on = DateProperty()
     created_on = DateProperty()
 
+    hotel_guest = RelationshipTo(HotelGuest, 'Is Disabled in')
+
 class Allergy(StructuredNode):
     uid = UniqueIdProperty()
     name = StringProperty()
@@ -72,6 +82,8 @@ class Allergy(StructuredNode):
     updated_on = DateProperty()
     created_on = DateProperty()
 
+    hotel_guest = RelationshipTo(HotelGuest, 'Has allergies of')
+
 class Illness(StructuredNode):
     uid = UniqueIdProperty()
     name = StringProperty()
@@ -79,6 +91,7 @@ class Illness(StructuredNode):
 
     updated_on = DateProperty()
     created_on = DateProperty()
+    hotel_guest = RelationshipTo(HotelGuest, 'Suffers from')
 
 class Pet(StructuredNode):
     uid = UniqueIdProperty()
@@ -88,12 +101,4 @@ class Pet(StructuredNode):
     updated_on = DateProperty()
     created_on = DateProperty()
 
-class Child(StructuredNode):
-    uid = UniqueIdProperty()
-    name = StringProperty()
-    gender = StringProperty()
-    guest = StringProperty()
-
-    dob = DateProperty()
-    updated_on = DateProperty()
-    created_on = DateProperty()
+    hotel_guest = RelationshipTo(HotelGuest, 'Pet belongs to')
