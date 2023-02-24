@@ -28,6 +28,7 @@ class HotelGuest(StructuredNode):
     phone_number = StringProperty()
     email_address = StringProperty()
     marital_status = StringProperty()
+    hotel_guest_id = StringProperty()
     
     dob = DateProperty()
     updated_on = DateProperty()
@@ -46,6 +47,7 @@ class GuestChild(StructuredNode):
     last_name = StringProperty()
     first_name = StringProperty()
     middle_name = StringProperty()
+    hotel_guest_id = StringProperty()
 
     dob = DateProperty()
     updated_on = DateProperty()
@@ -57,16 +59,19 @@ class GuestChild(StructuredNode):
 class GuestAttributes(StructuredNode):
     uid = UniqueIdProperty()
     isSmoker = StringProperty()
+    hotel_guest_id = StringProperty()
     
     updated_on = DateProperty()
     created_on = DateProperty()
 
+    hotel_guest = RelationshipTo(HotelGuest, 'Guest smokes')
 
 class Disability(StructuredNode):
     uid = UniqueIdProperty()
     name = StringProperty()
     disability_type = StringProperty()
     disability_description = StringProperty()
+    hotel_guest_id = StringProperty()
 
     updated_on = DateProperty()
     created_on = DateProperty()
@@ -78,6 +83,7 @@ class Allergy(StructuredNode):
     name = StringProperty()
     allergy_type = StringProperty()
     allergy_description = StringProperty()
+    hotel_guest_id = StringProperty()
 
     updated_on = DateProperty()
     created_on = DateProperty()
@@ -88,6 +94,7 @@ class Illness(StructuredNode):
     uid = UniqueIdProperty()
     name = StringProperty()
     illness_description = StringProperty()
+    hotel_guest_id = StringProperty()
 
     updated_on = DateProperty()
     created_on = DateProperty()
@@ -97,8 +104,13 @@ class Pet(StructuredNode):
     uid = UniqueIdProperty()
     name = StringProperty()
     pet_type = StringProperty()
+    hotel_guest_id = StringProperty()
 
     updated_on = DateProperty()
     created_on = DateProperty()
 
     hotel_guest = RelationshipTo(HotelGuest, 'Pet belongs to')
+
+class ViewPreference(StructuredNode):
+    uid = UniqueIdProperty()
+    name = StringProperty()
