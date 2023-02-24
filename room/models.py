@@ -19,6 +19,7 @@ class RoomElement(StructuredNode):
     description = StringProperty()
     elementType = StringProperty()
 
+    updated_on = DateProperty()
     created_on = DateProperty()
 
 class RoomType(StructuredNode):
@@ -27,6 +28,7 @@ class RoomType(StructuredNode):
     description = StringProperty()
     max_capacity = IntegerProperty()
 
+    updated_on = DateProperty()
     created_on = DateProperty()
 
 class Room(StructuredNode):
@@ -40,11 +42,23 @@ class Room(StructuredNode):
     room_type_id = StringProperty()
     room_element_id = StringProperty()
 
+    updated_on = DateProperty()
+    created_on = DateProperty()
+
     hotel = RelationshipTo(Hotel, 'Room in a Hotel')
     room_type = RelationshipTo(RoomType, 'Room Type')
     room_element = RelationshipTo(RoomElement, 'Element in a Room')
 
+class RoomViewPreference(StructuredNode):
+    uid = UniqueIdProperty()
+    name = StringProperty()    
+    view_description = StringProperty()
+    
+    updated_on = DateProperty()
+    created_on = DateProperty()
 
+    room_id = RelationshipTo(Room, 'Room has this view')
+    
 # class RoomElement(models.Model):
 #     name = models.CharField(max_length=255, null=True)
 #     description = models.TextField(null=True)

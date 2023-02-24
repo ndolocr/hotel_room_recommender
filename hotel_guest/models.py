@@ -111,6 +111,5 @@ class Pet(StructuredNode):
 
     hotel_guest = RelationshipTo(HotelGuest, 'Pet belongs to')
 
-class ViewPreference(StructuredNode):
-    uid = UniqueIdProperty()
-    name = StringProperty()
+
+
