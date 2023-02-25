@@ -58,6 +58,7 @@ class RoomViewPreference(StructuredNode):
     created_on = DateProperty()
 
     room_id = RelationshipTo(Room, 'Room has this view')
+
     
 # class RoomElement(models.Model):
 #     name = models.CharField(max_length=255, null=True)

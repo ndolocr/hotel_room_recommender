@@ -112,4 +112,8 @@ class Pet(StructuredNode):
     hotel_guest = RelationshipTo(HotelGuest, 'Pet belongs to')
 
 
-
+class GuestPrefence(StructuredNode):
+    uid = UniqueIdProperty()
+    view_preference = StringProperty()
+    guest_id = UniqueIdProperty()
+    
