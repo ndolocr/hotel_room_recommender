@@ -51,13 +51,28 @@ class Room(StructuredNode):
 
 class RoomViewPreference(StructuredNode):
     uid = UniqueIdProperty()
-    name = StringProperty()    
+    name = StringProperty()
+    room_id = StringProperty()    
     view_description = StringProperty()
+    
+
+    updated_on = DateProperty()
+    created_on = DateProperty()
+
+    room = RelationshipTo(Room, 'Room has this view')
+
+class RoomTemprate(StructuredNode):
+    uid = UniqueIdProperty()
+    room_id = StringProperty()
+    max_temprature = StringProperty()
+    min_temprature = StringProperty()
     
     updated_on = DateProperty()
     created_on = DateProperty()
 
-    room_id = RelationshipTo(Room, 'Room has this view')
+    room = RelationshipTo(Room, 'Temprature Range in room')
+
+
 
     
 # class RoomElement(models.Model):

@@ -116,4 +116,8 @@ class GuestPrefence(StructuredNode):
     uid = UniqueIdProperty()
     view_preference = StringProperty()
     guest_id = UniqueIdProperty()
-    
+
+    updated_on = DateProperty()
+    created_on = DateProperty()
+
+    hotel_guest = RelationshipTo(HotelGuest, 'Guest Preferences')
