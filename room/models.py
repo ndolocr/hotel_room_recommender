@@ -83,6 +83,17 @@ class RoomHumidity(StructuredNode):
 
     room = RelationshipTo(Room, 'Humidity Range in room')
 
+class RoomLight(StructuredNode):
+    uid = UniqueIdProperty()
+    room_id = StringProperty()
+    max_light = StringProperty()
+    min_light = StringProperty()
+    
+    updated_on = DateProperty()
+    created_on = DateProperty()
+
+    room = RelationshipTo(Room, 'Lighting Range in room')
+
 
     
 # class RoomElement(models.Model):
