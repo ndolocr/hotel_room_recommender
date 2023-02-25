@@ -1,0 +1,49 @@
+{% extends 'app/layout.html' %}
+{% load static %}
+
+{% block title %} Hotels {% endblock %}
+{% block page_breadcrumb %} Add Room Type {% endblock %}
+{% block content %}
+<div class="col-md-12">
+    <div class="portlet box yellow">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-university"></i>Add New Room Type </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"> </a>
+                <!-- <a href="javascript:;" class="remove"> </a> -->
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form action="{% url 'room-type-add' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-body">
+                    <div class="form-group">
+                        <label class="control-label">Name</label>
+                        <input type="text" class="form-control" placeholder="Enter Room Type Name" name="name">                        
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Maximum Capacity</label>
+                        <input type="text" class="form-control" placeholder="Enter maximum capacity for room" name="max_capacity">                        
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Description</label>
+                        <textarea class="form-control" placeholder="Enter Address" name="description">
+
+                        </textarea>                                          
+                    </div>
+
+                    
+                <div class="form-actions">
+                    <button type="submit" class="btn green">Submit</button>
+                    <button type="button" class="btn default">Cancel</button>
+                </div>
+            </form>
+            <!-- END FORM-->
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'app/layout.html' %}
+{% load static %}
+
+{% block title %} Hotels {% endblock %}
+{% block page_breadcrumb %} View Room Types {% endblock %}
+{% block content %}
+    <div style=" padding: 20px"> </div>
+    <!-- BEGIN SAMPLE TABLE PORTLET-->
+    <div class="portlet box yellow">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>View all Room Types Information </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"> </a>                
+                <!-- <a href="javascript:;" class="remove"> </a> -->
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th> Name </th>
+                            <th> Maximum Capacity </th>                          
+                            <th> Created On </th>
+                            <th> view </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in data %}
+                        <tr>
+                            <td> {{ forloop.counter }} </td>
+                            <td> {{ record.Name }} </td>
+                            <td> {{ record.Maximum_Capacity }} </td>
+                            <td> {{ record.created_on }} </td>
+                            <td style="text-align: center;"> <a href="{% url 'room-type-view-single' record.uid %}"> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- END SAMPLE TABLE PORTLET-->
+{% endblock %}

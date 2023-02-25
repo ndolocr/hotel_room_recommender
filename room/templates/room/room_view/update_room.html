@@ -1,0 +1,54 @@
+{% extends 'app/layout.html' %}
+{% load static %}
+
+{% block title %} Hotels {% endblock %}
+{% block page_breadcrumb %} Add Hotel {% endblock %}
+{% block content %}
+<div class="col-md-12">
+    <div class="portlet box blue">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-university"></i>Add New Hotel Information </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"> </a>
+                <!-- <a href="javascript:;" class="remove"> </a> -->
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form action="{% url 'hotel-update' uid %}" method="PUT">
+                {% csrf_token %}
+                <div class="form-body">
+                    <div class="form-group">
+                        <label class="control-label">Hotel Name</label>
+                        <input type="text" class="form-control" placeholder="Enter Hotel Name" name="name" value="{{ Name }}">                        
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Address</label>
+                        <input type="text" class="form-control" placeholder="Enter Address" name="address" value="{{ Address }}">                        
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Location</label>
+                        <input type="text" class="form-control" placeholder="Enter Location" name="city" value="{{ City }}">                        
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Description</label>
+                        <textarea style="text-align: left; padding-left: 0px;" class="form-control" placeholder="Enter Address" name="description">
+                            {{ Description }}
+                        </textarea>                                          
+                    </div>
+
+                    
+                <div class="form-actions">
+                    <button type="submit" class="btn green">Submit</button>
+                    <button type="button" class="btn default">Cancel</button>
+                </div>
+            </form>
+            <!-- END FORM-->
+        </div>
+    </div>
+</div>
+{% endblock %}
