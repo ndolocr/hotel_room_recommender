@@ -94,6 +94,16 @@ class RoomLight(StructuredNode):
 
     room = RelationshipTo(Room, 'Lighting Range in room')
 
+class RoomScent(StructuredNode):
+    uid = UniqueIdProperty()
+    room_id = StringProperty()
+    scent_type = StringProperty()
+    
+    updated_on = DateProperty()
+    created_on = DateProperty()
+
+    room = RelationshipTo(Room, 'Scent in room')
+
 
     
 # class RoomElement(models.Model):
