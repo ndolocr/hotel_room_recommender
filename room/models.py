@@ -72,6 +72,16 @@ class RoomTemprate(StructuredNode):
 
     room = RelationshipTo(Room, 'Temprature Range in room')
 
+class RoomHumidity(StructuredNode):
+    uid = UniqueIdProperty()
+    room_id = StringProperty()
+    max_humidity = StringProperty()
+    min_humidity = StringProperty()
+    
+    updated_on = DateProperty()
+    created_on = DateProperty()
+
+    room = RelationshipTo(Room, 'Humidity Range in room')
 
 
     
