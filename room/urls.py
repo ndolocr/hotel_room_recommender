@@ -7,6 +7,11 @@ urlpatterns = [
     path('', views.getAllRooms, name='room-view-all'),
     path('view/<str:uid>', views.getSingleRoom, name='room-view-single'),
 
+    # Room View
+    path('view/preference/add', views.addRoomViewPreference, name='room-view-preference-add'),
+    path('view/preference', views.getAllRoomTypes, name='room-view-preference-all'),
+    path('view/preference/<str:uid>', views.getSingleRoomType, name="room-view-preference-single"),
+
     # Room Type
     path('type/add', views.addRoomType, name='room-type-add'),
     path('type', views.getAllRoomTypes, name='room-type-view-all'),
