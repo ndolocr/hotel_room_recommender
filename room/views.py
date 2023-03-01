@@ -510,27 +510,26 @@ def addRoomViewPreference(request):
     else:
         return render(request, 'room/room_view/add.html')
 
-def getAllRoomTypes(request):
+def getAllRoomViewPreferences(request):
     if request.method == "GET":
         try:
-            room_types = RoomType.nodes.all()
+            query = RoomViewPreference.nodes.all()
             response = []
             context = {}
 
-            for room_type in room_types:
-                room_type_data = {
-                    "uid" : room_type.uid,
-                    "Name": room_type.name,
-                    "Maximum_Capacity": room_type.max_capacity,
-                    "created_on": room_type.created_on,
-                    "Description": room_type.description,
+            for query_data in query:
+                data = {
+                    "uid" : query_data.uid,
+                    "Name": query_data.name,
+                    "created_on": query_data.created_on,
+                    "Description": query_data.description,
                 }
 
-                response.append(room_type_data)
+                response.append(data)
 
             context = {"data": response}
             # return JsonResponse(response, safe=False)
-            return render(request, 'room/room_type/view_all.html', context)
+            return render(request, 'room/room_view/view_all.html', context)
         except Exception as e:
             response = { "ERROR": "Error getting all Room Type records - {}".format(e)}
             return JsonResponse(response, safe=False)
