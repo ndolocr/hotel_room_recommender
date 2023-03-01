@@ -10,7 +10,7 @@ urlpatterns = [
     # Room View
     path('view/preference/add', views.addRoomViewPreference, name='room-view-preference-add'),
     path('view/preference', views.getAllRoomViewPreferences, name='room-view-preference-view-all'),
-    path('view/preference/<str:uid>', views.getSingleRoomType, name="room-view-preference-single"),
+    path('view/preference/<str:uid>', views.getSingleRoomViewPreference, name="room-view-preference-single"),
 
     # Room Type
     path('type/add', views.addRoomType, name='room-type-add'),
