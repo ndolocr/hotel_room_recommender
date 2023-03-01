@@ -505,11 +505,12 @@ def addRoomViewPreference(request):
             # return render(request, 'room/room_type/add.html')
             return redirect(reverse('room-view-preference-all'))
         except Exception as e:
-            response = {"Error": "Error on saving Room Type - {}".format(e)}
+            response = {"Error": "Error on saving Room View - {}".format(e)}
             return JsonResponse(response, safe=False)
     else:
         return render(request, 'room/room_view/add.html')
 
+@csrf_exempt
 def getAllRoomViewPreferences(request):
     if request.method == "GET":
         try:
@@ -531,24 +532,23 @@ def getAllRoomViewPreferences(request):
             # return JsonResponse(response, safe=False)
             return render(request, 'room/room_view/view_all.html', context)
         except Exception as e:
-            response = { "ERROR": "Error getting all Room Type records - {}".format(e)}
+            response = { "ERROR": "Error getting all Room view records - {}".format(e)}
             return JsonResponse(response, safe=False)
 
 @csrf_exempt
-def getSingleRoomType(request, uid):
+def getSingleRoomViewPreference(request, uid):
     if request.method == "GET":
         try:
-            record = RoomType.nodes.get(uid=uid)
+            record = RoomViewPreference.nodes.get(uid=uid)
 
             response = {
                 "uid" : record.uid,
                 "Name": record.name,
-                "Maximum_Capacity": record.max_capacity,
                 "created_on": record.created_on,
                 "Description": record.description,
             }
             # return JsonResponse(response, safe=False)
-            return render(request, 'room/room_type/view_single.html', context=response)
+            return render(request, 'room/room_view/view_single.html', context=response)
         except Exception as e:
-            response = { "ERROR": "Error getting room element record - {}".format(e)}
+            response = { "ERROR": "Error getting room view record - {}".format(e)}
             return JsonResponse(response, safe=False)
