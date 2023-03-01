@@ -51,9 +51,8 @@ class Room(StructuredNode):
 
 class RoomViewPreference(StructuredNode):
     uid = UniqueIdProperty()
-    name = StringProperty()
-    room_id = StringProperty()    
-    view_description = StringProperty()
+    name = StringProperty()   
+    description = StringProperty()
     
 
     updated_on = DateProperty()
