@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block title %} Hotels {% endblock %}
-{% block page_breadcrumb %} View Room Type Record {% endblock %}
+{% block page_breadcrumb %} Room View Record {% endblock %}
 {% block content %}
     <div style=" padding: 20px"> </div>
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet box yellow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-cogs"></i>View Single Room Type Information </div>
+                <i class="fa fa-cogs"></i> Single Room View Information </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"> </a>                
                 <!-- <a href="javascript:;" class="remove"> </a> -->
@@ -25,16 +25,13 @@
                         <th> Name </th> <td> {{ Name }} </td>
                     </tr>
                     <tr>
-                        <th> Maximum Capacity </th> <td> {{ Maximum_Capacity }} </td>
-                    </tr>
-                    <tr>
                         <th> Created On </th> <td> {{ created_on }} </td>
                     </tr>
                     <tr> <th colspan="2" style="text-align: center;"> Description</th> </tr>
                     <tr> <td colspan="2" style="text-align: center;"> {{ Description }} </td> </tr>
                     <tr> 
                         <td colspan="2"> 
-                            <a class="btn btn-primary" href="{% url 'hotel-update' uid %}"> 
+                            <a class="btn btn-primary" href=""> 
                                 <i class="fa fa-pencil" aria-hidden="true"></i> 
                                 Update
                             </a> 
