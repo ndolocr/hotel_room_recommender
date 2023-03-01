@@ -8,7 +8,7 @@
     <div class="portlet box yellow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-university"></i>Add New Room Type </div>
+                <i class="fa fa-university"></i>Add New Room View </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"> </a>
                 <!-- <a href="javascript:;" class="remove"> </a> -->
@@ -16,7 +16,7 @@
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="{% url 'room-type-add' %}" method="POST">
+            <form action="{% url 'room-view-preference-add' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-body">
                     <div class="form-group">
@@ -25,13 +25,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Maximum Capacity</label>
-                        <input type="text" class="form-control" placeholder="Enter maximum capacity for room" name="max_capacity">                        
-                    </div>
-
-                    <div class="form-group">
                         <label class="control-label">Description</label>
-                        <textarea class="form-control" placeholder="Enter Address" name="description">
+                        <textarea class="form-control" rows="4" style="text-align: left;"  name="description">
 
                         </textarea>                                          
                     </div>
