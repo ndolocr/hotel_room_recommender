@@ -1,7 +1,9 @@
 import ast
 import json
 
+from django.urls import reverse
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -484,31 +486,29 @@ def connectRoomElelemntToRoom(request):
 @csrf_exempt
 def addRoomViewPreference(request):
     if request.method == "POST":
-        # json_data = json.loads(request.body)
         try:
-            room_type = RoomViewPreference(
+            query = RoomViewPreference(
                 name = request.POST['name'],
                 description = request.POST['description'],
-                max_capacity = request.POST['max_capacity'],
                 created_on = datetime.today()
             )
 
-            room_type.save()
+            query.save()
 
             response = {
-                "name" : room_type.name,
-                "description" : room_type.description,
-                "max_capacity" : room_type.max_capacity,
-                "created_on" : room_type.created_on
+                "name" : query.name,
+                "description" : query.description,
+                "created_on" : query.created_on
             }
 
             # return JsonResponse(response, safe=False)
-            return render(request, 'room/room_type/add.html')
+            # return render(request, 'room/room_type/add.html')
+            return redirect(reverse('room-view-preference-all'))
         except Exception as e:
             response = {"Error": "Error on saving Room Type - {}".format(e)}
             return JsonResponse(response, safe=False)
     else:
-        return render(request, 'room/room_type/add.html')
+        return render(request, 'room/room_view/add.html')
 
 def getAllRoomTypes(request):
     if request.method == "GET":
