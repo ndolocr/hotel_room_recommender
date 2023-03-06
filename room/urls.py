@@ -2,15 +2,12 @@ from django.urls import path
 from room import views
 
 urlpatterns = [
-    # Room
-    path('add', views.addRoom, name='room-add'),
-    path('', views.getAllRooms, name='room-view-all'),
-    path('view/<str:uid>', views.getSingleRoom, name='room-view-single'),
+    
 
     # Room View
     path('view/preference/add', views.addRoomViewPreference, name='room-view-preference-add'),
     path('view/preference', views.getAllRoomViewPreferences, name='room-view-preference-view-all'),
-    path('view/preference/<str:uid>', views.getSingleRoomViewPreference, name="room-view-preference-single"),
+    # path('view/preference/<str:uid>', views.getSingleRoomViewPreference, name="room-view-preference-single"),
 
     # Room Type
     path('type/add', views.addRoomType, name='room-type-add'),
@@ -26,4 +23,9 @@ urlpatterns = [
     path('connect/to/hotel', views.connectHotelToRoom, name="connect-hotel-to-room"),
     path('connect/to/room/type', views.connectRoomTypeToRoom, name="connect-room-type-to-room"),
     path('connect/to/room/element', views.connectRoomElelemntToRoom, name="connect-room-element-to-room"),
+
+    # Room
+    path('add', views.addRoom, name='room-add'),
+    path('', views.getAllRooms, name='room-view-all'),
+    path('view/<str:uid>', views.getSingleRoom, name='room-view-single'),
 ]
