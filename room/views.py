@@ -13,6 +13,7 @@ from room.models import Room
 from hotel.models import Hotel
 from room.models import RoomType
 from room.models import RoomElement
+from room.models import RoomTemprature
 from room.models import RoomViewPreference
 
 # Create your views here.
@@ -530,3 +531,30 @@ def getSingleRoomViewPreference(request, uid):
 
 def getAllRoomViewPreferences(request):
     print("Printing all room views")
+
+
+# ***************************************************************************************************** #
+# Room Temprature Range
+@csrf_exempt
+def addRoomTemprature(request):
+    if request.method == 'POST':
+        try:
+            maximum_temprature = request.POST['maximum_temprature']
+            minimum_temprature = request.POST['minimum_temprature']
+
+            print('Maximum Temp --> ', maximum_temprature)
+            print('Minimum Temp ==>', minimum_temprature)
+
+            query = RoomTemprature(
+                max_temprature = maximum_temprature,
+                min_temprature = minimum_temprature,
+                created_on = datetime.today()
+            )
+
+            print('Query : --->', query)
+            query.save()
+        except Exception as e:
+            response = { "ERROR": "Error while creating new room temprature range - {}".format(e)}
+            return JsonResponse(response, safe=False)
+    else:
+        return render(request, 'room/room_temprature/add.html')
