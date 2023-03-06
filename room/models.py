@@ -57,15 +57,13 @@ class RoomViewPreference(StructuredNode):
     updated_on = DateProperty()
     created_on = DateProperty()
 
-class RoomTemprate(StructuredNode):
+class RoomTemprature(StructuredNode):
     uid = UniqueIdProperty()
     max_temprature = FloatProperty()
     min_temprature = FloatProperty()
     
     updated_on = DateProperty()
     created_on = DateProperty()
-
-    room = RelationshipTo(Room, 'Temprature Range in room')
 
 class RoomHumidity(StructuredNode):
     uid = UniqueIdProperty()

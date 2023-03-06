@@ -18,6 +18,9 @@ urlpatterns = [
     path('element/add', views.addRoomElement, name='room-element-add'),
     path('element', views.getAllRoomElements, name='room-element-view-all'),
     path('element/view/<str:uid>', views.getSingleRoomElement, name="room-element-view-single"),
+
+    # Room Temprature
+    path('temprature/add', views.addRoomTemprature, name='room-temprature-add'),
     
 
     path('connect/to/hotel', views.connectHotelToRoom, name="connect-hotel-to-room"),
