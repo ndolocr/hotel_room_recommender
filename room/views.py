@@ -511,31 +511,6 @@ def addRoomViewPreference(request):
         return render(request, 'room/room_view/add.html')
 
 @csrf_exempt
-def getAllRoomViewPreferences(request):
-    if request.method == "GET":
-        try:
-            query = RoomViewPreference.nodes.all()
-            response = []
-            context = {}
-
-            for query_data in query:
-                data = {
-                    "uid" : query_data.uid,
-                    "Name": query_data.name,
-                    "created_on": query_data.created_on,
-                    "Description": query_data.description,
-                }
-
-                response.append(data)
-
-            context = {"data": response}
-            # return JsonResponse(response, safe=False)
-            return render(request, 'room/room_view/view_all.html', context)
-        except Exception as e:
-            response = { "ERROR": "Error getting all Room view records - {}".format(e)}
-            return JsonResponse(response, safe=False)
-
-@csrf_exempt
 def getSingleRoomViewPreference(request, uid):
     if request.method == "GET":
         try:
@@ -552,3 +527,6 @@ def getSingleRoomViewPreference(request, uid):
         except Exception as e:
             response = { "ERROR": "Error getting room view record - {}".format(e)}
             return JsonResponse(response, safe=False)
+
+def getAllRoomViewPreferences(request):
+    print("Printing all room views")
