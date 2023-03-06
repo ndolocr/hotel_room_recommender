@@ -54,11 +54,8 @@ class RoomViewPreference(StructuredNode):
     name = StringProperty()   
     description = StringProperty()
     
-
     updated_on = DateProperty()
     created_on = DateProperty()
-
-    room = RelationshipTo(Room, 'Room has this view')
 
 class RoomTemprate(StructuredNode):
     uid = UniqueIdProperty()
