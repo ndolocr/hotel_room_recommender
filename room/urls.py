@@ -21,6 +21,7 @@ urlpatterns = [
 
     # Room Temprature
     path('temprature/add', views.addRoomTemprature, name='room-temprature-add'),
+    path('temprature', views.getAllRoomTemprature, name='room-temprature-view-all'),
     
 
     path('connect/to/hotel', views.connectHotelToRoom, name="connect-hotel-to-room"),
