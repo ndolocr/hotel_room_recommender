@@ -558,3 +558,27 @@ def addRoomTemprature(request):
             return JsonResponse(response, safe=False)
     else:
         return render(request, 'room/room_temprature/add.html')
+
+def getAllRoomTemprature(request):
+    try:
+        context = {}
+        response_data = []        
+        query = RoomTemprature.nodes.all()
+        
+        for record in query:
+            record_dict = {
+                'created_on': record.created_on,
+                'min_temprature': record.min_temprature,
+                'max_temprature': record.max_temprature,
+            }
+
+            response_data.append(record_dict)
+
+            context = {
+                'data':response_data,
+            }
+
+            return render(request, 'room/room_temprature/view_all.html', context=context)
+    except Exception as e:
+        response = { "ERROR": "Error while getting all room temprature records - {}".format(e)}
+        return JsonResponse(response, safe=False)
