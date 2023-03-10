@@ -35,7 +35,7 @@
                             <input type="number" class="form-control" placeholder="Enter Cost per Night" name="cost_per_night">                                          
                         </div>
                     </div>
-
+                    <hr>
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label class="control-label">Hotel</label>
@@ -47,7 +47,7 @@
                             </select>                        
                         </div>
                         
-                        <div class="form-group col-md-4">
+                        <!-- <div class="form-group col-md-4">
                             <label class="control-label">Availablity</label>
                             <select class="form-control" name="availability">
                                 <option value="none" selected disabled hidden >------ Availability ---------</option>
@@ -56,7 +56,7 @@
                                 <option value="available" > Available </option>
                                 <option value="unavailable" > Unavailable </option>
                             </select>                        
-                        </div>
+                        </div> -->
 
                         <div class="form-group col-md-4">
                             <label class="control-label">Room Type</label>
@@ -67,6 +67,62 @@
                                 {% endfor %}
                             </select>                        
                         </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Room View</label>
+                            <select class="form-control" name="room_view">
+                                <option value="none" selected disabled hidden >------ Room View ---------</option>
+                                {% for room_view in room_views %}
+                                    <option value="{{ room_view.uid }}" > {{ room_view.name }} </option>
+                                {% endfor %}
+                            </select>                        
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Room Temprature Range</label>
+                            <select class="form-control" name="room_temprature">
+                                <option value="none" selected disabled hidden >------ Temprature Range ---------</option>
+                                {% for room_temprature in room_tempratures %}
+                                    <option value="{{ room_temprature.uid }}" > {{ room_temprature.min_temprature }} - {{ room_temprature.max_temprature }} </option>
+                                {% endfor %}
+                            </select>                        
+                        </div>                                            
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Room Humidity Range</label>
+                            <select class="form-control" name="room_humidity">
+                                <option value="none" selected disabled hidden >------ Humidity Range ---------</option>
+                                {% for room_humidity in room_humidities %}
+                                    <option value="{{ room_humidity.uid }}" > {{ room_humidity.min_humidity }} - {{ room_humidity.max_humidity }} </option>
+                                {% endfor %}
+                            </select>                        
+                        </div>  
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Room Lighting Range</label>
+                            <select class="form-control" name="room_light">
+                                <option value="none" selected disabled hidden >------ Lighting Range ---------</option>
+                                {% for room_light in room_lights %}
+                                    <option value="{{ room_light.uid }}" > {{ room_light.min_light }} - {{ room_light.max_light }} </option>
+                                {% endfor %}
+                            </select>                        
+                        </div>  
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Room scent</label>
+                            <select class="form-control" name="room_scent">
+                                <option value="none" selected disabled hidden >------ Scent Types ---------</option>
+                                {% for room_scent in room_scents %}
+                                    <option value="{{ room_scent.uid }}" > {{ room_scent.scent_name }} </option>
+                                {% endfor %}
+                            </select>                        
+                        </div>  
                     </div>
                     
                     <hr>
