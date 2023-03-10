@@ -31,24 +31,6 @@ class RoomType(StructuredNode):
     updated_on = DateProperty()
     created_on = DateProperty()
 
-class Room(StructuredNode):
-    uid = UniqueIdProperty()
-    floor = StringProperty()
-    created_on = DateProperty()
-    hotel_id = StringProperty()    
-    availability = StringProperty()
-    room_number  = StringProperty()
-    cost_per_night = FloatProperty()
-    room_type_id = StringProperty()
-    room_element_id = StringProperty()
-
-    updated_on = DateProperty()
-    created_on = DateProperty()
-
-    hotel = RelationshipTo(Hotel, 'Room in a Hotel')
-    room_type = RelationshipTo(RoomType, 'Room Type')
-    room_element = RelationshipTo(RoomElement, 'Element in a Room')
-
 class RoomViewPreference(StructuredNode):
     uid = UniqueIdProperty()
     name = StringProperty()   
@@ -67,35 +49,58 @@ class RoomTemprature(StructuredNode):
 
 class RoomHumidity(StructuredNode):
     uid = UniqueIdProperty()
-    room_id = StringProperty()
-    max_humidity = StringProperty()
-    min_humidity = StringProperty()
+    max_humidity = FloatProperty()
+    min_humidity = FloatProperty()
     
     updated_on = DateProperty()
     created_on = DateProperty()
-
-    room = RelationshipTo(Room, 'Humidity Range in room')
 
 class RoomLight(StructuredNode):
     uid = UniqueIdProperty()
-    room_id = StringProperty()
-    max_light = StringProperty()
-    min_light = StringProperty()
+    max_light = FloatProperty()
+    min_light = FloatProperty()
     
     updated_on = DateProperty()
     created_on = DateProperty()
-
-    room = RelationshipTo(Room, 'Lighting Range in room')
 
 class RoomScent(StructuredNode):
     uid = UniqueIdProperty()
-    room_id = StringProperty()
-    scent_type = StringProperty()
+    scent_name = StringProperty()
+    description = StringProperty()
     
     updated_on = DateProperty()
     created_on = DateProperty()
 
-    room = RelationshipTo(Room, 'Scent in room')
+
+class Room(StructuredNode):
+    uid = UniqueIdProperty()
+    floor = StringProperty()
+    created_on = DateProperty()
+    hotel_id = StringProperty()    
+    availability = StringProperty()
+    room_number  = StringProperty()
+    cost_per_night = FloatProperty()
+
+    room_view_id = StringProperty()
+    room_type_id = StringProperty()
+    room_light_id = StringProperty()
+    room_scent_id = StringProperty()
+    room_element_id = StringProperty()
+    room_humidity_id = StringProperty()
+    room_temprature_id = StringProperty()
+    
+    updated_on = DateProperty()
+    created_on = DateProperty()
+
+    hotel = RelationshipTo(Hotel, 'Room in a Hotel')
+    room_type = RelationshipTo(RoomType, 'Room Type')
+    room_scent = RelationshipTo(RoomScent, 'Scent in a Room')
+    room_element = RelationshipTo(RoomElement, 'Element in a Room')
+    room_light = RelationshipTo(RoomLight, 'Lighting Range in a Room')
+    room_humidity = RelationshipTo(RoomHumidity, 'Humidity Range in a Room')    
+    room_view = RelationshipTo(RoomViewPreference, 'View visible while in room')
+    room_temprature = RelationshipTo(RoomTemprature, 'Temprature Range in a Room')
+
 
 
     
