@@ -12,7 +12,10 @@ from datetime import datetime
 from room.models import Room
 from hotel.models import Hotel
 from room.models import RoomType
+from room.models import RoomScent
+from room.models import RoomLight
 from room.models import RoomElement
+from room.models import RoomHumidity
 from room.models import RoomTemprature
 from room.models import RoomViewPreference
 
@@ -100,25 +103,36 @@ def getSingleRoom(request, uid):
 @csrf_exempt
 def addRoom(request):
     if request.method == 'POST':
-        floor = request.POST['floor']
-        availability = request.POST['availability']
-        room_number  =request.POST['room_number']
-        cost_per_night = float(request.POST['cost_per_night'])
 
+        availability = 'availabile'
+        floor = request.POST['floor']                        
         hotel = request.POST['hotel']
-        room_type = request.POST['room_type']
+        room_type = request.POST['room_type']        
+        room_view = request.POST['room_view']
+        room_scent = request.POST['room_scent']
+        room_light = request.POST['room_light']
+        room_number  =request.POST['room_number']
+        room_humidity = request.POST['room_humidity']
+        room_temprature = request.POST['room_temprature']
         room_element_list = request.POST.getlist('checks[]')
+        cost_per_night = float(request.POST['cost_per_night'])
         
         try:
             room = Room(
                 floor=floor,
                 hotel_id = hotel,
-                availability=availability, 
+                 
                 room_number=room_number,  
-                room_type_id = room_type,
+                room_type_id = room_type,                                                                                            
+                room_view_id  =room_view,
+                availability=availability,
+                room_light_id = room_light,
+                room_scent_id = room_scent,
+                created_on = datetime.today(),
                 cost_per_night=cost_per_night,
-                created_on = datetime.today(),                            
-                room_element_id = room_element_list
+                room_humidity_id = room_humidity,
+                room_temprature_id = room_temprature,
+                room_element_id = room_element_list,
             )
             room.save()
 
@@ -127,6 +141,20 @@ def addRoom(request):
 
             hotel_obj = Hotel.nodes.get(uid = hotel)
             hotel_room_connection = room.hotel.connect(hotel_obj)
+
+            
+            room_scent_obj = RoomScent.nodes.get(uid = room_scent)
+            room_light_obj = RoomLight.nodes.get(uid = room_light)
+            room_view_obj = RoomViewPreference.nodes.get(uid = room_view)
+            room_humidity_obj = RoomHumidity.nodes.get(uid = room_humidity)
+            room_temprature_obj = RoomTemprature.nodes.get(uid = room_temprature)
+
+            room_scent_connection = room.room_scent.connect(room_scent_obj)
+            room_light_connection = room.room_light.connect(room_light_obj)
+            room_view_connection = room.room_view.connect(room_view_obj)
+            room_humidity_connection = room.room_humidity.connect(room_humidity_obj)
+            room_temprature_connection = room.room_temprature.connect(room_temprature_obj)
+
 
             for data in room_element_list:
                 room_element_obj = RoomElement.nodes.get(uid = data)
@@ -183,10 +211,81 @@ def addRoom(request):
 
                 hotel_response.append(hotel_data)
 
+            room_view_query = RoomViewPreference.nodes.all()
+            room_view_response = []
+
+            for room_view_record in room_view_query:
+                room_view_dictionary = {
+                    "uid": room_view_record.uid,
+                    "name": room_view_record.name,
+                    "created_on": room_view_record.created_on,
+                    "description": room_view_record.description,                    
+                }
+
+                room_view_response.append(room_view_dictionary)
+
+            room_temprature_query = RoomTemprature.nodes.all()
+            room_temprature_response = []
+
+            for room_temprature_record in room_temprature_query:
+                room_temprature_dictionary = {
+                    "uid": room_temprature_record.uid,
+                    "created_on": room_temprature_record.created_on,
+                    "max_temprature": room_temprature_record.max_temprature,
+                    "min_temprature": room_temprature_record.min_temprature,
+                }
+
+                room_temprature_response.append(room_temprature_dictionary)
+
+            room_humidity_query = RoomHumidity.nodes.all()
+            room_humidity_response = []
+
+            for room_humidity_record in room_humidity_query:
+                room_humidity_dictionary = {
+                    "uid": room_humidity_record.uid,
+                    "created_on": room_humidity_record.created_on,
+                    "max_humidity": room_humidity_record.max_humidity,
+                    "min_humidity": room_humidity_record.min_humidity,
+                }
+
+                room_humidity_response.append(room_humidity_dictionary)
+
+            room_light_query = RoomLight.nodes.all()
+            room_light_response = []
+
+            for room_light_record in room_light_query:
+                room_light_dictionary = {
+                    "uid": room_light_record.uid,
+                    "created_on": room_light_record.created_on,
+                    "max_light": room_light_record.max_light,
+                    "min_light": room_light_record.min_light,
+                }
+
+                room_light_response.append(room_light_dictionary)
+
+            room_scent_query = RoomScent.nodes.all()
+            room_scent_response = []
+
+            for room_scent_record in room_scent_query:
+                room_scent_dictionary = {
+                    "uid": room_scent_record.uid,
+                    "created_on": room_scent_record.created_on,
+                    "scent_name": room_scent_record.scent_name,
+                    "description": room_scent_record.description,
+                }
+
+                room_scent_response.append(room_scent_dictionary)
+
+
             context = {
                 "hotels": hotel_response,
+                "room_views": room_view_response,                
                 "room_types": room_type_response,
-                "room_elements" : room_element_response
+                "room_lights": room_light_response,
+                "room_scents": room_scent_response,
+                "room_elements": room_element_response,
+                "room_humidities": room_humidity_response,
+                "room_tempratures": room_temprature_response,                
             }
             return render(request, 'room/room_pages/add.html', context)  
         except Exception as e:
@@ -529,8 +628,27 @@ def getSingleRoomViewPreference(request, uid):
             response = { "ERROR": "Error getting room view record - {}".format(e)}
             return JsonResponse(response, safe=False)
 
-def getAllRoomViewPreferences(request):
-    print("Printing all room views")
+def viewAllRoomViewPreferences(request):
+    try:
+        context = {}
+        response = []
+        query = RoomViewPreference.nodes.all()
+
+        for record in query:
+            record_dictionary = {
+                "uid": record.uid,
+                "name": record.name,
+                "created_on": record.created_on
+            }
+
+            response.append(record_dictionary)
+        context = {
+            "data": response
+        }
+
+        return render(request, 'room/room_view/view_all.html', context=context)
+    except Exception as e:
+        response = {"ERROR": "Error getting all room view preferences - {}".format(e)}
 
 
 # ***************************************************************************************************** #
@@ -582,3 +700,136 @@ def getAllRoomTemprature(request):
     except Exception as e:
         response = { "ERROR": "Error while getting all room temprature records - {}".format(e)}
         return JsonResponse(response, safe=False)
+
+# ***************************************************************************************************** #
+# Room Humidity Range
+
+def addRoomHumidity(request):
+    if request.method == "POST":
+        try:
+            maximum_humidity = request.POST["maximum"]
+            minimum_humidity = request.POST["minimum"]
+
+            query = RoomHumidity(
+                max_humidity = maximum_humidity,
+                min_humidity = minimum_humidity,
+                created_on = datetime.today()
+            )
+
+            query.save()
+        except Exception as e:
+            response = {"ERROR": "Error while saving Room Humidity information - {}".format(e)}
+            return JsonResponse(response, safe=False)
+        return render(request, 'room/room_humidity/add.html')
+    else:
+        return render(request, 'room/room_humidity/add.html')
+    
+def viewAllRoomHumidity(request):
+    try:
+        contex = {}
+        response_data = []
+        query  =RoomHumidity.nodes.all()
+
+        for record in query:
+            record_dictionary = {
+                'created_on': record.created_on,
+                'min_humidity': record.min_humidity,
+                'max_humidity': record.max_humidity,
+            }
+
+            response_data.append(record_dictionary)
+
+        context = {"data": response_data}
+        return render(request, 'room/room_humidity/view_all.html', context=context)
+    except Exception as e:
+        response = { "ERROR": "Error while getting all room humidity records - {}".format(e)}
+        return JsonResponse(response, safe=False)
+
+# ***************************************************************************************************** #
+# Room Lighting Range
+
+def addRooLight(request):
+    if request.method == "POST":
+        try:
+            maximum_humidity = request.POST["maximum"]
+            minimum_humidity = request.POST["minimum"]
+
+            query = RoomLight(
+                max_light = maximum_humidity,
+                min_light = minimum_humidity,
+                created_on = datetime.now()
+            )
+
+            query.save()
+            return render(request, 'room/room_light/add.html')
+        except Exception as e:
+            response = { "ERROR": "Error while saving room lighting information - {}".format(e)}
+            return JsonResponse(response, safe=False)
+    else:
+        return render(request, 'room/room_light/add.html')
+    
+def viewAllRoomLight(request):
+    try:
+        context = {}
+        response_data = []
+        query = RoomLight.nodels.all()
+
+        for record in query:
+            record_dictionary = {
+                'created_on': record.created_on,
+                'min_light': record.min_light,
+                'max_light': record.max_light,
+            }
+
+            response_data.append(record_dictionary)
+        context = {"data": response_data}
+    except Exception as e:
+        response = {
+            "ERROR": "Error while fetching records for room lighting"
+        }
+        return JsonResponse(response)
+    
+# ***************************************************************************************************** #
+# Room Scent
+
+def addRoomScent(request):
+    if request.method == 'POST':
+        try:
+            scent_name = request.POST["name"]
+            description = request.POST["description"]
+            
+            query = RoomScent(
+                scent_name = scent_name,
+                description = description,
+                created_on = datetime.now()
+            )
+
+            query.save()
+            return render(request, 'room/room_scent/add.html')
+        except Exception as e:
+            response = {"ERROR": "Error while saving room scent information"}
+            return JsonResponse(response)
+    else:
+        return render(request, 'room/room_scent/add.html')
+
+def viewAllRoomScent(request):
+    try:
+        context = {}
+        response = []
+
+        query = RoomScent.nodes.all()
+
+        for record in query:
+            record_dictionary = {
+                "uid": record.uid,
+                "scent_name": record.scent_name,
+                "created_on": record.created_on,
+                "description": record.description,                
+            }
+
+            response.append(record_dictionary)
+        context = {"data": response}
+        return render(request, 'room/room_scent/view_all.html', context=context)
+    except Exception as e:
+        response = {"ERROR": "Error while fetching records for room scent information"}
+        return JsonResponse(response)
