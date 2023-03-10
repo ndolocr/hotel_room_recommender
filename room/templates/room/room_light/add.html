@@ -1,0 +1,43 @@
+{% extends 'app/layout.html' %}
+{% load static %}
+
+{% block title %} Hotels {% endblock %}
+{% block page_breadcrumb %} Add Room Element {% endblock %}
+{% block content %}
+<div class="col-md-12">
+    <div class="portlet box blue-hoki">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-university"></i>Add New Room Light Range </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"> </a>
+                <!-- <a href="javascript:;" class="remove"> </a> -->
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form action="{% url 'room-light-add' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-body">
+
+                    <div class="form-group">
+                        <label class="control-label">Minimum Lighting</label>
+                        <input type="number" class="form-control" placeholder="Enter Minimum Room Lighting" name="minimum">                        
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label">Maximum Lighting</label>
+                        <input type="number" class="form-control" placeholder="Enter Maximum Room Lighting" name="maximum">                        
+                    </div>
+                                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn green">Submit</button>
+                        <button type="button" class="btn default">Cancel</button>
+                    </div>
+                </div>
+            </form>
+            <!-- END FORM-->
+        </div>
+    </div>
+</div>
+{% endblock %}
