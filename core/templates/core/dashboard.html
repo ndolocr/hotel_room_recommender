@@ -66,22 +66,30 @@
 
 <!-- Begin Advert -->
 <div class="row">
-    <div class="col-lg-1"></div>
-    <div class="col-lg-10 advert">
-        <div class="row">
-            <div class="col-lg-2 pic">
-                <img src="{% static 'assets/img/slideshow/globe.png' %}" >
-            </div>
+    <!-- <div class="col-lg-1"></div> -->
+    <div class="col-lg-12">
+        <div class="advert">
+            <div class="row">
+                <div class="col-lg-2 pic">
+                    <img src="{% static 'assets/img/slideshow/globe.png' %}" >
+                </div>
 
-            <div class="col-lg-10 info">
-                <h3>Get Instant disconts</h3>
-                Simply sign into your Booking.com account and look for the blue Genius logo to save
-                <br><br>
-                <a href="#" class="btn btn-outline-primary">Sign Up</a>
+                <div class="col-lg-6 info">
+                    <h3>Get Instant disconts</h3>
+                    Simply sign into your Booking.com account and look for the blue Genius logo to save
+                    <br><br>
+                    <a href="#" class="btn btn-outline-primary">Sign Up</a>
+                </div>
+
+                <div class="col-lg-3" style="text-align: center;">
+                    <h3> Book Now </h3> 
+                    </br> </br>
+                    <a href="{% url 'customer-booking' %}" class="btn btn-outline-primary">Book Room</a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-1"></div>
+    <!-- <div class="col-lg-1"></div> -->
 </div>
 <!-- End Advert -->
 
