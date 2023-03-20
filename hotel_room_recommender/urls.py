@@ -21,7 +21,8 @@ from core.views import dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name="login-page"),
+    # path('', index, name="login-page"),
+    path('', dashboard, name='home-page'),
     path('dashboard/', dashboard, name="dashboard"),
     
     path('room/', include('room.urls')),
