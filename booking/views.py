@@ -1,5 +1,8 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.utils.dateparse import parse_datetime
 
 from hotel_guest.models import HotelGuest
 
@@ -10,7 +13,7 @@ def booking(request):
 
 def capture_guest_data(request):
     if request.method == "POST":
-        dob = request.POST['dob']
+        dob = request.POST['dob']+"T00:00:00.000000"
         town = request.POST['town']
         title = request.POST['title']
         gender = request.POST['gender']
@@ -25,10 +28,11 @@ def capture_guest_data(request):
         phone_number = request.POST['phone_number']
         email_address = request.POST['email_address']
         marital_status = request.POST['marital_status']
-        hotel_guest_id = request.POST['hotel_guest_id']
         id_document_type = request.POST['id_document_type']
         id_document_number = request.POST['id_document_number']
+        dob = parse_datetime(dob)
 
+        print("Date Of Birt --**-->>", dob)
         try:
             guest = HotelGuest(
                 dob = dob,
@@ -46,7 +50,6 @@ def capture_guest_data(request):
                 phone_number = phone_number,
                 email_address = email_address,
                 marital_status = marital_status,
-                hotel_guest_id = hotel_guest_id,
                 id_document_type = id_document_type,
                 id_document_number = id_document_number,
             )
