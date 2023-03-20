@@ -18,12 +18,14 @@ from django.urls import path
 from core.views import index
 from django.urls import include
 from core.views import dashboard
+from booking.views import booking
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', index, name="login-page"),
     path('', dashboard, name='home-page'),
     path('dashboard/', dashboard, name="dashboard"),
+    path('booking', booking, name='customer-booking'),
     
     path('room/', include('room.urls')),
     path('hotel/', include('hotel.urls')),
