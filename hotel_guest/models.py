@@ -15,11 +15,12 @@ from neomodel import (
 # Create your models here.
 class HotelGuest(StructuredNode):
     uid = UniqueIdProperty()
+    town = StringProperty()
     title = StringProperty()
     gender = StringProperty()
     address = StringProperty()
     religion = StringProperty()
-    id_number = StringProperty()
+    area_code = StringProperty()
     residency = StringProperty()
     last_name = StringProperty()
     first_name = StringProperty()
@@ -29,6 +30,8 @@ class HotelGuest(StructuredNode):
     email_address = StringProperty()
     marital_status = StringProperty()
     hotel_guest_id = StringProperty()
+    id_document_type = StringProperty()
+    id_document_number = StringProperty()
     
     dob = DateProperty()
     updated_on = DateProperty()
