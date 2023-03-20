@@ -58,3 +58,7 @@
     font-weight: bold;
 
 }
+
+.booking_background{
+    background-image: url('static/img/background/room.jpg');
+}
