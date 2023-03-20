@@ -9,3 +9,4 @@ def index(request):
 def dashboard(request):
     context = {}
     return render(request, 'core/dashboard.html', context=context)
+
