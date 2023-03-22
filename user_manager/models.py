@@ -15,45 +15,6 @@ from neomodel import (
     DateProperty, 
     FloatProperty
 )
-
-# Create your models here.
-
-# class UserModuleManager(BaseUserManager):
-
-#     def _create_user(self, email, password, **extra_fields):
-#         """
-#         Creates and saves a User with the given email and password.
-#         email, password, False, **data
-#         """
-#         if not email:
-#             raise ValueError('The Email must be set')
-#         email = self.normalize_email(email)
-#         user = self.model(email=email, **extra_fields)
-
-#         user.is_active=True
-#         user.set_password(password)
-        
-#         user.save()
-#         created = True
-
-#         return user, created
-
-#     def create_superuser(self, email, password, **extra_fields):
-#         # extra_fields.setdefault('is_staff', True)
-#         extra_fields.setdefault('is_superuser', True)
-#         extra_fields.setdefault('is_active', True)
-
-#         # if extra_fields.get('is_staff') is not True:
-#         # raise ValueError('Superuser must have is_staff=True.')
-#         if extra_fields.get('is_superuser') is not True:
-#             raise ValueError('Superuser must have is_superuser=True.')
-#         return self._create_user(email, password, **extra_fields)
-
-#     def __str__(self):
-#         return self.email
-
-#     def get_absolute_url(self):
-#         return reverse('user_manager', kwargs={'pk': self.pk})
     
 class User(StructuredNode):
     """creates a usermodel that supports email address instead of username"""
@@ -280,17 +241,12 @@ class User(StructuredNode):
     uid = UniqueIdProperty()
     email = StringProperty()
     phone = StringProperty()
+    country = StringProperty()
     is_staff = StringProperty()
     is_active = StringProperty()
     last_name = StringProperty()
     first_name = StringProperty()
-    middle_name = StringProperty()
-    country_code = StringProperty()
+    middle_name = StringProperty()    
 
     created_on = DateProperty()
     updated_on = DateProperty()
-    # date_activated = models.DateTimeField(auto_now_add=True)
-    # USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = []
-    
-    # objects = UserModuleManager()
