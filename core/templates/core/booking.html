@@ -54,7 +54,8 @@
                     <div class="col-md-12"> <h4 class="page-title">Geust Details</h4> </div>
                     <div class="col-md-12">
                         <div class="portlet-body form">
-                            <form role="form">
+                            <form method="POST" action="{% url 'capture_guest_information' %}" role="form">
+                                {% csrf_token %}
                                 <div class="form-body">
                                     
                                     <!-- begin row -->
@@ -113,7 +114,7 @@
                                         <div class="form-group col-md-3">                                            
                                             <label>Identification Document</label>
                                             <div class="input-group">
-                                                <select id="id_document" name="id_document" class="select2 form-control">
+                                                <select id="id_document_type" name="id_document_type" class="select2 form-control">
                                                     <option value="none" selected disabled hidden>
                                                         Identification Doc
                                                     </option>
@@ -176,7 +177,7 @@
                                         <div class="form-group col-md-3">
                                             <label>Email</label>
                                             <div class="input-group">                                                
-                                                <input type="text" name="email" id="email" class="form-control input-circle-right" placeholder="Email"> 
+                                                <input type="text" name="email_address" id="email_address" class="form-control input-circle-right" placeholder="Email"> 
                                             </div>
                                         </div>
                                         <!-- end email -->
@@ -226,7 +227,7 @@
                                         <div class="form-group col-md-3">
                                             <label>Phone Number</label>
                                             <div class="input-group">                                                
-                                                <input type="text" name="phone" id="phone" class="form-control input-circle-right" placeholder="+xxx-xxx-xxx-xxx"> 
+                                                <input type="text" name="phone_number" id="phone_number" class="form-control input-circle-right" placeholder="+xxx-xxx-xxx-xxx"> 
                                             </div>
                                         </div>
                                         <!-- end phone number --> 
@@ -239,8 +240,8 @@
                                                     <option value="none" selected disabled hidden>
                                                         Mariatl Status
                                                     </option>
-                                                    <option value="Male"> Single </option>
-                                                    <option value="Female"> Married </option>
+                                                    <option value="Single"> Single </option>
+                                                    <option value="Married"> Married </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -251,17 +252,34 @@
 
                                     <!-- begin row -->
                                     <div class="row">
+                                        <!-- begin marital status -->
+                                        <div class="form-group col-md-3">                                            
+                                            <label>Religion</label>
+                                            <div class="input-group">
+                                                <select id="religion" name="religion" class="select2 form-control">
+                                                    <option value="none" selected disabled hidden>
+                                                        Religion
+                                                    </option>
+                                                    <option value="Hindu"> Hindu </option>
+                                                    <option value="Islma"> Islam </option>
+                                                    <option value="Atheist"> Atheist </option>
+                                                    <option value="Christian"> Christian </option>                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- end marital status -->
+
                                         <!-- begin cancel button -->
                                         <div class="form-group col-md-3">
                                         </br>
-                                            <a href="" class="btn btn-outline-danger" style="width: 100%;">Cancel</a>
+                                        <input type="cancel" class="btn btn-outline-danger" style="width: 100%;" value="Cancel">                                           
                                         </div>
                                         <!-- end cancel button -->
 
                                         <!-- begin submit button -->
                                         <div class="form-group col-md-3">
                                         </br>
-                                            <a href="" class="btn btn-outline-primary" style="width: 100%;">Submit</a>
+                                        <input type="submit" class="btn btn-outline-success" style="width: 100%;" value="Submit">
                                         </div>
                                         <!-- end submit button -->
 
