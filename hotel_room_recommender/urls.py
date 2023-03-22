@@ -19,6 +19,7 @@ from core.views import index
 from django.urls import include
 from core.views import dashboard
 from booking.views import booking
+from booking.views import capture_guest_data
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +27,7 @@ urlpatterns = [
     path('', dashboard, name='home-page'),
     path('dashboard/', dashboard, name="dashboard"),
     path('booking', booking, name='customer-booking'),
+    path('capture/guest/information', capture_guest_data, name="capture_guest_information"),
     
     path('room/', include('room.urls')),
     path('hotel/', include('hotel.urls')),
