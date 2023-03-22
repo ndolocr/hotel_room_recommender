@@ -3,6 +3,19 @@ from django.urls import reverse
 from django.contrib.auth.models import PermissionsMixin, User
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 
+from neomodel import (
+    Relationship,
+    StringProperty,
+    StructuredNode,
+    RelationshipTo,
+    RelationshipFrom,
+    UniqueIdProperty,
+    IntegerProperty,
+    ArrayProperty, 
+    DateProperty, 
+    FloatProperty
+)
+
 # Create your models here.
 
 class UserModuleManager(BaseUserManager):
@@ -264,20 +277,20 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('Zambia (+260)', 'Zambia (+260)'),
         ('Zimbabwe (+263)', 'Zimbabwe (+263)'),        
     )
+    uid = UniqueIdProperty()
+    email = StringProperty()
+    phone = StringProperty()
+    is_staff = StringProperty()
+    is_active = StringProperty()
+    last_name = StringProperty()
+    first_name = StringProperty()
+    middle_name = StringProperty()
+    country_code = StringProperty()
 
-    is_staff = models.BooleanField(default=True)
-    is_active = models.BooleanField(default=True)
-    email = models.CharField(max_length=100, unique=True)
-    phone = models.CharField(max_length=255, default=False)
-    last_name = models.CharField(max_length=255, default=False)
-    first_name = models.CharField(max_length=255, default=False)
-    middle_name = models.CharField(max_length=255, default=False)
-    country_code = models.CharField(max_length=255, choices=COUNTRY_CODE_CHOICES, default=False)
-
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now_add=False)
-    date_activated = models.DateTimeField(auto_now_add=True)
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    created_on = DateProperty()
+    updated_on = DateProperty()
+    # date_activated = models.DateTimeField(auto_now_add=True)
+    # USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS = []
     
-    objects = UserModuleManager()
+    # objects = UserModuleManager()
