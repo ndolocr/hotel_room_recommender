@@ -19,36 +19,165 @@
                     <h2> User Registration</h2>
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
+                    <!-- begin title -->
+                    <label>Title</label>
+                    <div class="input-group">
+                        <select id="title" name="title" class="select2 form-control">
+                            <option value="none" selected disabled hidden>
+                                Title
+                            </option>
+                            <option value="Mr"> Mr. </option>
+                            <option value="Mrs"> Mrs. </option>
+                            <option value="Miss"> Miss </option>
+                            <option value="Madam"> Madam </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
                     <label for="first_name">First Name</label>
                     <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name">
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="middle_name">Middle Name</label>
                     <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Middle Name">
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="last_name">Last Name</label>
                     <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name">
                 </div>
 
-                <div class="form-group col-md-4">
-                    <label for="phone">Phone</label>
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone">
+                <div class="form-group col-md-3">                                            
+                    <label>Identification Document</label>
+                    <div class="input-group">
+                        <select id="id_document_type" name="id_document_type" class="select2 form-control">
+                            <option value="none" selected disabled hidden>
+                                Identification Doc
+                            </option>
+                            <option value="Passport"> Passport </option>
+                            <option value="id_card"> National Id Card </option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
+                    <label>Identification Document Number</label>
+                    <div class="input-group">                                                
+                        <input type="text" name="id_document_number" id="id_document_number" class="form-control input-circle-right" placeholder="Identification Doc Num"> 
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label>Date of Birth</label>
+                    <div class="input-group">                                                
+                        <input type="date" name="dob" id="dob" class="form-control input-circle-right" > 
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">                                            
+                    <label>Gender</label>
+                    <div class="input-group">
+                        <select id="gender" name="gender" class="select2 form-control">
+                            <option value="none" selected disabled hidden>
+                                Gender
+                            </option>
+                            <option value="Male"> Male </option>
+                            <option value="Female"> Female </option>
+                            <option value="other"> other </option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group col-md-3">
+                    <label for="phone">Phone</label>
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone">
+                </div>                
+
+                <div class="form-group col-md-3">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" name="address" id="address" placeholder="Address">
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label>Area Code </label>
+                    <div class="input-group">                                                
+                        <input type="text" name="area_code" id="area_code" class="form-control input-circle-right" placeholder="Area Code"> 
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label for="town">Town</label>
+                    <input type="text" class="form-control" name="town" id="town" placeholder="Town">
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label>Nationality</label>
+                    <div class="input-group">                                                
+                        <input type="text" name="nationality" id="nationality" class="form-control input-circle-right" placeholder="Nationality"> 
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label>Residency</label>
+                    <div class="input-group">                                                
+                        <input type="text" name="residency" id="residency" class="form-control input-circle-right" placeholder="Residency"> 
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">                                            
+                    <label>Marital Status</label>
+                    <div class="input-group">
+                        <select id="marital_status" name="marital_status" class="select2 form-control">
+                            <option value="none" selected disabled hidden>
+                                Mariatl Status
+                            </option>
+                            <option value="Single"> Single </option>
+                            <option value="Married"> Married </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">                                            
+                    <label>Religion</label>
+                    <div class="input-group">
+                        <select id="religion" name="religion" class="select2 form-control">
+                            <option value="none" selected disabled hidden>
+                                Religion
+                            </option>
+                            <option value="Hindu"> Hindu </option>
+                            <option value="Islma"> Islam </option>
+                            <option value="Atheist"> Atheist </option>
+                            <option value="Christian"> Christian </option>                                                    
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label for="dob">Date of Birth</label>
+                    <input type="text" class="form-control" name="dob" id="dob" placeholder="Date of Birth">
+                </div> 
+                
+                <div class="form-group col-md-3">
                     <label for="email">Email</label>
                     <input type="text" class="form-control" name="email" id="email" placeholder="Email">
                 </div>
 
-                <div class="form-group col-md-4">
-                    <label for="country">Country</label>
-                    <input type="text" class="form-control" name="country" id="country" placeholder="Country">
+                <div class="form-group col-md-3">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Passowrd">
                 </div>
 
+                <div class="form-group col-md-3">
+                    <label for="confirm_password">Password</label>
+                    <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+                </div>
+
+            </div>
+
+            <div class="row">
                 <div class="form-group col-md-2">
                     <button type="cancel" class="btn btn-danger"  style="width: 100%;">Cancel</button>
                 </div>
@@ -56,7 +185,6 @@
                 <div class="form-group col-md-2">
                     <button type="submit" class="btn btn-primary"  style="width: 100%;">Submit</button>
                 </div>
-
             </div>
 
 
