@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.utils.dateparse import parse_datetime
 
 from hotel_guest.models import HotelGuest
@@ -69,5 +70,7 @@ def capture_guest_data(request):
         except Exception as e:
             response = {"ERROR": "Error occured while saving guest information- {}".format(e)}
             return JsonResponse(response, safe=False)
+    else:
+        return redirect('customer-booking')
         
         
