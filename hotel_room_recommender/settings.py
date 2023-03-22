@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'core',
     'room',
     'hotel',
+    'user_manager',
     'administrator',
-    'django_neomodel',
+    'django_neomodel',    
 ]
 
 MIDDLEWARE = [
