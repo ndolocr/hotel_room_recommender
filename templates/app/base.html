@@ -47,7 +47,7 @@
               <a href="" class="btn btn-primary" style="margin-right: 5px;" >Logout</a>
             {% else %}
               <a href="" class="btn btn-primary" style="margin-right: 5px;" >Login</a>
-              <a href="" class="btn btn-primary" >Register</a>
+              <a href="{% url 'user-registration' %}" class="btn btn-primary" >Register</a>
             {% endif %}
             
           </div>
