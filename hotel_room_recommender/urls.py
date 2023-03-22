@@ -31,5 +31,6 @@ urlpatterns = [
     
     path('room/', include('room.urls')),
     path('hotel/', include('hotel.urls')),
+    path('user/', include('user_manager.urls')),
     # path('admin', include('administrator.urls')),
 ]
