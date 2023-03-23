@@ -43,7 +43,7 @@
           </ul>
           
           <div class="form-inline my-2 my-lg-0">
-            {% if request.user.is_is_authenticated %}
+            {% if is_authenticated %}
               <a href="" class="btn btn-primary" style="margin-right: 5px;" >Logout</a>
             {% else %}
               <a href="" class="btn btn-primary" style="margin-right: 5px;" >Login</a>
