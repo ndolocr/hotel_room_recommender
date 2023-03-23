@@ -10,7 +10,8 @@
     }
 </style>
 
-<form>
+<form method="POST" action="{% url 'user-registration' %}">
+    {% csrf_token %}
     <div class="card">
         <div class ="card-body">    
 
@@ -93,7 +94,7 @@
                 
                 <div class="form-group col-md-3">
                     <label for="phone">Phone</label>
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone">
+                    <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="Phone">
                 </div>                
 
                 <div class="form-group col-md-3">
@@ -154,15 +155,10 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="form-group col-md-3">
-                    <label for="dob">Date of Birth</label>
-                    <input type="text" class="form-control" name="dob" id="dob" placeholder="Date of Birth">
-                </div> 
                 
                 <div class="form-group col-md-3">
                     <label for="email">Email</label>
-                    <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+                    <input type="text" class="form-control" name="email_address" id="email_address" placeholder="Email">
                 </div>
 
                 <div class="form-group col-md-3">
