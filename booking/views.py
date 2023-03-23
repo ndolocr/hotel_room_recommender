@@ -53,6 +53,7 @@ def capture_guest_data(request):
                 marital_status = marital_status,
                 id_document_type = id_document_type,
                 id_document_number = id_document_number,
+                created_on = datetime.now(),
             )
 
             guest.save()
