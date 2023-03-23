@@ -1,45 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel</title>
-    {% load static %}
-    <!-- CSS FILES -->
-    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'assets/css/landing-page.css' %}" rel="stylesheet" type="text/css">
-</head>
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="banner"> <img src="{% static 'assets/img/side_background.png'%}"> </div>                
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Begin Slideshow Row -->
+<div class="row">
+
+    <!-- Begin Column One -->
+    <div class="col-lg-12 slide_show">
+        
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="{% static 'assets/img/slideshow/banners.jpg' %}" alt="First slide">
+              </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6"> 
-                <div class="login-section">
-                    <h3>Hello there</h3>
-                    <t-ext>Please signin to your account</t-ext>
-                    <form>
-                        <div class="form-group">
-                          <!-- <label for="exampleInputEmail1">Email address</label> -->
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+          </div>
+        
+    </div>
+    <!-- End Column One -->
+
+</div>
+<!-- End Slideshow Row -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Offers</h3>
+        Promotions, deals and special offers for you
+    </div>
+</div>
+<!-- Begin Special Offers Row -->
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card" style="background: url('/static/assets/img/slideshow/hiking.jpeg'); background-size: 100% 100%;" >
+            <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Book a hike</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card" style="background: url('/static/assets/img/slideshow/safari.jpeg'); background-size: 100% 100%;">
+            <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Temeba Kenya</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card card_board" style="background: url('/static/assets/img/slideshow/diving.jpeg'); background-size: 100% 100%;">
+            <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Discover our seas</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- End Special Offers Row -->
+
+<!-- Begin Advert -->
+<div class="row">
+    <!-- <div class="col-lg-1"></div> -->
+    <div class="col-lg-12">
+        <div class="advert" style="width: 100%;">
+            <div class="row">
+                <div class="col-lg-2 pic">
+                    <img src="{% static 'assets/img/slideshow/globe.png' %}" >
+                </div>
+
+                <div class="col-lg-6 info">
+                    <h3>Get Instant disconts</h3>
+                    Simply sign into your Booking.com account and look for the blue Genius logo to save
+                    <br>
+                    <a href="{% url 'user-registration' %}" class="btn btn-outline-primary">Sign Up</a>
+                    <a href="{% url 'customer-booking' %}" class="btn btn-outline-primary">Book Room</a>
+                </div>
+
+                <div class="col-lg-4 info" style="text-align: left;">
+                    <h3> Login </h3> 
+                   <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                        <div class="row">                        
+                            <div class="form-group col-md-5">
+                                <input type="text" class="form-control" name="email_address" id="email_address" placeholder="Email">
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Passowrd">
+                            </div>                                                                
                         </div>
-                        <div class="form-group">
-                          <!-- <label for="exampleInputPassword1">Password</label> -->
-                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+
+                        <div class="row">
+                            <div class="form-group col-md-5">
+                                <button type="submit" class="btn btn-success"  style="width: 100%;">Login</button>
+                            </div>
                         </div>
-                        <!-- <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div> -->
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                      </form>
+                   </form>
                 </div>
             </div>
         </div>
     </div>
-    
-</body>
-</html>
+    <!-- <div class="col-lg-1"></div> -->
+</div>
+<!-- End Advert -->
+
+
+<!--  -->
+<div class="row">
+    <div class="col-lg-12"> <br> <h3>Browse by property type</h3> </div>
+    <br>
+
+    <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{% static 'assets/img/slideshow/singleroom.jpeg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Single Rooms</h5>
+              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+              <a href="#" class="btn btn-primary">View</a>
+            </div>
+          </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{% static 'assets/img/slideshow/doubleroom.jpeg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Double Rooms</h5>
+              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+              <a href="#" class="btn btn-primary">View</a>
+            </div>
+          </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{% static 'assets/img/slideshow/executiveroom.jpeg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Executive Rooms</h5>
+              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+              <a href="#" class="btn btn-primary">View</a>
+            </div>
+          </div>
+    </div>
+
+</div>
+<!--  -->
+{% endblock %}
+
