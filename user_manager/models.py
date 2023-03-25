@@ -34,10 +34,10 @@ class UserModuleManager(BaseUserManager):
         created = True
         return user, created
 
-    def create_user(self, username, email=None, password=None, **extra_fields):
+    def create_user(self, email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(username, email, (str(password)), **extra_fields)
+        return self._create_user(email, (str(password)), **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
