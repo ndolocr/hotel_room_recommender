@@ -5,7 +5,9 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.utils.dateparse import parse_datetime
 
+from user_manager.models import User
 from hotel_guest.models import HotelGuest
+from user_manager.models import UserManager
 
 # Create your views here.
 def booking(request):
@@ -61,9 +63,10 @@ def capture_guest_data(request):
             
 
             context = {
+                "self": "NO",
                 "guest_id": guest.uid,
+                "guest_email": guest.email,
                 "guest_last_name": guest.last_name,
-                "guest_email": guest.email_address,
                 "guest_first_name": guest.first_name,
             }
 
@@ -73,5 +76,17 @@ def capture_guest_data(request):
             return JsonResponse(response, safe=False)
     else:
         return redirect('customer-booking')
-        
-        
+    
+    
+def booking_self(request):
+    user = request.user
+    user_uid = user.uid
+    guest = User.nodes.get(uid=user_uid)
+    context = {
+        "guest_id": guest.uid,
+        "guest_email": guest.email,
+        "guest_last_name": guest.last_name,        
+        "guest_first_name": guest.first_name,
+    }
+
+    return render(request, 'core/booking_room_information.html', context=context)
