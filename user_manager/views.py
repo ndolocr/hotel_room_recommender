@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 
 from user_manager.models import User
+from user_manager.models import UserManager
 from django.utils.dateparse import parse_datetime
 
 # Create your views here.
@@ -61,6 +62,29 @@ def register(request):
                 )
 
                 user.save()
+
+                user_manager = UserManager.objects.create(
+                    dob = dob,
+                    town = town,
+                    title = title,
+                    uid = user.uid,
+                    gender = gender,
+                    address = address,
+                    password = password,
+                    religion = religion,
+                    area_code = area_code,
+                    residency = residency,
+                    last_name = last_name,
+                    first_name = first_name,
+                    middle_name = middle_name,
+                    nationality = nationality,
+                    phone_number = phone_number,
+                    email_address = email_address,
+                    marital_status = marital_status,
+                    id_document_type = id_document_type,
+                    id_document_number = id_document_number,
+                    created_on = datetime.now(),                    
+                )
 
                 context = {
                     "message": "User successfully Registered",
