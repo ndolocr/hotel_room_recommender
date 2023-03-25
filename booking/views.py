@@ -9,6 +9,9 @@ from user_manager.models import User
 from hotel_guest.models import HotelGuest
 from user_manager.models import UserManager
 
+from room.models import RoomType
+from room.models import RoomElement
+
 # Create your views here.
 def booking(request):
     context = {}
@@ -82,11 +85,43 @@ def booking_self(request):
     user = request.user
     user_uid = user.uid
     guest = User.nodes.get(uid=user_uid)
+
+    # begin room type
+    room_type_response = []
+    room_types = RoomType.nodes.all()
+
+    for room_type in room_types:
+        room_type_data = {
+            "uid" : room_type.uid,
+            "Name": room_type.name,
+            "Maximum_Capacity": room_type.max_capacity,
+            "created_on": room_type.created_on,
+            "Description": room_type.description,
+        }
+
+        room_type_response.append(room_type_data)
+    # end room type
+
+    # begin room elements
+    room_elements_response = []
+    room_elements = RoomElement.nodes.all()
+    
+    for room_element in room_elements:
+        room_elements_data = {
+            "name": room_element.name,
+            "description": room_element.description,
+            "elementType": room_element.elementType,
+        }
+        room_elements_response.append(room_elements_data)
+    # end room elements
+
     context = {
         "guest_id": guest.uid,
         "guest_email": guest.email,
         "guest_last_name": guest.last_name,        
         "guest_first_name": guest.first_name,
+        "room_type_response": room_type_response,
+        "room_elements_response": room_elements_response,
     }
 
     return render(request, 'core/booking_room_information.html', context=context)
