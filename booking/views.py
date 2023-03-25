@@ -10,6 +10,8 @@ from hotel_guest.models import HotelGuest
 from user_manager.models import UserManager
 
 from room.models import RoomType
+from room.models import RoomLight
+from room.models import RoomScent
 from room.models import RoomElement
 from room.models import RoomHumidity
 from room.models import RoomTemprature
@@ -154,11 +156,25 @@ def booking_self(request):
     for room_hum in room_humidity:
         room_humidity_data = {
             "temp_uid": room_hum.uid,
-            "max_temprature": room_hum.max_temprature,
-            "min_temprature": room_hum.min_temprature,
+            "max_humidity": room_hum.max_humidity,
+            "min_humidity": room_hum.min_humidity,
         }
         room_humidity_response.append(room_temprature_data)
     # end room humidity range
+
+    # begin room light range
+    room_light_response = []
+    room_light = RoomLight.nodes.all()
+
+    for light in room_light:
+        room_light_data = {
+            "temp_uid": light.uid,
+            "max_light": light.max_light,
+            "min_light": light.min_light,
+        }
+        room_light_response.append(room_light_data)
+    # end room light range
+    
 
     context = {
         "guest_id": guest.uid,
@@ -167,6 +183,7 @@ def booking_self(request):
         "guest_first_name": guest.first_name,
         "room_view_response": room_view_response,
         "room_type_response": room_type_response,
+        "room_light_response": room_light_response,
         "room_humidity_response": room_humidity_response,
         "room_elements_response": room_elements_response,
         "room_temprature_response": room_temprature_response,
