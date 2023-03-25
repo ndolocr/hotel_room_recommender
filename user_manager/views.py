@@ -83,7 +83,8 @@ def register(request):
                     marital_status = marital_status,
                     id_document_type = id_document_type,
                     id_document_number = id_document_number,
-                    created_on = datetime.now(),                    
+                    created_on = datetime.now(),
+                    is_active = True                    
                 )
 
                 context = {
