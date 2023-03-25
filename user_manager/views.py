@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.utils.dateparse import parse_datetime
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 
 from user_manager.models import User
@@ -48,17 +49,17 @@ def register(request):
                     title = title,
                     gender = gender,
                     address = address,
-                    password = password,
                     religion = religion,
                     area_code = area_code,
                     residency = residency,
                     last_name = last_name,
+                    email = email_address,
                     first_name = first_name,
                     middle_name = middle_name,
                     nationality = nationality,
-                    phone_number = phone_number,
-                    email_address = email_address,
+                    phone_number = phone_number,                    
                     marital_status = marital_status,
+                    password = make_password(password),
                     id_document_type = id_document_type,
                     id_document_number = id_document_number,
                     created_on = datetime.now(),
@@ -72,22 +73,23 @@ def register(request):
                     title = title,
                     uid = user.uid,
                     gender = gender,
-                    address = address,
-                    password = password,
+                    address = address,                    
                     religion = religion,
                     area_code = area_code,
                     residency = residency,
                     last_name = last_name,
+                    email = email_address,
                     first_name = first_name,
                     middle_name = middle_name,
                     nationality = nationality,
-                    phone_number = phone_number,
-                    email_address = email_address,
+                    phone_number = phone_number,                    
                     marital_status = marital_status,
+                    password = make_password(password),
                     id_document_type = id_document_type,
                     id_document_number = id_document_number,
                     created_on = datetime.now(),
-                    is_active = True                    
+                    is_staff = True,
+                    is_active = True                 
                 )
 
                 context = {
