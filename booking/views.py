@@ -174,7 +174,19 @@ def booking_self(request):
         }
         room_light_response.append(room_light_data)
     # end room light range
-    
+
+    # begin room scent range
+    room_scent_response = []
+    room_scent = RoomScent.nodes.all()
+
+    for scent in room_scent:
+        room_scent_data = {
+            "scent_uid": scent.uid,
+            "scent_name": scent.scent_name,
+            "description": scent.description,
+        }
+        room_scent_response.append(room_scent_data)
+    # end room humidity range
 
     context = {
         "guest_id": guest.uid,
@@ -184,6 +196,7 @@ def booking_self(request):
         "room_view_response": room_view_response,
         "room_type_response": room_type_response,
         "room_light_response": room_light_response,
+        "room_scent_response": room_scent_response,
         "room_humidity_response": room_humidity_response,
         "room_elements_response": room_elements_response,
         "room_temprature_response": room_temprature_response,
