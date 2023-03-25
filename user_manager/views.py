@@ -1,11 +1,14 @@
 from datetime import datetime
+from django.contrib import messages
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from django.utils.dateparse import parse_datetime
+from django.contrib.auth import authenticate, login, logout
 
 from user_manager.models import User
 from user_manager.models import UserManager
-from django.utils.dateparse import parse_datetime
+
 
 # Create your views here.
 def register(request):
@@ -95,29 +98,24 @@ def register(request):
             except Exception as e:
                 response = {"ERROR": "Error while registering new user - {}".format(e)}
                 return JsonResponse(response)
+    
+def login_user(request):
+    if request.method == "GET":
+        return render(request, 'user_manager/login.html')
+    elif request.method == "POST":
+        password = request.POST["password"]
+        email = request.POST["email_address"]
+        user = authenticate(request, email = email, password = password)
+        
+        if user is not None:
+            print("User found->", user)
+            login(request, user)
+            return redirect('home-page')
+        else:
+            messages.success(request, ("Invalid Email address or Password. Please try again!"))
+            return redirect('login_user')
 
-def login(request):
-    password = request.POST["password"]
-    email_address = request.POST["email_address"]
-
-    try:
-        user_obj = User.nodes.get(email_address = email_address)
-
-        if user_obj:
-            print("User found by email!")
-            user_password = user_obj.password
-            print("Password found --**--> ", user_password)
-
-            if user_password == password:
-                print("User got. Email and password match!")           
-                context = {
-                    "is_authenticated": True,
-                    "email_address": user_obj.email_address,
-                }
-                return render(request, 'core/index.html', context=context)
-        print("User Not Found ISSUES!!")
-        return redirect('home-page')
-    except Exception as e:
-        # return redirect('home-page')
-        response = {"ERROR": "Error on Login - {}".format(e)}
-        return JsonResponse(response)
+def logout_user(request):
+    logout(request)
+    messages.success(request, ("User successfully logged out!"))
+    return redirect('home-page')
