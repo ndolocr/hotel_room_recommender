@@ -11,6 +11,7 @@ from user_manager.models import UserManager
 
 from room.models import RoomType
 from room.models import RoomElement
+from room.views import RoomViewPreference
 
 # Create your views here.
 def booking(request):
@@ -102,6 +103,19 @@ def booking_self(request):
         room_type_response.append(room_type_data)
     # end room type
 
+    # begin room view
+    room_view_response = []
+    room_views = RoomViewPreference.nodes.all()
+
+    for room_view in room_views:
+        room_view_data = {
+            "name": room_view.name,
+            "description": room_view.description,
+        }
+
+        room_view_response.append(room_view_data)
+    # end room view
+
     # begin room elements
     room_elements_response = []
     room_elements = RoomElement.nodes.all()
@@ -120,6 +134,7 @@ def booking_self(request):
         "guest_email": guest.email,
         "guest_last_name": guest.last_name,        
         "guest_first_name": guest.first_name,
+        "room_view_response": room_view_response,
         "room_type_response": room_type_response,
         "room_elements_response": room_elements_response,
     }
