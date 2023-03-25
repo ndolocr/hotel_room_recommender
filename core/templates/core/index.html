@@ -74,7 +74,7 @@
                     <img src="{% static 'assets/img/slideshow/globe.png' %}" >
                 </div>
 
-                <div class="col-lg-6 info">
+                <div class="col-lg-8 info">
                     <h3>Get Instant disconts</h3>
                     Simply sign into your Booking.com account and look for the blue Genius logo to save
                     <br>
@@ -82,27 +82,6 @@
                     <a href="{% url 'customer-booking' %}" class="btn btn-outline-primary">Book Room</a>
                 </div>
 
-                <div class="col-lg-4 info" style="text-align: left;">
-                    <h3> Login </h3> 
-                   <form method="POST" action="{% url 'login' %}">
-                    {% csrf_token %}
-                        <div class="row">                        
-                            <div class="form-group col-md-5">
-                                <input type="text" class="form-control" name="email_address" id="email_address" placeholder="Email">
-                            </div>
-
-                            <div class="form-group col-md-5">
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Passowrd">
-                            </div>                                                                
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-5">
-                                <button type="submit" class="btn btn-success"  style="width: 100%;">Login</button>
-                            </div>
-                        </div>
-                   </form>
-                </div>
             </div>
         </div>
     </div>
