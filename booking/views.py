@@ -11,6 +11,7 @@ from user_manager.models import UserManager
 
 from room.models import RoomType
 from room.models import RoomElement
+from room.models import RoomHumidity
 from room.models import RoomTemprature
 from room.models import RoomViewPreference
 
@@ -146,6 +147,19 @@ def booking_self(request):
         room_temprature_response.append(room_temprature_data)
     # end room temprature range
 
+    # begin room humidity range
+    room_humidity_response = []
+    room_humidity = RoomHumidity.nodes.all()
+
+    for room_hum in room_humidity:
+        room_humidity_data = {
+            "temp_uid": room_hum.uid,
+            "max_temprature": room_hum.max_temprature,
+            "min_temprature": room_hum.min_temprature,
+        }
+        room_humidity_response.append(room_temprature_data)
+    # end room humidity range
+
     context = {
         "guest_id": guest.uid,
         "guest_email": guest.email,
@@ -153,6 +167,7 @@ def booking_self(request):
         "guest_first_name": guest.first_name,
         "room_view_response": room_view_response,
         "room_type_response": room_type_response,
+        "room_humidity_response": room_humidity_response,
         "room_elements_response": room_elements_response,
         "room_temprature_response": room_temprature_response,
     }
