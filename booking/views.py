@@ -9,6 +9,7 @@ from user_manager.models import User
 from hotel_guest.models import HotelGuest
 from user_manager.models import UserManager
 
+from room.models import Room
 from room.models import RoomType
 from room.models import RoomLight
 from room.models import RoomScent
@@ -191,8 +192,31 @@ def booking_self(request):
             room_scent_response.append(room_scent_data)
         # end room humidity range
 
+        # begin room 
+        room_response = []
+        rooms = Room.nodes.all()
+
+        for room in rooms:
+            room_data = {
+                'uid': room.uid,
+                'floor': room.floor,                                
+                'room_number': room.room_number,
+                'availability': room.availability,
+                'room_view_id': room.room_view_id,
+                'room_type_id': room.room_type_id,
+                'room_light_id': room.room_light_id,
+                'room_scent_id': room.room_scent_id,
+                'cost_per_night': room.cost_per_night,
+                'room_element_id': room.room_element_id,
+                'room_humidity_id': room.room_humidity_id,                
+                'room_temprature_id': room.room_temprature_id,
+            }
+            room_response.append(room_data)
+        # end room 
+
         context = {
             "guest": guest,
+            "room_response": room_response,
             "room_view_response": room_view_response,
             "room_type_response": room_type_response,
             "room_light_response": room_light_response,
