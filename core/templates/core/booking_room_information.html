@@ -54,7 +54,25 @@
                             <form method="POST" action="{% url 'capture_guest_information' %}" role="form">
                                 {% csrf_token %}
                                 <div class="form-body">
+                                    <div class="row">
 
+                                        <!-- begin title -->
+                                        <label>Title</label>
+                                        <div class="input-group">
+                                            <select id="title" name="title" class="select2 form-control">
+                                                <option value="none" selected disabled hidden>
+                                                    Title
+                                                </option>
+                                                <option value="Mr"> Mr. </option>
+                                                <option value="Mrs"> Mrs. </option>
+                                                <option value="Miss"> Miss </option>
+                                                <option value="Madam"> Madam </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- end title -->
+                                    
+                                    </div>
                                 </div>
                             </form>
                         </div>
