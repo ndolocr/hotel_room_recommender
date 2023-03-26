@@ -140,7 +140,21 @@
                                                     </div>
                                                     <!-- end view preference-->
 
-                                                   
+                                                    <!-- begin room scent-->
+                                                    <div class="form-group col-md-3">
+                                                        <label>Room Scent</label>
+                                                        <div class="input-group">
+                                                            <select id="title" name="title" class="select2 form-control">
+                                                                <option value="none" selected disabled hidden>
+                                                                    Room Scent
+                                                                </option>
+                                                                {% for scent in room_scent_response %}
+                                                                <option value="{{scent.scent_name}}"> {{scent.scent_name}} </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end room scent-->
                                                     
                                                 </form>
                                             </div>
