@@ -40,9 +40,6 @@
                 <div class="row">
                     <div class="col-md-12" style="text-align: center;">
                         <h2 text>Room Preferences</h2>
-                        <p>
-                            Choose Your Room Preferences
-                        </p>
                     </div>
                 </div>
                 <!-- end booking title -->
@@ -51,26 +48,25 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="portlet-body form">
-                            <form method="POST" action="{% url 'capture_guest_information' %}" role="form">
-                                {% csrf_token %}
+                            
                                 <div class="form-body">
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-12">
                                             <h4> Guest Infromation</h4>                                            
                                         </div>                                    
-                                    </div>
+                                    </div> -->
                                     <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="card-body">                                                        
                                                         <address class="mb-0 font-14 address-lg">
                                                             <abbr title=""><b>Name:</b></abbr> {{guest.title}} {{guest.first_name}} {{guest.middle_name}} {{guest.last_name}}  <br />
-                                                            <abbr title=""><b>ID/Passport No:</b></abbr> {{guest.id_document_number}} <br />
+                                                            <!-- <abbr title=""><b>ID/Passport No:</b></abbr> {{guest.id_document_number}} <br />
                                                             <abbr title=""><b>Email Address:</b></abbr> {{guest.email}} <br />
                                                             <abbr title=""><b>Address:</b></abbr> {{guest.address}} <br />
                                                             <abbr title=""><b>Area Code:</b></abbr> {{guest.area_code}} <br />
-                                                            <abbr title=""><b>Town:</b></abbr> {{guest.town}} <br />
-                                                            <br>
+                                                            <abbr title=""><b>Town:</b></abbr> {{guest.town}} <br /> -->
+                                                            <!-- <br> -->
                                                         </address>
                                                         
                                                     </div>
@@ -79,10 +75,11 @@
                                                 </div>                                           
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <!-- <div class="col-md-6">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <address class="mb-0 font-14 address-lg">
+                                                            
                                                             <abbr title=""><b>Phone Number:</b></abbr> {{guest.phone_number}} <br />
                                                             <abbr title=""><b>Gender:</b></abbr> {{guest.gender}} <br />
                                                             <abbr title=""><b>Date of Birth:</b></abbr> {{guest.dob}} <br />
@@ -96,7 +93,7 @@
                     
                                                     <div class="process-line" style="width: 33%;"></div>
                                                 </div>                                           
-                                            </div>
+                                            </div> -->
                                     </div>
 
                                     <br>
@@ -106,130 +103,141 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="row">
-                                                <form>                                                    
-                                                    
-                                                    <!-- begin room type-->
-                                                    <div class="form-group col-md-3">
-                                                        <label>Room Type</label>
-                                                        <div class="input-group">
-                                                            <select id="room_type" name="room_type" class="select2 form-control">
-                                                                <option value="none" selected disabled hidden>
-                                                                    Room Type
-                                                                </option>
-                                                                {% for type in room_type_response %}
-                                                                <option value="{{type.name}}"> {{type.name}} </option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end room type-->
-
-                                                    <!-- begin view preference-->
-                                                    <div class="form-group col-md-3">
-                                                        <label>Room View Preference</label>
-                                                        <div class="input-group">
-                                                            <select id="room_view" name="room_view" class="select2 form-control">
-                                                                <option value="none" selected disabled hidden>
-                                                                    Room View
-                                                                </option>
-                                                                {% for view in room_view_response %}
-                                                                <option value="{{view.uid}}"> {{view.name}} </option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end view preference-->
-
-                                                    <!-- begin room scent-->
-                                                    <div class="form-group col-md-3">
-                                                        <label>Room Scent</label>
-                                                        <div class="input-group">
-                                                            <select id="room_scent" name="room_scent" class="select2 form-control">
-                                                                <option value="none" selected disabled hidden>
-                                                                    Room Scent
-                                                                </option>
-                                                                {% for scent in room_scent_response %}
-                                                                <option value="{{scent.uid}}"> {{scent.scent_name}} </option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end room scent-->
-
-                                                     <!-- begin room light-->
-                                                     <div class="form-group col-md-3">
-                                                        <label>Room Light Range</label>
-                                                        <div class="input-group">
-                                                            <select id="room_light" name="room_light" class="select2 form-control">
-                                                                <option value="none" selected disabled hidden>
-                                                                    Room Lighting
-                                                                </option>
-                                                                {% for light in room_light_response %}
-                                                                <option value="{{light.uid}}"> {{light.min_light}} - {{light.max_light}} </option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end room light-->
-
-                                                    <!-- begin room humidity-->
-                                                     <div class="form-group col-md-3">
-                                                        <label>Room Humidity Range</label>
-                                                        <div class="input-group">
-                                                            <select id="room_humidity" name="room_humidity" class="select2 form-control">
-                                                                <option value="none" selected disabled hidden>
-                                                                    Room Humidity
-                                                                </option>
-                                                                {% for humidity in room_humidity_response %}
-                                                                <option value="{{humidity.uid}}"> {{humidity.min_humidity}} - {{humidity.max_humidity}} </option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end room humidity-->
-
-                                                    <!-- begin room temprature-->
-                                                    <div class="form-group col-md-3">
-                                                        <label>Room Temprature Range</label>
-                                                        <div class="input-group">
-                                                            <select id="room_temprature" name="room_temprature" class="select2 form-control">
-                                                                <option value="none" selected disabled hidden>
-                                                                    Room Temprature
-                                                                </option>
-                                                                {% for temprature in room_temprature_response %}
-                                                                <option value="{{temprature.uid}}"> {{temprature.min_temprature}} - {{temprature.max_temprature}} </option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end room temprature-->
-
-                                                    <!-- begin room elements -->
-                                                    <div class="col-md-12">
-                                                        <hr>
-                                                        <div class="row">
-                                                            {% for item in room_elements_response %}
-                                                                <div class="form-group col-md-2">
-                                                                    <label class="control-label">{{item.name}}</label> 
-                                                                    <input type="checkbox" class="form-control col-md-2" value="{{item.uid}}" name="checks[]" />
-                                                                </div>
+                                                
+                                                <!-- begin room type-->
+                                                <div class="form-group col-md-3">
+                                                    <!-- <label>Room Type</label> -->
+                                                    <div class="input-group">
+                                                        <select id="room_type" name="room_type" class="select2 form-control">
+                                                            <option value="none" selected disabled hidden>
+                                                                Room Type
+                                                            </option>
+                                                            {% for type in room_type_response %}
+                                                            <option value="{{type.name}}"> {{type.name}} </option>
                                                             {% endfor %}
-                                                        </div>
-                                                    </div>                                                    
-                                                    <!-- end room elements -->
-                                                    
-                                                </form>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- end room type-->
+
+                                                <!-- begin view preference-->
+                                                <div class="form-group col-md-3">
+                                                    <!-- <label>Room View Preference</label> -->
+                                                    <div class="input-group">
+                                                        <select id="room_view" name="room_view" class="select2 form-control">
+                                                            <option value="none" selected disabled hidden>
+                                                                Room View
+                                                            </option>
+                                                            {% for view in room_view_response %}
+                                                            <option value="{{view.uid}}"> {{view.name}} </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- end view preference-->
+
+                                                <!-- begin room scent-->
+                                                <div class="form-group col-md-3">
+                                                    <!-- <label>Room Scent</label> -->
+                                                    <div class="input-group">
+                                                        <select id="room_scent" name="room_scent" class="select2 form-control">
+                                                            <option value="none" selected disabled hidden>
+                                                                Room Scent
+                                                            </option>
+                                                            {% for scent in room_scent_response %}
+                                                            <option value="{{scent.uid}}"> {{scent.scent_name}} </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- end room scent-->
+
+                                                    <!-- begin room light-->
+                                                    <div class="form-group col-md-3">
+                                                    <!-- <label>Room Light Range</label> -->
+                                                    <div class="input-group">
+                                                        <select id="room_light" name="room_light" class="select2 form-control">
+                                                            <option value="none" selected disabled hidden>
+                                                                Room Lighting
+                                                            </option>
+                                                            {% for light in room_light_response %}
+                                                            <option value="{{light.uid}}"> {{light.min_light}} - {{light.max_light}} </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- end room light-->
+
+                                                <!-- begin room humidity-->
+                                                    <div class="form-group col-md-3">
+                                                    <!-- <label>Room Humidity Range</label> -->
+                                                    <div class="input-group">
+                                                        <select id="room_humidity" name="room_humidity" class="select2 form-control">
+                                                            <option value="none" selected disabled hidden>
+                                                                Room Humidity
+                                                            </option>
+                                                            {% for humidity in room_humidity_response %}
+                                                            <option value="{{humidity.uid}}"> {{humidity.min_humidity}} - {{humidity.max_humidity}} </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- end room humidity-->
+
+                                                <!-- begin room temprature-->
+                                                <div class="form-group col-md-3">
+                                                    <!-- <label>Room Temprature Range</label> -->
+                                                    <div class="input-group">
+                                                        <select id="room_temprature" name="room_temprature" class="select2 form-control">
+                                                            <option value="none" selected disabled hidden>
+                                                                Room Temprature
+                                                            </option>
+                                                            {% for temprature in room_temprature_response %}
+                                                            <option value="{{temprature.uid}}"> {{temprature.min_temprature}} - {{temprature.max_temprature}} </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- end room temprature-->
+
+                                                <!-- begin room elements -->
+                                                <div class="col-md-12">
+                                                    <hr>
+                                                    <div class="row">
+                                                        {% for item in room_elements_response %}
+                                                            <div class="form-group col-md-2">
+                                                                <label class="control-label">{{item.name}}</label> 
+                                                                <input type="checkbox" class="form-control col-md-2" value="{{item.uid}}" name="checks[]" />
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>                                                    
+                                                <!-- end room elements -->                                                    
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <!-- End Room Preference -->
 
                                 </div>
-                            </form>
+                            
                         </div>
                     </div>
                 </div>
                 <!-- end guest details -->
+
+                <!-- begin available rooms -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body"> 
+                                <h4> Available Rooms </h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- end available rooms -->
             </div>
         </div>
     </div>
