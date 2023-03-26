@@ -187,6 +187,22 @@
                                                         </div>
                                                     </div>
                                                     <!-- end room humidity-->
+
+                                                    <!-- begin room temprature-->
+                                                    <div class="form-group col-md-3">
+                                                        <label>Room Temprature Range</label>
+                                                        <div class="input-group">
+                                                            <select id="title" name="title" class="select2 form-control">
+                                                                <option value="none" selected disabled hidden>
+                                                                    Room Temprature
+                                                                </option>
+                                                                {% for temprature in room_temprature_response %}
+                                                                <option value="{{temprature.uid}}"> {{temprature.min_temprature}} - {{temprature.max_temprature}} </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end room temprature-->
                                                     
                                                 </form>
                                             </div>
