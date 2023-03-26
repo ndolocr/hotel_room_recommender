@@ -5,8 +5,11 @@
 <style>
     .booking_background{
         width: 100%;
-        height: 100vh;
+        height: 110vh;
         background-image: url('{% static 'assets/img/background/room.jpg' %}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     .booking_section{
@@ -206,8 +209,8 @@
                                                     <div class="row">
                                                         {% for item in room_elements_response %}
                                                             <div class="form-group col-md-2">
-                                                                <label class="control-label">{{item.name}}</label> 
-                                                                <input type="checkbox" class="form-control col-md-2" value="{{item.uid}}" name="checks[]" />
+                                                                <!-- <label class="control-label">{{item.name}}</label>  -->
+                                                                {{item.name}} - <input type="checkbox" class="col-md-2" value="{{item.uid}}" name="checks[]" />
                                                             </div>
                                                         {% endfor %}
                                                     </div>
@@ -231,7 +234,15 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body"> 
-                                <h4> Available Rooms </h4>
+                                <h5> Available Rooms </h5>
+                                <div class="row">
+                                {% for item in room_elements_response %}
+                                <div class="form-group col-md-2">
+                                    <!-- <label class="control-label">{{item.name}}</label>  -->
+                                    {{item.name}} - <input type="checkbox" class="col-md-2" value="{{item.uid}}" name="checks[]" />
+                                </div>
+                                {% endfor %}
+                            </div>
                             </div>
                         </div>
                     </div>
