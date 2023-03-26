@@ -114,7 +114,8 @@ def booking_self(request):
         room_views = RoomViewPreference.nodes.all()
 
         for room_view in room_views:
-            room_view_data = {            
+            room_view_data = { 
+                "uid": room_view.uid,
                 "name": room_view.name,
                 "room_view_uid": room_view.uid,
                 "description": room_view.description,
@@ -128,7 +129,8 @@ def booking_self(request):
         room_elements = RoomElement.nodes.all()
         
         for room_element in room_elements:
-            room_elements_data = {            
+            room_elements_data = {   
+                "uid": room_element.uid,
                 "name": room_element.name,
                 "room_element_uid": room_element.uid,
                 "description": room_element.description,
@@ -143,7 +145,7 @@ def booking_self(request):
 
         for room_temp in room_temprature:
             room_temprature_data = {
-                "temp_uid": room_temp.uid,
+                "uid": room_temp.uid,
                 "max_temprature": room_temp.max_temprature,
                 "min_temprature": room_temp.min_temprature,
             }
@@ -156,11 +158,11 @@ def booking_self(request):
 
         for room_hum in room_humidity:
             room_humidity_data = {
-                "temp_uid": room_hum.uid,
+                "uid": room_hum.uid,
                 "max_humidity": room_hum.max_humidity,
                 "min_humidity": room_hum.min_humidity,
             }
-            room_humidity_response.append(room_temprature_data)
+            room_humidity_response.append(room_humidity_data)
         # end room humidity range
 
         # begin room light range
@@ -169,7 +171,7 @@ def booking_self(request):
 
         for light in room_light:
             room_light_data = {
-                "temp_uid": light.uid,
+                "uid": light.uid,
                 "max_light": light.max_light,
                 "min_light": light.min_light,
             }
@@ -182,7 +184,7 @@ def booking_self(request):
 
         for scent in room_scent:
             room_scent_data = {
-                "scent_uid": scent.uid,
+                "uid": scent.uid,
                 "scent_name": scent.scent_name,
                 "description": scent.description,
             }
