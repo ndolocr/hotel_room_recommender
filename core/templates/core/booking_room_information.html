@@ -70,7 +70,7 @@
                                                             <abbr title=""><b>Address:</b></abbr> {{guest.address}} <br />
                                                             <abbr title=""><b>Area Code:</b></abbr> {{guest.area_code}} <br />
                                                             <abbr title=""><b>Town:</b></abbr> {{guest.town}} <br />
-                                                            
+                                                            <br>
                                                         </address>
                                                         
                                                     </div>
@@ -203,6 +203,20 @@
                                                         </div>
                                                     </div>
                                                     <!-- end room temprature-->
+
+                                                    <!-- begin room elements -->
+                                                    <div class="col-md-12">
+                                                        <hr>
+                                                        <div class="row">
+                                                            {% for item in room_elements_response %}
+                                                                <div class="form-group col-md-2">
+                                                                    <label class="control-label">{{item.name}}</label> 
+                                                                    <input type="checkbox" class="form-control col-md-2" value="{{item.uid}}" name="checks[]" />
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>                                                    
+                                                    <!-- end room elements -->
                                                     
                                                 </form>
                                             </div>
