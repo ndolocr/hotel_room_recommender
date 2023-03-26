@@ -133,7 +133,7 @@
                                                                     Room View
                                                                 </option>
                                                                 {% for view in room_view_response %}
-                                                                <option value="{{view.name}}"> {{view.name}} </option>
+                                                                <option value="{{view.uid}}"> {{view.name}} </option>
                                                                 {% endfor %}
                                                             </select>
                                                         </div>
@@ -149,12 +149,30 @@
                                                                     Room Scent
                                                                 </option>
                                                                 {% for scent in room_scent_response %}
-                                                                <option value="{{scent.scent_name}}"> {{scent.scent_name}} </option>
+                                                                <option value="{{scent.uid}}"> {{scent.scent_name}} </option>
                                                                 {% endfor %}
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <!-- end room scent-->
+
+                                                     <!-- begin room light-->
+                                                     <div class="form-group col-md-3">
+                                                        <label>Room Light Range</label>
+                                                        <div class="input-group">
+                                                            <select id="title" name="title" class="select2 form-control">
+                                                                <option value="none" selected disabled hidden>
+                                                                    Room Lighting
+                                                                </option>
+                                                                {% for light in room_light_response %}
+                                                                <option value="{{light.uid}}"> {{light.min_light}} - {{light.min_light}} </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end room light-->
+
+                                                    
                                                     
                                                 </form>
                                             </div>
