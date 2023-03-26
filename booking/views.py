@@ -99,7 +99,7 @@ def booking_self(request):
         for room_type in room_types:
             room_type_data = {
                 "uid" : room_type.uid,
-                "Name": room_type.name,
+                "name": room_type.name,
                 "room_type_uid": room_type.uid,
                 "created_on": room_type.created_on,
                 "Description": room_type.description,
@@ -190,10 +190,7 @@ def booking_self(request):
         # end room humidity range
 
         context = {
-            "guest_id": guest.uid,
-            "guest_email": guest.email,
-            "guest_last_name": guest.last_name,        
-            "guest_first_name": guest.first_name,
+            "guest": guest,
             "room_view_response": room_view_response,
             "room_type_response": room_type_response,
             "room_light_response": room_light_response,
@@ -203,6 +200,6 @@ def booking_self(request):
             "room_temprature_response": room_temprature_response,
         }
 
-        return render(request, 'core/booking_room_information.html', context=context)
+        return render(request, 'core/booking_room_information.html', context=context) 
     else:
         return redirect('login_user')
