@@ -165,14 +165,28 @@
                                                                     Room Lighting
                                                                 </option>
                                                                 {% for light in room_light_response %}
-                                                                <option value="{{light.uid}}"> {{light.min_light}} - {{light.min_light}} </option>
+                                                                <option value="{{light.uid}}"> {{light.min_light}} - {{light.max_light}} </option>
                                                                 {% endfor %}
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <!-- end room light-->
 
-                                                    
+                                                    <!-- begin room humidity-->
+                                                     <div class="form-group col-md-3">
+                                                        <label>Room Humidity Range</label>
+                                                        <div class="input-group">
+                                                            <select id="title" name="title" class="select2 form-control">
+                                                                <option value="none" selected disabled hidden>
+                                                                    Room Humidity
+                                                                </option>
+                                                                {% for humidity in room_humidity_response %}
+                                                                <option value="{{humidity.uid}}"> {{humidity.min_humidity}} - {{humidity.max_humidity}} </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end room humidity-->
                                                     
                                                 </form>
                                             </div>
