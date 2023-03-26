@@ -124,6 +124,22 @@
                                                     </div>
                                                     <!-- end room type-->
 
+                                                    <!-- begin view preference-->
+                                                    <div class="form-group col-md-3">
+                                                        <label>Room View Preference</label>
+                                                        <div class="input-group">
+                                                            <select id="title" name="title" class="select2 form-control">
+                                                                <option value="none" selected disabled hidden>
+                                                                    Room View
+                                                                </option>
+                                                                {% for view in room_view_response %}
+                                                                <option value="{{view.name}}"> {{view.name}} </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end view preference-->
+
                                                    
                                                     
                                                 </form>
