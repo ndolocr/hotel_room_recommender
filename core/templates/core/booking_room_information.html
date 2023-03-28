@@ -51,7 +51,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="portlet-body form">
-                            
+                            <!-- Begin Form -->
+                            <!-- <form method="POST"> -->
+                                
                                 <div class="form-body">
                                     <!-- <div class="row">
                                         <div class="col-md-12">
@@ -71,7 +73,7 @@
                                                             <abbr title=""><b>Town:</b></abbr> {{guest.town}} <br /> -->
                                                             <!-- <br> -->
                                                         </address>
-                                                        
+                                                        <input type="text" hidden value="{{guest.uid}}" name="guest_uid" id="guest_uid">
                                                     </div>
                     
                                                     <div class="process-line" style="width: 33%;"></div>
@@ -103,6 +105,7 @@
 
                                     <!-- Begin Room Preference -->
                                     
+                                        
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="row">
@@ -112,11 +115,11 @@
                                                     <!-- <label>Room Type</label> -->
                                                     <div class="input-group">
                                                         <select id="room_type" name="room_type" class="select2 form-control">
-                                                            <option value="none" selected disabled hidden>
+                                                            <option value="" selected disabled hidden>
                                                                 Room Type
                                                             </option>
                                                             {% for type in room_type_response %}
-                                                            <option value="{{type.name}}"> {{type.name}} </option>
+                                                            <option value="{{type.uid}}"> {{type.name}} </option>
                                                             {% endfor %}
                                                         </select>
                                                     </div>
@@ -128,11 +131,12 @@
                                                     <!-- <label>Room View Preference</label> -->
                                                     <div class="input-group">
                                                         <select id="room_view" name="room_view" class="select2 form-control">
-                                                            <option value="none" selected disabled hidden>
+                                                            <option value="" selected disabled hidden>
                                                                 Room View
                                                             </option>
                                                             {% for view in room_view_response %}
-                                                            <option value="{{view.uid}}"> {{view.name}} </option>
+
+                                                            <option value="{{view.uid}}"> {{view.name}}</option>
                                                             {% endfor %}
                                                         </select>
                                                     </div>
@@ -144,7 +148,7 @@
                                                     <!-- <label>Room Scent</label> -->
                                                     <div class="input-group">
                                                         <select id="room_scent" name="room_scent" class="select2 form-control">
-                                                            <option value="none" selected disabled hidden>
+                                                            <option value="" selected disabled hidden>
                                                                 Room Scent
                                                             </option>
                                                             {% for scent in room_scent_response %}
@@ -160,7 +164,7 @@
                                                     <!-- <label>Room Light Range</label> -->
                                                     <div class="input-group">
                                                         <select id="room_light" name="room_light" class="select2 form-control">
-                                                            <option value="none" selected disabled hidden>
+                                                            <option value="" selected disabled hidden>
                                                                 Room Lighting
                                                             </option>
                                                             {% for light in room_light_response %}
@@ -176,7 +180,7 @@
                                                     <!-- <label>Room Humidity Range</label> -->
                                                     <div class="input-group">
                                                         <select id="room_humidity" name="room_humidity" class="select2 form-control">
-                                                            <option value="none" selected disabled hidden>
+                                                            <option value="" selected disabled hidden>
                                                                 Room Humidity
                                                             </option>
                                                             {% for humidity in room_humidity_response %}
@@ -192,7 +196,7 @@
                                                     <!-- <label>Room Temprature Range</label> -->
                                                     <div class="input-group">
                                                         <select id="room_temprature" name="room_temprature" class="select2 form-control">
-                                                            <option value="none" selected disabled hidden>
+                                                            <option value="" selected disabled hidden>
                                                                 Room Temprature
                                                             </option>
                                                             {% for temprature in room_temprature_response %}
@@ -210,48 +214,132 @@
                                                         {% for item in room_elements_response %}
                                                             <div class="form-group col-md-2">
                                                                 <!-- <label class="control-label">{{item.name}}</label>  -->
-                                                                {{item.name}} - <input type="checkbox" class="col-md-2" value="{{item.uid}}" name="checks[]" />
+                                                                {{item.name}} - <input type="checkbox" class="col-md-2" value="{{item.uid}}" name="checks" />
                                                             </div>
                                                         {% endfor %}
                                                     </div>
                                                 </div>                                                    
                                                 <!-- end room elements -->                                                    
-                                                
+                                                <!-- begin room temprature-->
+                                                <div class="form-group col-md-3">
+                                                    <!-- <label>Room Temprature Range</label> -->
+                                                    <div class="input-group">
+                                                        <input type="submit" name="submit" id="submit" class="btn btn-primary" value="Search Rooms">
+                                                    </div>
+                                                </div>
+                                                <!-- end room temprature-->
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <!-- End Room Preference -->
 
                                 </div>
-                            
+                            <!-- </form> -->
+                            <!-- End Form -->
                         </div>
                     </div>
                 </div>
                 <!-- end guest details -->
+                <br>
+                <!-- begin available rooms -->                
+                    <div class="row" style="margin-bottom: 20px;">
+                        <div class="col-md-12">
 
-                <!-- begin available rooms -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body"> 
-                                <h5> Available Rooms </h5>
-                                <div class="row">
-                                {% for item in room_elements_response %}
-                                <div class="form-group col-md-2">
-                                    <!-- <label class="control-label">{{item.name}}</label>  -->
-                                    {{item.name}} - <input type="checkbox" class="col-md-2" value="{{item.uid}}" name="checks[]" />
+                            <div class="card">
+                                <div class="card-body"> 
+                                    <h5> Available Rooms </h5> 
+                                    <p> Select a Room Number form available rooms.</p>                                   
+                                    <div class="row" id="available_rooms">
+                                    
                                 </div>
-                                {% endfor %}
-                            </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                </div>
-                <!-- end available rooms -->
+                        
+                    </div>                
+                <!-- end available rooms -->                
             </div>
         </div>
     </div>
 </div>
+
+<script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
+<script>
+    $(document).ready(function(){
+        let geust_uid = document.getElementById("guest_uid");
+        let room_view = document.getElementById("room_view");
+        let room_type = document.getElementById("room_type");
+        let room_scent = document.getElementById("room_scent");
+        let room_light = document.getElementById("room_light");
+        let room_humidity = document.getElementById("room_humidity");
+        let room_temprature = document.getElementById("room_temprature");
+        
+        
+       
+        $('#submit').click(function(event){
+            event.preventDefault();
+            let checkedValues = [];   
+            let guest_uid_value = geust_uid.value;
+            let room_type_value = room_type.value;
+            let room_view_value = room_view.value;
+            let room_scent_value = room_scent.value;
+            let room_light_value = room_light.value;
+            let room_humidity_value = room_humidity.value;
+            let room_temprature_value = room_temprature.value;
+            const checkboxes = document.querySelectorAll('input[name="checks"]:checked');
+            
+            // loop through checkboxes and add checked values to array
+            checkboxes.forEach(function(checkbox) {
+                checkedValues.push(checkbox.value);
+            });
+
+            console.log("Checkoboxes", checkedValues);
+            
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'filter-rooms' %}",
+                data: {       
+                    "checked_values": checkedValues,
+                    "room_type_value": room_type_value,
+                    "room_view_value": room_view_value,
+                    "room_scent_value": room_scent_value,
+                    "room_light_value": room_light_value,
+                    "room_humidity_value": room_humidity_value,
+                    "room_temprature_value": room_temprature_value,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+
+                success: function (response) {                                                                                            
+                    let raw_query_field = document.getElementById("raw_query");
+                    let available_rooms = document.getElementById("available_rooms");
+                    
+                    var raw_query = response.raw_query;
+                    var roomResponse = response.room_response;
+                    var html = '';
+                    
+                    for (var i = 0; i < roomResponse.length; i++) {
+                        var item = roomResponse[i];                        
+                        html += '<div class="form-group col-md-1">';
+                        html += '<div class="row">';
+                        html += '<div class="col-md-1 ">';
+                        html += '<a href="/booking/room/'+ guest_uid_value +'/'+ item.uid +'" class="btn btn-primary">'+ item.room_number + ' </a>';
+                        html += '</div>';
+                        // html += '<div class="col-md-10"><input type="radio" class="col-md-2" value="' + item.uid + '" name="selected_room"></div>';
+                        html += '</div>';
+                        html += '</div>';                        
+                    }
+
+                    $('#available_rooms').html(html);
+                    // raw_query_field.value = raw_query;
+
+                },
+
+            });
+
+        });
+        
+    });
+</script>
 {% endblock %}
 

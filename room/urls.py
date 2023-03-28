@@ -44,4 +44,7 @@ urlpatterns = [
     path('add', views.addRoom, name='room-add'),
     path('', views.getAllRooms, name='room-view-all'),
     path('view/<str:uid>', views.getSingleRoom, name='room-view-single'),
+    
+    # filter Rooms
+    path('filter', views.filterRooms, name='filter-rooms'),
 ]
