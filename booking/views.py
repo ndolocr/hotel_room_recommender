@@ -1,4 +1,5 @@
 from datetime import datetime
+from dateutil import relativedelta
 
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -194,12 +195,14 @@ def booking_self(request):
 
         # begin room 
         room_response = []
-        rooms = Room.nodes.all()
+        rooms = Room.nodes.filter(availability="available")
+        room_query = "Room.nodes.filter(availability='availabile')"
 
         for room in rooms:
             room_data = {
                 'uid': room.uid,
-                'floor': room.floor,                                
+                'floor': room.floor,  
+                'room_query': room_query,
                 'room_number': room.room_number,
                 'availability': room.availability,
                 'room_view_id': room.room_view_id,
@@ -216,7 +219,7 @@ def booking_self(request):
 
         context = {
             "guest": guest,
-            "room_response": room_response,
+            # "room_response": room_response,
             "room_view_response": room_view_response,
             "room_type_response": room_type_response,
             "room_light_response": room_light_response,
@@ -229,3 +232,22 @@ def booking_self(request):
         return render(request, 'core/booking_room_information.html', context=context) 
     else:
         return redirect('login_user')
+    
+def booking_room(request, guest_uid, room_uid):
+
+    room = Room.nodes.get(uid = room_uid)
+    guest = User.nodes.get(uid = guest_uid)
+
+    todays_date = datetime.today()
+    dob = datetime.strptime(str(guest.dob), '%Y-%m-%d')
+
+    age_in_days = relativedelta.relativedelta(todays_date, dob)
+    age = age_in_days.years
+    
+    context = {
+        "age": age,
+        "room": room,
+        "guest": guest,
+    }
+
+    return render(request, 'core/reserve_room.html', context=context)
