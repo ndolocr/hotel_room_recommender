@@ -81,13 +81,19 @@ class RoomAccessibility(StructuredNode):
 
 
 class Room(StructuredNode):
+    AVAILABILITY_CHOICES = [
+        ('Open', 'Open'),
+        ('Booked', 'Booked'),
+        ('Reserved', 'Reserved'),
+    ]
+
     uid = UniqueIdProperty()
     floor = StringProperty()
     created_on = DateProperty()
     hotel_id = StringProperty()        
     room_number  = StringProperty()
     cost_per_night = FloatProperty()
-    availability = StringProperty(choices=['open', 'booked', 'reserved'])
+    availability = StringProperty(choices=AVAILABILITY_CHOICES)
 
     room_view_id = StringProperty()
     room_type_id = StringProperty()
