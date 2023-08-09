@@ -40,7 +40,7 @@ class Pet(StructuredNode):
     name = StringProperty(required = False)
     pet_type = StringProperty(required = False)
 
-    guest = RelationshipTo(Guest, 'Pet of Guest')
+    guest = RelationshipTo(Guest, 'Pet of')
 
 class GuestAttributes(StructuredNode):
     is_smoker = StringProperty(required = False)

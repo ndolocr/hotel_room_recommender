@@ -77,7 +77,7 @@ class Room(StructuredNode):
     floor = StringProperty()
     created_on = DateProperty()
     hotel_id = StringProperty()    
-    availability = StringProperty()
+    availability = StringProperty(choices=['open', 'booked', 'reserved'])
     room_number  = StringProperty()
     cost_per_night = FloatProperty()
 
