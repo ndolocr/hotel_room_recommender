@@ -71,6 +71,14 @@ class RoomScent(StructuredNode):
     updated_on = DateProperty()
     created_on = DateProperty()
 
+class RoomAccessibility(StructuredNode):
+    uid = UniqueIdProperty()
+    description = StringProperty()
+    accessibility_feature = StringProperty()
+    
+    updated_on = DateProperty()
+    created_on = DateProperty()
+
 
 class Room(StructuredNode):
     uid = UniqueIdProperty()
@@ -85,9 +93,10 @@ class Room(StructuredNode):
     room_type_id = StringProperty()
     room_light_id = StringProperty()
     room_scent_id = StringProperty()
-    room_element_id = StringProperty()
+    room_element_id = StringProperty()    
     room_humidity_id = StringProperty()
     room_temprature_id = StringProperty()
+    room_accessibility_id = StringProperty()
     
     updated_on = DateProperty()
     created_on = DateProperty()
@@ -100,6 +109,7 @@ class Room(StructuredNode):
     room_humidity = RelationshipTo(RoomHumidity, 'Humidity Range in a Room')    
     room_view = RelationshipTo(RoomViewPreference, 'View visible while in room')
     room_temprature = RelationshipTo(RoomTemprature, 'Temprature Range in a Room')
+    room_accessibility = RelationshipTo(RoomAccessibility, 'Accessibility of the Room')
 
 
 
