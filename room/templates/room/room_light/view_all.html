@@ -21,10 +21,10 @@
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> Minimum Temprature </th>
-                            <th> Maximum Temprature </th>                          
+                            <th> Minimum Illuminance </th>
+                            <th> Maximum Illuminance </th>                          
                             <th> Created On </th>
-                            <th> Delete </th>
+                            <th> Delete </th> 
 
                         </tr>
                     </thead>
@@ -32,8 +32,8 @@
                         {% for record in data %}
                         <tr>
                             <td> {{ forloop.counter }} </td>
-                            <td> {{ record.min_light }} </td>
-                            <td> {{ record.max_light }} </td>
+                            <td> {{ record.min_light }} lux</td>
+                            <td> {{ record.max_light }} lux</td>
                             <td> {{ record.created_on }} </td>
                             <td style="text-align: center;"> <a href=""> <i class="fa fa-delete" aria-hidden="true"></i> </a> </td>                       
                         </tr>

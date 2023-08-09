@@ -74,7 +74,7 @@ class RoomScent(StructuredNode):
 class RoomAccessibility(StructuredNode):
     uid = UniqueIdProperty()
     description = StringProperty()
-    accessibility_feature = StringProperty()
+    accessibility_name = StringProperty()
     
     updated_on = DateProperty()
     created_on = DateProperty()
@@ -83,8 +83,9 @@ class RoomAccessibility(StructuredNode):
 class Room(StructuredNode):
     AVAILABILITY_CHOICES = [
         ('Open', 'Open'),
-        ('Booked', 'Booked'),
+        ('Booked', 'Booked'),        
         ('Reserved', 'Reserved'),
+        ('available', 'available'),
     ]
 
     uid = UniqueIdProperty()

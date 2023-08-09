@@ -19,25 +19,25 @@
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover">
                     <tr>
-                        <th> Room Number </th> <td> {{ room.room_number }} </td>
-                    </tr>
-                    <tr>
-                        <th> Floor </th> <td> {{ room.floor }} </td>
-                    </tr>
-                    <tr>
-                        <th> Cost Per Night </th> <td> Ksh. {{ room.cost_per_night }} </td>
-                    </tr>
-                    <tr>
-                        <th> Availability </th> <td> {{ room.availability }} </td>
+                        <th> Room </th> <td> {{ room.room_number }} </td>
                     </tr>
                     <tr>
                         <th> Hotel </th> <td> <a href="{% url 'hotel-get-single' hotel.hotel_uid %}"> {{ hotel.hotel_name }} </a> </td>
+                    </tr>
+                    <tr>
+                        <th> Floor </th> <td> {{ room.floor }} </td>
+                    </tr>                    
+                    <tr>
+                        <th> Availability </th> <td> {{ room.availability }} </td>
                     </tr>
                     <tr>
                         <th> Room Type </th> <td> <a href="{% url 'room-type-view-single' room_type.room_type_uid %}"> {{ room_type.room_type_name }} </a> </td>
                     </tr>
                     <tr>
                         <th> Created On </th> <td> {{ room.created_on }} </td>
+                    </tr>
+                    <tr>
+                        <th> Cost Per Night </th> <td> Ksh. {{ room.cost_per_night }} </td>
                     </tr>
                     <tr> <th colspan="2" style="text-align: center;"> Elements</th> </tr>
                     <tr> 

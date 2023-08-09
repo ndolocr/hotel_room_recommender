@@ -123,7 +123,20 @@
                                 {% endfor %}
                             </select>                        
                         </div>  
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Room Accessibility</label>
+                            <select class="form-control" name="room_accessibility">
+                                <option value="none" selected disabled hidden >------ Room Accessibility ---------</option>
+                                {% for room_access in room_accessibility %}
+                                    <option value="{{ room_access.uid }}" > {{ room_access.name }} </option>
+                                {% endfor %}
+                            </select>                        
+                        </div>  
+
                     </div>
+
+                    
                     
                     <hr>
                     Room Element

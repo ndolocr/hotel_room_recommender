@@ -34,6 +34,10 @@ urlpatterns = [
     # Room Humidity
     path('humidity/add', views.addRoomHumidity, name='room-humidity-add'),
     path('humidity', views.viewAllRoomHumidity, name = 'room-humidity-view-all'),
+
+    # Room Accessibility
+    path('accessibility/add', views.addAccessibilityFeature, name='room-accessibility-add'),
+    path('accessibility', views.getAllAccessibilityFeatures, name='room-accessibility-view-all'),
     
 
     path('connect/to/hotel', views.connectHotelToRoom, name="connect-hotel-to-room"),

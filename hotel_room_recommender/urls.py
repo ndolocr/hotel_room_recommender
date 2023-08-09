@@ -34,8 +34,10 @@ urlpatterns = [
     path('capture/guest/information', capture_guest_data, name="capture_guest_information"),
     
     
-    path('room/', include('room.urls')),
-    path('hotel/', include('hotel.urls')),
+    path('room/', include('room.urls')),    
     path('user/', include('user_manager.urls')),
     # path('admin', include('administrator.urls')),
+
+    # Admin pages
+    path('hotel/', include('hotel.urls')),
 ]

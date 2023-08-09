@@ -21,6 +21,7 @@ from room.models import RoomElement
 from room.models import RoomHumidity
 from room.models import RoomTemprature
 from room.models import RoomViewPreference
+from room.models import RoomAccessibility
 
 # Create your views here.
 # ***********************************************************************************
@@ -119,6 +120,7 @@ def addRoom(request):
         room_temprature = request.POST['room_temprature']
         room_element_list = request.POST.getlist('checks[]')
         cost_per_night = float(request.POST['cost_per_night'])
+        room_accessibility = request.POST['room_accessibility']
         
         try:
             room = Room(
@@ -136,6 +138,7 @@ def addRoom(request):
                 room_humidity_id = room_humidity,
                 room_temprature_id = room_temprature,
                 room_element_id = room_element_list,
+                room_accessibility_id = room_accessibility,
             )
             room.save()
 
@@ -151,12 +154,14 @@ def addRoom(request):
             room_view_obj = RoomViewPreference.nodes.get(uid = room_view)
             room_humidity_obj = RoomHumidity.nodes.get(uid = room_humidity)
             room_temprature_obj = RoomTemprature.nodes.get(uid = room_temprature)
+            room_accessibility_obj = RoomAccessibility.nodes.get(uid=room_accessibility)
 
             room_scent_connection = room.room_scent.connect(room_scent_obj)
             room_light_connection = room.room_light.connect(room_light_obj)
             room_view_connection = room.room_view.connect(room_view_obj)
             room_humidity_connection = room.room_humidity.connect(room_humidity_obj)
             room_temprature_connection = room.room_temprature.connect(room_temprature_obj)
+            room_accessibility_connection = room.room_accessibility.connect(room_accessibility_obj)
 
 
             for data in room_element_list:
@@ -279,6 +284,19 @@ def addRoom(request):
 
                 room_scent_response.append(room_scent_dictionary)
 
+            room_accessibility_query = RoomAccessibility.nodes.all()
+            room_accessibility_response = []
+
+            for room_accessibility_record in room_accessibility_query:
+                room_accessibility_dictionary = {
+                    "uid": room_accessibility_record.uid,
+                    "created_on": room_accessibility_record.created_on,
+                    "name": room_accessibility_record.accessibility_name,
+                    "description": room_accessibility_record.description,
+                }
+
+                room_accessibility_response.append(room_accessibility_dictionary)
+
 
             context = {
                 "hotels": hotel_response,
@@ -288,7 +306,8 @@ def addRoom(request):
                 "room_scents": room_scent_response,
                 "room_elements": room_element_response,
                 "room_humidities": room_humidity_response,
-                "room_tempratures": room_temprature_response,                
+                "room_tempratures": room_temprature_response, 
+                "room_accessibility": room_accessibility_response,
             }
             return render(request, 'room/room_pages/add.html', context)  
         except Exception as e:
@@ -775,7 +794,7 @@ def viewAllRoomLight(request):
     try:
         context = {}
         response_data = []
-        query = RoomLight.nodels.all()
+        query = RoomLight.nodes.all()
 
         for record in query:
             record_dictionary = {
@@ -786,12 +805,58 @@ def viewAllRoomLight(request):
 
             response_data.append(record_dictionary)
         context = {"data": response_data}
+        return render(request, 'room/room_light/view_all.html', context=context)
     except Exception as e:
         response = {
-            "ERROR": "Error while fetching records for room lighting"
+            "ERROR": "Error while fetching records for room lighting -> {}".format(e)
         }
         return JsonResponse(response)
     
+# ***************************************************************************************************** #
+# Room Accessibility Features
+
+def addAccessibilityFeature(request):
+    if request.method == "POST":
+        try:
+            accessibility_name = request.POST["name"]
+            description = request.POST["description"]
+
+            query = RoomAccessibility(                
+                description = description,
+                created_on = datetime.now(),
+                accessibility_name = accessibility_name
+            )
+
+            query.save()
+            return render(request, 'room/room_accessibility/add.html')
+        except Exception as e:
+            response = { "ERROR": "Error while saving room accessibility features - {}".format(e)}
+            return JsonResponse(response, safe=False)
+    else:
+        return render(request, 'room/room_accessibility/add.html')
+
+def getAllAccessibilityFeatures(request):
+    try:
+        context = {}
+        response_data = []
+        query = RoomAccessibility.nodes.all()
+
+        for record in query:
+            record_dictionary = {
+                'created_on': record.created_on,
+                'description': record.description,
+                'accessibility_name': record.accessibility_name,                
+            }
+
+            response_data.append(record_dictionary)
+        context = {"data": response_data}
+        return render(request, 'room/room_accessibility/view_all.html', context=context)
+    except Exception as e:
+        response = {
+            "ERROR": "Error while fetching records for room accessibility features -> {}.".format(e)
+        }
+        return JsonResponse(response)
+
 # ***************************************************************************************************** #
 # Room Scent
 
