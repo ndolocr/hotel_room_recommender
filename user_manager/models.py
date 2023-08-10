@@ -345,37 +345,37 @@ class UserNode(StructuredNode):
 
     django_user = models.OneToOneField("UserManager", on_delete=models.CASCADE)
 
-    guest = RelationshipTo('Guest', 'Guest of')
+    guest = RelationshipTo('UserNode', 'Guest of')
 
 class Pet(StructuredNode):
     name = StringProperty(required = False)
     pet_type = StringProperty(required = False)
 
-    guest = RelationshipTo(Guest, 'Pet of')
+    guest = RelationshipTo(UserNode, 'Pet of')
 
 class GuestAttributes(StructuredNode):
     is_smoker = StringProperty(required = False)
     health_condition = StringProperty(required = False)
 
-    guest = RelationshipTo(Guest, 'Attributes of Guest')
+    guest = RelationshipTo(UserNode, 'Attributes of Guest')
     
 class Allergy(StructuredNode):
     name = StringProperty(required = False)
     description = StringProperty(required = False)
-    guest = RelationshipTo(Guest, 'Guest allergy')
+    guest = RelationshipTo(UserNode, 'Guest allergy')
 
 class Disability(StructuredNode):
     name = StringProperty(required = False)
     disability_type = StringProperty(required = False)
     diasability_description = StringProperty()
 
-    guest = RelationshipTo(Guest, 'Guest disability')
+    guest = RelationshipTo(UserNode, 'Guest disability')
 
 class Illness(StructuredNode):
     name = StringProperty(required = False)
     description = StringProperty(required = False)
 
-    guest = RelationshipTo(Guest, 'Guest suffers from')
+    guest = RelationshipTo(UserNode, 'Guest suffers from')
 
 
 class UserManager(AbstractBaseUser):
