@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'room',
     'hotel',
     'user_manager',
-    'administrator',
     'rest_framework',
     'django_neomodel', 
 ]

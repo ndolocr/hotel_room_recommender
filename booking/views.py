@@ -6,9 +6,6 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.utils.dateparse import parse_datetime
 
-from hotel_guest.models import HotelGuest
-from user_manager.models import UserManager
-
 from room.models import Room
 from room.models import RoomType
 from room.models import RoomLight
@@ -17,6 +14,8 @@ from room.models import RoomElement
 from room.models import RoomHumidity
 from room.models import RoomTemprature
 from room.models import RoomViewPreference
+
+from user_manager.models import UserManager
 
 # Create your views here.
 def booking(request):
