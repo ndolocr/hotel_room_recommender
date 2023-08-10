@@ -6,7 +6,6 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.utils.dateparse import parse_datetime
 
-from user_manager.models import User
 from hotel_guest.models import HotelGuest
 from user_manager.models import UserManager
 
