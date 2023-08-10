@@ -306,9 +306,19 @@ class UserModuleManager(BaseUserManager):
     
 class UserNode(StructuredNode):
     """creates a usermodel that supports email address instead of username"""
+    USERROLE_CHOICES = [
+        ('Guest', 'Guest'),
+        ('Staff', 'Staff'),        
+        ('Admin', 'Admin'),
+    ]
+
+    USERTYPE_CHOICES = [
+        ('Minor', 'Minor'),
+        ('Mature', 'Mature'),
+    ]
 
     uid = UniqueIdProperty()
-    town = StringProperty()
+    town = StringProperty()    
     email = StringProperty()
     title = StringProperty()
     gender = StringProperty()
@@ -326,12 +336,46 @@ class UserNode(StructuredNode):
     hotel_guest_id = StringProperty()
     id_document_type = StringProperty()
     id_document_number = StringProperty()
-    
+    user_role = StringProperty(choices=USERROLE_CHOICES)
+    user_type = StringProperty(choices=USERTYPE_CHOICES)
+
     dob = DateProperty()
     updated_on = DateProperty()
     created_on = DateProperty()
 
     django_user = models.OneToOneField("UserManager", on_delete=models.CASCADE)
+
+    guest = RelationshipTo('Guest', 'Guest of')
+
+class Pet(StructuredNode):
+    name = StringProperty(required = False)
+    pet_type = StringProperty(required = False)
+
+    guest = RelationshipTo(Guest, 'Pet of')
+
+class GuestAttributes(StructuredNode):
+    is_smoker = StringProperty(required = False)
+    health_condition = StringProperty(required = False)
+
+    guest = RelationshipTo(Guest, 'Attributes of Guest')
+    
+class Allergy(StructuredNode):
+    name = StringProperty(required = False)
+    description = StringProperty(required = False)
+    guest = RelationshipTo(Guest, 'Guest allergy')
+
+class Disability(StructuredNode):
+    name = StringProperty(required = False)
+    disability_type = StringProperty(required = False)
+    diasability_description = StringProperty()
+
+    guest = RelationshipTo(Guest, 'Guest disability')
+
+class Illness(StructuredNode):
+    name = StringProperty(required = False)
+    description = StringProperty(required = False)
+
+    guest = RelationshipTo(Guest, 'Guest suffers from')
 
 
 class UserManager(AbstractBaseUser):
@@ -343,27 +387,6 @@ class UserManager(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
     email = models.CharField(max_length=100, unique=True)
 
-    # Wrap the Neo4j user node
-    # user_node = models.OneToOneField("UserNode", on_delete=models.CASCADE)
-
     objects = UserModuleManager()
 
     USERNAME_FIELD = "email"
-
-    # def get_node_attribute(self, name):
-    #     return getattr(self.node, name)
-
-    # def set_node_attribute(self, name, value):
-    #     setattr(self.node, name, value)
-
-    # def __getattr__(self, name):
-    #     try:
-    #         return self.get_node_attribute(name)
-    #     except AttributeError:
-    #         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    # def __setattr__(self, name, value):
-    #     if hasattr(self, 'node') and hasattr(self.node, name):
-    #         self.set_node_attribute(name, value)
-    #     else:
-    #         super().__setattr__(name, value)
