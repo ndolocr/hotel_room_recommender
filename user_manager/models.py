@@ -24,6 +24,9 @@ class UserModuleManager(BaseUserManager):
         Creates and saves a User with the given email and password.
         email, password, False, **data
         """
+
+        print("Creating User in Django DB!")
+
         if not email:
             raise ValueError('The Email must be set')
         email = self.normalize_email(email)
@@ -82,7 +85,6 @@ class UserNode(StructuredNode):
     nationality = StringProperty()
     phone_number = StringProperty()    
     marital_status = StringProperty()
-    hotel_guest_id = StringProperty()
     id_document_type = StringProperty()
     id_document_number = StringProperty()
     user_role = StringProperty(choices=USERROLE_CHOICES)
@@ -92,9 +94,10 @@ class UserNode(StructuredNode):
     updated_on = DateProperty()
     created_on = DateProperty()
 
-    django_user = models.OneToOneField("UserManager", on_delete=models.CASCADE)
+    # user = models.OneToOneField("UserManager", on_delete=models.CASCADE)
 
-    guest = RelationshipTo('UserNode', 'Guest of')
+    child = RelationshipTo('UserNode', 'Child of')
+    guest = RelationshipTo('UserNode', 'Guest of') 
 
 class Pet(StructuredNode):
     uid = UniqueIdProperty()
@@ -146,8 +149,10 @@ class UserManager(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    email = models.CharField(max_length=100, unique=True)
+    email = models.CharField(max_length=100, unique=True, null=True, default="")
+    user_node_id = models.CharField(max_length=255, null=True, default="")
+    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     objects = UserModuleManager()
-
-    USERNAME_FIELD = "email"

@@ -7,18 +7,23 @@ from django.utils.dateparse import parse_datetime
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 
-from user_manager.models import User
+from user_manager.models import UserNode
 from user_manager.models import UserManager
 
 
+
 # Create your views here.
-def register(request):
+def self_register(request):
     if request.method == "GET":
         context = {}
         return render(request, 'user_manager/register.html', context = context)
     else:
+        
         password = request.POST["password"]
         confirm_password = request.POST["confirm_password"]
+        print("PAssword before Hash {}".format(password))
+
+        print("Password after Hash -> {}".format(make_password(password)))
 
         if password == confirm_password:
 
@@ -40,16 +45,21 @@ def register(request):
                 marital_status = request.POST['marital_status']
                 id_document_type = request.POST['id_document_type']
                 id_document_number = request.POST['id_document_number']
+                                
+                user_role = "Guest"
+                user_type = "Mature"
+                dob = parse_datetime(dob)                
 
-                dob = parse_datetime(dob)
-
-                user = User(
+                user = UserNode(
                     dob = dob,
                     town = town,
                     title = title,
+                    # user = user_id,
                     gender = gender,
                     address = address,
                     religion = religion,
+                    user_role = user_role,
+                    user_type = user_type,
                     area_code = area_code,
                     residency = residency,
                     last_name = last_name,
@@ -57,40 +67,27 @@ def register(request):
                     first_name = first_name,
                     middle_name = middle_name,
                     nationality = nationality,
-                    phone_number = phone_number,                    
+                    phone_number = phone_number, 
+                    created_on = datetime.now(),                   
                     marital_status = marital_status,
                     password = make_password(password),
                     id_document_type = id_document_type,
                     id_document_number = id_document_number,
-                    created_on = datetime.now(),
+                                        
                 )
 
                 user.save()
+                
+                user_uid = user.uid
 
-                user_manager = UserManager.objects.create(
-                    dob = dob,
-                    town = town,
-                    title = title,
-                    uid = user.uid,
-                    gender = gender,
-                    address = address,                    
-                    religion = religion,
-                    area_code = area_code,
-                    residency = residency,
-                    last_name = last_name,
-                    email = email_address,
-                    first_name = first_name,
-                    middle_name = middle_name,
-                    nationality = nationality,
-                    phone_number = phone_number,                    
-                    marital_status = marital_status,
-                    password = make_password(password),
-                    id_document_type = id_document_type,
-                    id_document_number = id_document_number,
-                    created_on = datetime.now(),
-                    is_staff = True,
-                    is_active = True                 
-                )
+                data = {
+                    "is_active": True,
+                    "is_staff": False,
+                    "is_superuser": False,
+                    "user_node_id": user_uid
+                }
+
+                us_mgr = UserManager.objects._create_user(email_address, password,  **data)
 
                 context = {
                     "message": "User successfully Registered",
