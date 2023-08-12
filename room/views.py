@@ -961,32 +961,36 @@ def filterRooms(request):
             new_query = "MATCH(room)-[:`Scent in a Room`]->(roomScent:RoomScent {uid: '%s'}) " %room_scent_value
             query = query + new_query
 
-        # if room_access_value:
-        #     new_query = "MATCH(room)-[:`Accessibility of the Room`]->(roomAccessibility:RoomAccessibility {uid: '%s'}) " %room_access_value
-        #     query = query + new_query
+        print("Min Light ->", min_light_value)
 
         if min_light_value:
-            new_query = "MATCH(room)-[:`Lighting Range in a Room`]->(roomLight:RoomLight WHERE roomLight.min_light >= '%s') " %min_light_value
+            min_light_value = float(min_light_value)
+            new_query = "MATCH(room)-[:`Lighting Range in a Room`]->(roomLight:RoomLight WHERE roomLight.min_light >= %f) " %min_light_value
             query = query + new_query
         
         if max_light_value:
-            new_query = "MATCH(room)-[:`Lighting Range in a Room`]->(roomLight:RoomLight WHERE roomLight.max_light <= '%s') " %max_light_value
+            max_light_value = float(max_light_value)
+            new_query = "MATCH(room)-[:`Lighting Range in a Room`]->(roomLight:RoomLight WHERE roomLight.max_light <= %f) " %max_light_value
             query = query + new_query
 
         if min_humidity_value:
-            new_query = "MATCH(room)-[:`Humidity Range in a Room`]->(roomHumidity:RoomHumidity WHERE roomHumidity.min_humidity >= '%s') " %min_humidity_value
+            min_humidity_value = float(min_humidity_value)
+            new_query = "MATCH(room)-[:`Humidity Range in a Room`]->(roomHumidity:RoomHumidity WHERE roomHumidity.min_humidity >= %f) " %min_humidity_value
             query = query + new_query
         
         if max_humidity_value:
-            new_query = "MATCH(room)-[:`Humidity Range in a Room`]->(roomHumidity:RoomHumidity WHERE roomHumidity.max_humidity <= '%s') " %max_humidity_value
+            max_humidity_value = float(max_humidity_value)
+            new_query = "MATCH(room)-[:`Humidity Range in a Room`]->(roomHumidity:RoomHumidity WHERE roomHumidity.max_humidity <= %f) " %max_humidity_value
             query = query + new_query
 
         if min_temprature_value:
-            new_query = "MATCH(room)-[:`Temprature Range in a Room`]->(roomTemprature:RoomTemprature WHERE roomTemprature.min_temprature >= '%s') " %min_temprature_value
+            min_temprature_value = float(min_temprature_value)
+            new_query = "MATCH(room)-[:`Temprature Range in a Room`]->(roomTemprature:RoomTemprature WHERE roomTemprature.min_temprature >= %f) " %min_temprature_value
             query = query + new_query
         
         if max_temprature_value:
-            new_query = "MATCH(room)-[:`Temprature Range in a Room`]->(roomTemprature:RoomTemprature WHERE roomTemprature.max_temprature <= '%s') " %max_temprature_value
+            max_temprature_value = float(max_temprature_value)
+            new_query = "MATCH(room)-[:`Temprature Range in a Room`]->(roomTemprature:RoomTemprature WHERE roomTemprature.max_temprature <= %f) " %max_temprature_value
             query = query + new_query
 
         query = query + " RETURN room"
@@ -1032,38 +1036,32 @@ def bookRoom(request):
         disability_features_value = request.POST.get("disability_features_value", None)
         room_element_list = request.POST.getlist('checkedRoomElementsValues[]')
 
-
+        date_to_val =""
         date_to_value = str(request.POST["date_to_value"])
-        if date_to_value:
-            # to_datetime_obj = datetime.strptime(date_to_value, "%Y-%m-%dT%H:%M:%S.%f")
+        print("Date To ->", date_to_value)
+        if date_to_value:            
             date_to_obj = datetime.strptime(date_to_value, "%Y-%m-%d").date()
-            date_to_value = date_to_obj
+            date_to_val = date_to_obj
+            print("Date To Value->", date_to_val)
         else: 
-            date_to_value=None
-
+            date_to_val=""
+        print("Final Date To Value->", date_to_val)
+        date_from_val=""
         date_from_value = str(request.POST["date_from_value"])
         if date_from_value:
             # from_datetime_obj = datetime.strptime(date_from_value, "%Y-%m-%dT%H:%M:%S.%f")
             date_from_obj = datetime.strptime(date_from_value, "%Y-%m-%d").date()
-            date_from_value = date_from_obj
+            date_from_val = date_from_obj
         else: 
-            date_from_value=None
+            date_from_val=None
         
         
         # Get guest Information to get religion        
         guest_obj = UserNode.nodes.get(uid=guest_uid)
         religion = guest_obj.religion
-        religious_book = ""
-        if religion == "Christian":
-            religious_book = "BIBLE"
-        elif religion == "Muslim":
-            religious_book = "QURAN"
-        elif religion == "Hindu":
-            religious_book = "GUITAR"
-        else:
-            religious_book = ""
         
-
+        religious_book = getReligiousBook(religion)
+        
         # Save Pet Information
         if pet_name:
             pet_obj = Pet(
@@ -1079,8 +1077,8 @@ def bookRoom(request):
         # datedate_to_value_from= datetime.strptime(date_to_value, format)
 
         reservation = Reservation(               
-            date_to_value = date_to_value,
-            date_from_value = date_from_value,            
+            date_to = date_to_val,
+            date_from = date_from_val,            
             religious_book = religious_book,
             min_light = min_light_value,
             max_light = max_light_value,
@@ -1141,7 +1139,12 @@ def bookRoom(request):
         
         # return redirect(url)
         
-
-
-
-        
+def getReligiousBook(religion):
+    if str(religion) == "Christian":
+        return "BIBLE"
+    elif str(religion) == "Islma":
+        return "QURAN"
+    elif str(religion) == "Hindu":
+        return "GUITAR"
+    else:
+        return "None"

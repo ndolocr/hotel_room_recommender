@@ -35,10 +35,10 @@
 </style>
 
 <div class="row">
-    <div class="col-lg-12 booking_background">                   
+    <div class="col-lg-12 ">                   
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-10 booking_section">
+            <div class="col-md-10 ">
                 <!-- begin booking title -->
                 <div class="row">
                     <div class="col-md-12" style="text-align: center;">
@@ -72,78 +72,56 @@
                                                             <abbr title=""><b>Address:</b></abbr> {{guest.address}} <br />
                                                             <abbr title=""><b>Area Code:</b></abbr> {{guest.area_code}} <br />
                                                             <abbr title=""><b>Town:</b></abbr> {{guest.town}} <br />
-                                                            <abbr title=""><b>Phone Number:</b></abbr> {{guest.phone_number}} <br />
-                                                            <abbr title=""><b>Gender:</b></abbr> {{guest.gender}} <br />
-                                                            <abbr title=""><b>Date of Birth:</b></abbr> {{guest.dob}} <br />
-                                                            <abbr title=""><b>Religion:</b></abbr> {{guest.religion}} <br />
-                                                            <abbr title=""><b>Marital Status:</b></abbr> {{guest.marital_status}} <br />
-                                                            <abbr title=""><b>Nationality:</b></abbr> {{guest.nationality}} <br />
-                                                            <abbr title=""><b>Residency:</b></abbr> {{guest.residency}} <br /> 
-                                                            <abbr title=""><b>Age:</b></abbr> {{age}} <br />  
-                                                            <!-- <br> -->
-                                                        </address>
-                                                        <input type="text" hidden value="{{guest.uid}}" name="guest_uid" id="guest_uid">
+                                                            <abbr title=""><b>Phone Number:</b></abbr> {{guest.phone_number}} <br />                                                            
+                                                            <br>
+                                                        </address>                                                        
                                                     </div>
                     
                                                     <div class="process-line" style="width: 33%;"></div>
                                                 </div>                                           
                                             </div>
-
+                                            <br>
                                             <div class="col-md-6">
                                                 <div class="card">
+                                                    <div class="card-body">     
+                                                        <h4> Guest Information</h4>                                                   
+                                                        <address class="mb-0 font-14 address-lg">
+                                                            <abbr title=""><b>Gender:</b></abbr> {{guest.gender}} <br />
+                                                            <abbr title=""><b>Date of Birth:</b></abbr> {{guest.dob}} <br />
+                                                            <abbr title=""><b>Religion:</b></abbr> {{guest.religion}} <br />
+                                                            <abbr title=""><b>Marital Status:</b></abbr> {{guest.marital_status}} <br />
+                                                            <abbr title=""><b>Nationality:</b></abbr> {{guest.nationality}} <br />
+                                                            <abbr title=""><b>Residency:</b></abbr> {{guest.residency}} <br />  
+                                                            <br>
+                                                        </address>                                                        
+                                                    </div>
+                    
+                                                    <div class="process-line" style="width: 33%;"></div>
+                                                </div>                                           
+                                            </div>
+                                            
+                                            <hr>
+                                            {% for reservation in reservation_response %}
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="card">
                                                     <div class="card-body">
-                                                        <h4> Room Information</h4>    
+                                                        <h4> Reservation Information</h4>    
                                                         <address class="mb-0 font-14 address-lg">
                                                             
-                                                            <abbr title=""><b>Room Number:</b></abbr> {{room.room_number}} <br />
-                                                            <abbr title=""><b>Cost Per Night:</b></abbr> {{room.cost_per_night}} <br />
-                                                            <abbr title=""><b>Room Location:</b></abbr> {{room.floor}} <br />                                                            
-                                                            {% if guest.religion == "Christian" %}
-                                                                <abbr title=""><b>Religious Book:</b></abbr> Bible <br />
-                                                            {% elif guest.religion == "Islam" %}
-                                                                <abbr title=""><b>Religious Book:</b></abbr> Quran <br />
-                                                            {% endif %}
-
-                                                            {% if age >= 50 %}
-                                                                <abbr title=""><b>Room Recommendation:</b></abbr> Silent rooms <br />                                                        
-                                                            {% endif %}
-                                                                                                                                                                 
+                                                            <abbr title=""><b>From:</b></abbr> {{reservation.date_from}} <br />
+                                                            <abbr title=""><b>To:</b></abbr> {{reservation.date_to}} <br />
+                                                            <abbr title=""><b>Amount Paid:</b></abbr> {{reservation.amount_paid}} <br />                                                            
+                                                            <abbr title=""><b>Religious Book:</b></abbr> {{reservation.religious_book}} <br />                                                                                                                                                                  
                                                         </address>
                                                         
                                                     </div>
                     
                                                     <div class="process-line" style="width: 33%;"></div>
-                                                </div>
-                                                <br>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                       <form>
-                                                        {% csrf_token %}
-                                                        <!-- begin start date-->
-                                                        <div class="form-group col-md-12">
-                                                            <label>Check In</label>
-                                                            <div class="input-group">
-                                                                <input type="date" name="start_date" id="start_date" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <!-- end start date-->
-
-                                                        <!-- begin start date-->
-                                                        <div class="form-group col-md-12">
-                                                            <label>Check Out</label>
-                                                            <div class="input-group">
-                                                                <input type="date" name="to_date" id="to_date" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <!-- end start date-->
-                                                       </form>
-                                                       
-                                                        
-                                                    </div>
-                    
-                                                    <div class="process-line" style="width: 33%;"></div>
-                                                </div>
+                                                </div>                                                
+                                                
                                             </div>
+                                            {% endfor %}
+                                            
                                     </div>
 
                                     <br>
