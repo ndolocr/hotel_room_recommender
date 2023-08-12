@@ -124,7 +124,7 @@
                             </select>                        
                         </div>  
 
-                        <div class="form-group col-md-4">
+                        <!-- <div class="form-group col-md-4">
                             <label class="control-label">Room Accessibility</label>
                             <select class="form-control" name="room_accessibility">
                                 <option value="none" selected disabled hidden >------ Room Accessibility ---------</option>
@@ -132,15 +132,47 @@
                                     <option value="{{ room_access.uid }}" > {{ room_access.name }} </option>
                                 {% endfor %}
                             </select>                        
-                        </div>  
+                        </div>  -->
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Disability Features Available</label>
+                            <select class="form-control" name="disability_features">
+                                <option value="none" selected disabled hidden >------ Availability ---------</option>                            
+                                    <option value="No" > No </option>  
+                                    <option value="Yes" > Yes </option>  
+                            </select>                        
+                        </div> 
+                        
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Pet Room</label>
+                            <select class="form-control" name="pet_room">
+                                <option value="none" selected disabled hidden >------ Availability ---------</option>                            
+                                    <option value="No" > No </option>  
+                                    <option value="Yes" > Yes </option>                                
+                            </select>                        
+                        </div> 
 
                     </div>
 
+                    <hr>
+                    <div style="background: #555555; color: #ffffff; padding:5px 0; margin-bottom: 2px;">
+                        Room Accessibility
+                    </div>                    
                     
+                    <div class="row">                        
+                        {% for item in room_accessibility %}
+                            <div class="form-group col-md-1">
+                                <label class="control-label">{{item.name}}</label>                        
+                                <input type="checkbox" class="form-control" value="{{item.uid}}" name="acess_checks[]" />                                                 
+                            </div>
+                        {% endfor %}
+                    </div>
                     
                     <hr>
-                    Room Element
-                    <hr>
+                     
+                    <div style="background: #555555; color: #ffffff; padding:5px 0; margin-bottom: 2px;">
+                        Room Element
+                    </div>                                         
                     
                     <div class="row">                        
                         {% for item in room_elements %}

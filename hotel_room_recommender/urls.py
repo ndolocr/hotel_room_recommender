@@ -24,7 +24,7 @@ from booking.views import booking_room
 from booking.views import capture_guest_data
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     # path('', index, name="login-page"),
     path('', dashboard, name='home-page'),
     path('dashboard/', dashboard, name="dashboard"),
@@ -39,5 +39,5 @@ urlpatterns = [
     # path('admin', include('administrator.urls')),
 
     # Admin pages
-    path('hotel/', include('hotel.urls')),
+    path('admin/', include('hotel.urls')),
 ]

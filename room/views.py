@@ -117,22 +117,25 @@ def addRoom(request):
         availability = 'available'
         floor = request.POST['floor']                        
         hotel = request.POST['hotel']
+        pet_room = request.POST.get('pet_room')
         room_type = request.POST['room_type']        
         room_view = request.POST['room_view']
         room_scent = request.POST['room_scent']
         room_light = request.POST['room_light']
-        room_number  =request.POST['room_number']
+        room_number  =request.POST['room_number']        
         room_humidity = request.POST['room_humidity']
         room_temprature = request.POST['room_temprature']
         room_element_list = request.POST.getlist('checks[]')
         cost_per_night = float(request.POST['cost_per_night'])
-        room_accessibility = request.POST['room_accessibility']
+        disability_features = request.POST['disability_features']
+        room_accessibility_list = request.POST.getlist('acess_checks[]')
+        
         
         try:
             room = Room(
                 floor=floor,
                 hotel_id = hotel,
-                 
+                pet_room = pet_room,
                 room_number=room_number,  
                 room_type_id = room_type,                                                                                            
                 room_view_id  =room_view,
@@ -141,10 +144,11 @@ def addRoom(request):
                 room_scent_id = room_scent,
                 created_on = datetime.today(),
                 cost_per_night=cost_per_night,
-                room_humidity_id = room_humidity,
-                room_temprature_id = room_temprature,
+                room_humidity_id = room_humidity,                
                 room_element_id = room_element_list,
-                room_accessibility_id = room_accessibility,
+                room_temprature_id = room_temprature,
+                disability_features = disability_features,
+                # room_accessibility_id = room_accessibility,
             )
             room.save()
 
@@ -160,19 +164,23 @@ def addRoom(request):
             room_view_obj = RoomViewPreference.nodes.get(uid = room_view)
             room_humidity_obj = RoomHumidity.nodes.get(uid = room_humidity)
             room_temprature_obj = RoomTemprature.nodes.get(uid = room_temprature)
-            room_accessibility_obj = RoomAccessibility.nodes.get(uid=room_accessibility)
+            # room_accessibility_obj = RoomAccessibility.nodes.get(uid=room_accessibility)
 
             room_scent_connection = room.room_scent.connect(room_scent_obj)
             room_light_connection = room.room_light.connect(room_light_obj)
             room_view_connection = room.room_view.connect(room_view_obj)
             room_humidity_connection = room.room_humidity.connect(room_humidity_obj)
             room_temprature_connection = room.room_temprature.connect(room_temprature_obj)
-            room_accessibility_connection = room.room_accessibility.connect(room_accessibility_obj)
+            # room_accessibility_connection = room.room_accessibility.connect(room_accessibility_obj)
 
 
             for data in room_element_list:
                 room_element_obj = RoomElement.nodes.get(uid = data)
                 room_element_connection = room.room_element.connect(room_element_obj)
+            
+            for data in room_accessibility_list:
+                obj = RoomAccessibility.nodes.get(uid = data)
+                room_connection = room.room_accessibility.connect(obj)
 
             return render(request, 'room/room_pages/add.html')
 
