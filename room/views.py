@@ -1036,17 +1036,17 @@ def bookRoom(request):
         disability_features_value = request.POST.get("disability_features_value", None)
         room_element_list = request.POST.getlist('checkedRoomElementsValues[]')
 
-        date_to_val =""
+        date_to_val =None
         date_to_value = str(request.POST["date_to_value"])
-        print("Date To ->", date_to_value)
+        
         if date_to_value:            
             date_to_obj = datetime.strptime(date_to_value, "%Y-%m-%d").date()
             date_to_val = date_to_obj
-            print("Date To Value->", date_to_val)
+            
         else: 
-            date_to_val=""
-        print("Final Date To Value->", date_to_val)
-        date_from_val=""
+            date_to_val=None
+        
+        date_from_val=None
         date_from_value = str(request.POST["date_from_value"])
         if date_from_value:
             # from_datetime_obj = datetime.strptime(date_from_value, "%Y-%m-%dT%H:%M:%S.%f")
@@ -1054,7 +1054,11 @@ def bookRoom(request):
             date_from_val = date_from_obj
         else: 
             date_from_val=None
-        
+
+        print("Date To ->", date_to_val)
+        print("Date From ->", date_from_val)
+        num_days = (date_to_val - date_from_val).days if date_to_val and date_from_val else None
+        print("Num of Days- >", num_days)
         
         # Get guest Information to get religion        
         guest_obj = UserNode.nodes.get(uid=guest_uid)
@@ -1087,7 +1091,6 @@ def bookRoom(request):
             min_temprature = min_temprature_value,
             max_temprature = max_temprature_value
         )
-
         reservation.save()
 
         if pet_name:
@@ -1096,13 +1099,13 @@ def bookRoom(request):
         # Room Details
         for room_id in room_reservation_list:
             room_obj = Room.nodes.get(uid = room_id)
-            print("ROOM NUMBER -> ", room_obj.room_number)
+            
             room_connection = reservation.room.connect(room_obj)
             cost_per_night = room_obj.cost_per_night
             total_cost = total_cost+cost_per_night
 
         # Save Room amount paid in total
-        reservation.amount_paid = total_cost
+        reservation.amount_paid = (total_cost*num_days)
         reservation.save()
 
         # Room Elements 

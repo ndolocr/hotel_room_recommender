@@ -370,7 +370,7 @@
 <script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
 <script>
     $(document).ready(function(){
-        
+        let submit = document.getElementById("submit");
         let date_to = document.getElementById("date_to");
         let pet_name = document.getElementById("pet_name");
         let pet_type = document.getElementById("pet_type");
@@ -388,7 +388,7 @@
         let min_temprature = document.getElementById("min_temprature");
         let max_temprature = document.getElementById("max_temprature");
         let disability_features = document.getElementById("disability_features");
-        
+                
         pet_name.style.display = 'none';
         pet_type.style.display = 'none';
 
@@ -457,12 +457,12 @@
             });
         }
 
-        if (room_access != null) {
-            room_access.addEventListener('change', function () {                
-                room_access_value = room_access.value;
-                query_results();
-            });
-        }
+        // if (room_access != null) {
+        //     room_access.addEventListener('change', function () {                
+        //         room_access_value = room_access.value;
+        //         query_results();
+        //     });
+        // }
 
         if (date_to != null) {
             date_to.addEventListener('change', function () {                
@@ -533,7 +533,7 @@
                     "room_type_value": room_type_value,
                     "room_view_value": room_view_value,
                     "room_scent_value": room_scent_value,
-                    "room_access_value": room_access_value,
+                    // "room_access_value": room_access_value,
                     "min_humidity_value": min_humidity_value,
                     "max_humidity_value": max_humidity_value,
                     "min_temprature_value": min_temprature_value,
@@ -561,8 +561,8 @@
             });
 
 
-        }
-               
+        }               
+
         $('#submit').click(function(event){
             event.preventDefault();
 
