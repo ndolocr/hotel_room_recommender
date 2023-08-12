@@ -13,14 +13,107 @@ from room.models import RoomScent
 from room.models import RoomElement
 from room.models import RoomHumidity
 from room.models import RoomTemprature
+from room.models import RoomAccessibility
 from room.models import RoomViewPreference
 
+from user_manager.models import UserNode
 from user_manager.models import UserManager
 
 # Create your views here.
 def booking(request):
-    context = {}
-    return render(request, 'core/booking.html', context=context)
+    if request.user:
+        
+        # Get User Information
+        email = request.user.email
+        user_obj = UserNode.nodes.get(email=email)
+        user_info = {
+            "town": user_obj.town,
+            "email": user_obj.email,
+            "title": user_obj.title,
+            "address": user_obj.address,
+            "religion": user_obj.religion,
+            "area_code": user_obj.area_code,
+            "last_name": user_obj.last_name,
+            "first_name": user_obj.first_name,
+            "middle_name": user_obj.middle_name,
+            "nationality": user_obj.nationality,
+        }
+
+        # Get Room Type Preference
+        room_types = RoomType.nodes.all()
+        room_type_response = []        
+
+        for room_type in room_types:
+            room_type_data = {
+                "uid" : room_type.uid,
+                "name": room_type.name
+            }
+
+            room_type_response.append(room_type_data)
+
+        # Get Room View Preference
+        room_views = RoomViewPreference.nodes.all()
+        room_view_response = []        
+
+        for room_view in room_views:
+            room_view_data = {
+                "uid" : room_view.uid,
+                "name": room_view.name
+            }
+
+            room_view_response.append(room_view_data)
+
+        # Get Room Scent Preference
+        room_scents = RoomScent.nodes.all()
+        room_scent_response = []        
+
+        for room_scent in room_scents:
+            room_scent_data = {
+                "uid" : room_scent.uid,
+                "scent_name": room_scent.scent_name
+            }
+
+            room_scent_response.append(room_scent_data)
+
+        # Get Room Elements
+        room_elements = RoomElement.nodes.all()
+        room_elements_response = []        
+
+        for room_element in room_elements:
+            data = {
+                "uid" : room_element.uid,
+                "name": room_element.name,
+            }
+
+            room_elements_response.append(data)
+
+        # # Get Room Accessibility Preference
+        room_accesses = RoomAccessibility.nodes.all()
+        room_access_response = []        
+
+        for room_access in room_accesses:
+            print("Room Access Name ->{}".format(room_access.accessibility_name))
+            data = {
+                "uid" : room_access.uid,
+                "accessibility_name": room_access.accessibility_name,
+            }
+
+            room_access_response.append(data)
+
+        # # Get Room Temprature Preference        
+
+        context = {
+            "guest": user_info,            
+            "room_type_response": room_type_response,
+            "room_view_response": room_view_response,
+            "room_scent_response": room_scent_response,
+            "room_access_response": room_access_response,
+            "room_elements_response": room_elements_response,
+        }
+        return render(request, 'core/self_booking_room_preference_information.html', context=context)
+    else:
+        context = {}
+        return render(request, 'core/booking.html', context=context)
 
 def capture_guest_data(request):
     if request.method == "POST":
