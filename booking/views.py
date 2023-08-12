@@ -29,6 +29,7 @@ def booking(request):
         email = request.user.email
         user_obj = UserNode.nodes.get(email=email)
         user_info = {
+            "uid": user_obj.uid,
             "town": user_obj.town,
             "email": user_obj.email,
             "title": user_obj.title,
@@ -310,7 +311,9 @@ def booking_self(request):
         # end room 
 
         context = {
+            
             "guest": guest,
+            "user_uid": user_uid,
             # "room_response": room_response,
             "room_view_response": room_view_response,
             "room_type_response": room_type_response,

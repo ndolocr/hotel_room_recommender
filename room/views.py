@@ -22,8 +22,12 @@ from room.models import RoomLight
 from room.models import RoomElement
 from room.models import RoomHumidity
 from room.models import RoomTemprature
+from booking.models import Reservation
 from room.models import RoomViewPreference
 from room.models import RoomAccessibility
+
+from user_manager.models import Pet
+from user_manager.models import UserNode
 
 # Create your views here.
 # ***********************************************************************************
@@ -695,6 +699,7 @@ def addRoomTemprature(request):
 
             print('Query : --->', query)
             query.save()
+            return render(request, 'room/room_temprature/add.html')
         except Exception as e:
             response = { "ERROR": "Error while creating new room temprature range - {}".format(e)}
             return JsonResponse(response, safe=False)
@@ -978,8 +983,258 @@ def filterRooms(request):
             }
             print("ROOM OBJ -> ", room_obj)
             room_response.append(room_obj)
-       
+
+        #     print("Room -> {}".format(room_row.room_number))
+        # room_query = Room.nodes.filter(availability = "available")
+
+        # Begin One Check
+        # if checked_values:
+        #     room_query = room_query.filter(room_element_id__cointains = checked_values)
+        # if room_type_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value)
+        # if room_view_value:
+        #     room_query = room_query.filter(room_view_id = room_view_value)
+        # if room_scent_value:
+        #     room_query = room_query.filter(room_scent_id = room_scent_value)
+        # if room_light_value:
+        #     room_query = room_query.filter(room_light_id = room_light_value)
+        # if room_humidity_value:
+        #     room_query = room_query.filter(room_humidity_id = room_humidity_value)
+        # if room_temprature_value:
+        #     room_query = room_query.filter(room_temprature_id = room_temprature_value)
+        # End One Check
+
+        # # Begin Two Check
+        # if room_type_value and room_view_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_view_id = room_view_value)
+        # if room_type_value and room_scent_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_scent_id = room_scent_value)
+        # if room_type_value and room_light_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_light_id = room_light_value)
+        # if room_type_value and room_humidity_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_humidity_id = room_humidity_value)
+        # if room_type_value and room_temprature_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_temprature_id = room_temprature_value)
+        # if room_type_value and checked_values:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_element_id__cointains = checked_values)
+
+        # if room_view_value and room_scent_value:
+        #     room_query = room_query.filter(room_view_id = room_view_value).filter(room_scent_id = room_scent_value)
+        # if room_view_value and room_light_value:
+        #     room_query = room_query.filter(room_view_id = room_view_value).filter(room_light_id = room_light_value)
+        # if room_view_value and room_humidity_value:
+        #     room_query = room_query.filter(room_view_id = room_view_value).filter(room_humidity_id = room_humidity_value)        
+        # if room_view_value and room_temprature_value:
+        #     room_query = room_query.filter(room_view_id = room_view_value).filter(room_temprature_id = room_temprature_value)
+        # if room_type_value and checked_values:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_element_id__cointains = checked_values)
+        # if room_view_value and checked_values:
+        #     room_query = room_query.filter(room_view_id = room_view_value).filter(room_element_id__cointains = checked_values)
+
+        # if room_scent_value and room_light_value:
+        #     room_query = room_query.filter(room_scent_id = room_scent_value).filter(room_light_id = room_light_value)
+        # if room_scent_value and room_humidity_value:
+        #     room_query = room_query.filter(room_scent_id = room_scent_value).filter(room_humidity_id = room_humidity_value)        
+        # if room_scent_value and room_temprature_value:
+        #     room_query = room_query.filter(room_scent_id = room_scent_value).filter(room_temprature_id = room_temprature_value)
+        # if room_scent_value and checked_values:
+        #     room_query = room_query.filter(room_scent_id = room_scent_value).filter(room_element_id__cointains = checked_values)
+
+        # if room_light_value and room_humidity_value:
+        #     room_query = room_query.filter(room_light_id = room_light_value).filter(room_humidity_id = room_humidity_value)        
+        # if room_light_value and room_temprature_value:
+        #     room_query = room_query.filter(room_light_id = room_light_value).filter(room_temprature_id = room_temprature_value)
+        # if room_light_value and checked_values:
+        #     room_query = room_query.filter(room_light_id = room_light_value).filter(room_element_id__cointains = checked_values)
+
+        # if room_humidity_value and room_temprature_value:
+        #     room_query = room_query.filter(room_humidity_id = room_humidity_value).filter(room_temprature_id = room_temprature_value)
+        # if room_humidity_value and checked_values:
+        #     room_query = room_query.filter(room_humidity_id = room_humidity_value).filter(room_element_id__cointains = checked_values)
+        # # End Two Check
+
+        # # Begin Three Check
+        # if room_type_value and room_view_value and room_scent_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_view_id = room_view_value).filter(room_scent_id = room_scent_value)
+        # if room_type_value and room_view_value and room_light_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_view_id = room_view_value).filter(room_light_id = room_light_value)
+        # if room_type_value and room_view_value and room_humidity_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_view_id = room_view_value).filter(room_humidity_id = room_humidity_value)
+        # if room_type_value and room_view_value and room_temprature_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value).filter(room_view_id = room_view_value).filter(room_temprature_id = room_temprature_value)
+        
+        # if room_view_value and room_scent_value and room_light_value:
+        #     room_query = room_query.filter(room_view_id = room_view_value).filter(room_scent_id = room_scent_value).filter(room_light_id = room_light_value)
+        # if room_view_value and room_scent_value and room_humidity_value:
+        #     room_query = room_query.filter(room_view_id = room_view_value).filter(room_scent_id = room_scent_value).filter(room_humidity_id = room_humidity_value)
+        # if room_view_value and room_scent_value and room_temprature_value:
+        #     room_query = room_query.filter(room_view_id = room_view_value).filter(room_scent_id = room_scent_value).filter(room_temprature_id = room_temprature_value)
+        
+        # if room_scent_value and room_light_value and room_humidity_value:
+        #     room_query = room_query.filter(room_scent_id = room_scent_value).filter(room_light_id = room_light_value).filter(room_humidity_id = room_humidity_value)
+        # if room_scent_value and room_light_value and room_temprature_value:
+        #     room_query = room_query.filter(room_scent_id = room_scent_value).filter(room_light_id = room_light_value).filter(room_temprature_id = room_temprature_value)
+        # if room_scent_value and room_humidity_value and room_temprature_value:
+        #     room_query = room_query.filter(room_scent_id = room_scent_value).filter(room_humidity_id = room_humidity_value).filter(room_temprature_id = room_temprature_value)
+
+        # if room_light_value and room_humidity_value and room_temprature_value:
+        #     room_query = room_query.filter(room_light_id = room_light_value).filter(room_humidity_id = room_humidity_value).filter(room_temprature_id = room_temprature_value)
+
+
+
+
+        
+
+        # print("Query - >", raw_query)
+        # for room in room_query:
+        #     room_obj = {
+        #             'uid': room.uid,
+        #             'floor' : room.floor,
+        #             'hotel' : room.hotel_id,                    
+        #             'created_on' : room.created_on,
+        #             'availability': room.availability,
+        #             'room_number': room.room_number,
+        #             'room_type' : room.room_type_id,
+        #             'cost_per_night': room.cost_per_night,
+        #             'room_element' : room.room_element_id,                    
+        #         }
+        #     print("Captured Room No: ->",room.room_number)
+        #     room_response.append(room_obj)
+
         context = {
             "room_response": room_response
         }
         return Response(context)
+
+def bookRoom(request):
+    if request.method == "POST":
+        print("Booking a room")
+        
+        total_cost = 0
+        pet_name = request.POST["pet_name"]        
+        pet_type = request.POST["pet_type"]        
+        guest_uid = request.POST["guest_uid_value"]        
+        max_light_value = request.POST["max_light_value"]
+        min_light_value = request.POST["min_light_value"]
+        room_type_value = request.POST["room_type_value"]
+        room_view_value = request.POST["room_view_value"]
+        room_scent_value = request.POST["room_scent_value"]
+        room_access_value = request.POST["room_access_value"]
+        min_humidity_value = request.POST["min_humidity_value"]
+        max_humidity_value = request.POST["max_humidity_value"]
+        min_temprature_value = request.POST["min_temprature_value"]
+        max_temprature_value = request.POST["max_temprature_value"]                
+        room_reservation_list = request.POST.getlist('selectedRoomValues[]')
+        room_element_list = request.POST.getlist('checkedRoomElementsValues[]')
+
+
+        date_to_value = str(request.POST["date_to_value"])
+        if date_to_value:
+            # to_datetime_obj = datetime.strptime(date_to_value, "%Y-%m-%dT%H:%M:%S.%f")
+            date_to_obj = datetime.strptime(date_to_value, "%Y-%m-%d").date()
+            date_to_value = date_to_obj
+        else: 
+            date_to_value=None
+
+        date_from_value = str(request.POST["date_from_value"])
+        if date_from_value:
+            # from_datetime_obj = datetime.strptime(date_from_value, "%Y-%m-%dT%H:%M:%S.%f")
+            date_from_obj = datetime.strptime(date_from_value, "%Y-%m-%d").date()
+            date_from_value = date_from_obj
+        else: 
+            date_from_value=None
+        
+        
+        # Get guest Information to get religion        
+        guest_obj = UserNode.nodes.get(uid=guest_uid)
+        religion = guest_obj.religion
+        religious_book = ""
+        if religion == "Christian":
+            religious_book = "BIBLE"
+        elif religion == "Muslim":
+            religious_book = "QURAN"
+        elif religion == "Hindu":
+            religious_book = "GUITAR"
+        else:
+            religious_book = ""
+        
+
+        # Save Pet Information
+        print("PET NAME ->", pet_name)
+        if pet_name:
+            pet_obj = Pet(
+                name = pet_name,
+                pet_type = pet_type             
+            )
+
+            pet_obj.save()
+            pet_guest_connection = pet_obj.guest.connect(guest_obj)
+
+        # format = '%b %d %Y %I:%M%p'
+        # date_to_value = datetime.strptime(date_to_value, format)
+        # datedate_to_value_from= datetime.strptime(date_to_value, format)
+
+        reservation = Reservation(               
+            date_to_value = date_to_value,
+            date_from_value = date_from_value,            
+            religious_book = religious_book,
+            min_light = min_light_value,
+            max_light = max_light_value,
+            min_humidity = min_humidity_value,
+            max_humidity = max_humidity_value,
+            min_temprature = min_temprature_value,
+            max_temprature = max_temprature_value
+        )
+
+        reservation.save()
+
+        if pet_name:
+            pet_reservation_connection = reservation.pet.connect(pet_obj)
+
+        # Room Details
+        for room_id in room_reservation_list:
+            room_obj = Room.nodes.get(uid = room_id)
+            print("ROOM NUMBER -> ", room_obj.room_number)
+            room_connection = reservation.room.connect(room_obj)
+            cost_per_night = room_obj.cost_per_night
+            total_cost = total_cost+cost_per_night
+
+        # Save Room amount paid in total
+        reservation.amount_paid = total_cost
+        reservation.save()
+
+        # Room Elements 
+        for room_element_id in room_element_list:
+            obj = RoomElement.nodes.get(uid = room_element_id)
+            room_element_connection = reservation.room_element.connect(obj)
+        
+        # Room Type
+        room_type_obj = RoomType.nodes.get(uid=room_type_value)
+        room_type_connection = reservation.room_type.connect(room_type_obj)
+
+        # Guest
+        guest_reservation = reservation.guest.connect(guest_obj)
+
+        # Room Scent
+        room_scent_obj = RoomScent.nodes.get(uid=room_scent_value)
+        room_scent_connection = reservation.room_scent.connect(room_scent_obj)
+
+        # Room View
+        room_view_obj = RoomViewPreference.nodes.get(uid=room_view_value)
+        room_view_connection = reservation.room_view.connect(room_view_obj)
+        
+        # Room Access
+        room_access_obj = RoomAccessibility.nodes.get(uid=room_access_value)
+        room_view_connection = reservation.room_access.connect(room_access_obj)        
+
+        print("Saved!")
+        context = {
+            "response": "Saved Successfully!"
+        }
+
+        return Response(context)
+        
+
+
+
+        

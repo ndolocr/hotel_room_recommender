@@ -51,4 +51,7 @@ urlpatterns = [
     
     # filter Rooms
     path('filter', views.filterRooms, name='filter-rooms'), 
+
+    # Book a room
+    path('book/room', views.bookRoom, name='book-room'),
 ]
