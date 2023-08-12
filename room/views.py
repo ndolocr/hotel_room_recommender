@@ -12,6 +12,8 @@ from rest_framework.decorators import api_view
 
 from datetime import datetime
 
+from neomodel import db
+
 from room.models import Room
 from hotel.models import Hotel
 from room.models import RoomType
@@ -905,35 +907,96 @@ def viewAllRoomScent(request):
 @api_view(["POST"])
 def filterRooms(request):
     if request.method == "POST":
-        print("Checking function")
+        
         room_response = []
-        checked_values = request.POST.get("checked_values", False)
+        date_to_value = request.POST["date_to_value"]
+        date_from_value = request.POST["date_from_value"]
+        max_light_value = request.POST["max_light_value"]
+        min_light_value = request.POST["min_light_value"]
         room_type_value = request.POST["room_type_value"]
         room_view_value = request.POST["room_view_value"]
         room_scent_value = request.POST["room_scent_value"]
-        room_light_value = request.POST["room_light_value"]
-        room_humidity_value = request.POST["room_humidity_value"]
-        room_temprature_value = request.POST["room_temprature_value"]
+        room_access_value = request.POST["room_access_value"]
+        min_humidity_value = request.POST["min_humidity_value"]
+        max_humidity_value = request.POST["max_humidity_value"]
+        min_temprature_value = request.POST["min_temprature_value"]
+        max_temprature_value = request.POST["max_temprature_value"]
         
-        print("Checked Values - >", checked_values)
+        query = "MATCH (room:Room)WHERE room.availability = 'available' "
 
-        room_query = Room.nodes.filter(availability = "available")
+        if room_type_value:
+            new_query = "MATCH(room)-[:`Room Type`]->(roomType:RoomType {uid: '%s'}) " %room_type_value
+            query = query + new_query
+
+        if room_view_value:
+            new_query = "MATCH(room)-[:`View visible while in room`]->(roomView:RoomViewPreference {uid: '%s'}) " %room_view_value
+            query = query + new_query
+        
+        if room_scent_value:
+            new_query = "MATCH(room)-[:`Scent in a Room`]->(roomScent:RoomScent {uid: '%s'}) " %room_scent_value
+            query = query + new_query
+
+        if room_access_value:
+            new_query = "MATCH(room)-[:`Accessibility of the Room`]->(roomAccessibility:RoomAccessibility {uid: '%s'}) " %room_access_value
+            query = query + new_query
+
+        if min_light_value:
+            new_query = "MATCH(room)-[:`Lighting Range in a Room`]->(roomLight:RoomLight WHERE roomLight.min_light >= '%s') " %min_light_value
+            query = query + new_query
+        
+        if max_light_value:
+            new_query = "MATCH(room)-[:`Lighting Range in a Room`]->(roomLight:RoomLight WHERE roomLight.max_light <= '%s') " %max_light_value
+            query = query + new_query
+
+        if min_humidity_value:
+            new_query = "MATCH(room)-[:`Humidity Range in a Room`]->(roomHumidity:RoomHumidity WHERE roomHumidity.min_humidity >= '%s') " %min_humidity_value
+            query = query + new_query
+        
+        if max_humidity_value:
+            new_query = "MATCH(room)-[:`Humidity Range in a Room`]->(roomHumidity:RoomHumidity WHERE roomHumidity.max_humidity <= '%s') " %max_humidity_value
+            query = query + new_query
+
+        if min_temprature_value:
+            new_query = "MATCH(room)-[:`Temprature Range in a Room`]->(roomTemprature:RoomTemprature WHERE roomTemprature.min_temprature >= '%s') " %min_temprature_value
+            query = query + new_query
+        
+        if max_temprature_value:
+            new_query = "MATCH(room)-[:`Temprature Range in a Room`]->(roomTemprature:RoomTemprature WHERE roomTemprature.max_temprature <= '%s') " %max_temprature_value
+            query = query + new_query
+
+        query = query + " RETURN room"
+        
+        print("QUERY --> ", query)
+
+        results, meta = db.cypher_query(query)
+        
+        for row in results:
+            room_row = Room.inflate(row[0])
+            room_obj = {
+                'uid': room_row.uid,
+                'room_number': room_row.room_number,                   
+            }
+            print("ROOM OBJ -> ", room_obj)
+            room_response.append(room_obj)
+
+        #     print("Room -> {}".format(room_row.room_number))
+        # room_query = Room.nodes.filter(availability = "available")
 
         # Begin One Check
-        if checked_values:
-            room_query = room_query.filter(room_element_id__cointains = checked_values)
-        if room_type_value:
-            room_query = room_query.filter(room_type_id = room_type_value)
-        if room_view_value:
-            room_query = room_query.filter(room_view_id = room_view_value)
-        if room_scent_value:
-            room_query = room_query.filter(room_scent_id = room_scent_value)
-        if room_light_value:
-            room_query = room_query.filter(room_light_id = room_light_value)
-        if room_humidity_value:
-            room_query = room_query.filter(room_humidity_id = room_humidity_value)
-        if room_temprature_value:
-            room_query = room_query.filter(room_temprature_id = room_temprature_value)
+        # if checked_values:
+        #     room_query = room_query.filter(room_element_id__cointains = checked_values)
+        # if room_type_value:
+        #     room_query = room_query.filter(room_type_id = room_type_value)
+        # if room_view_value:
+        #     room_query = room_query.filter(room_view_id = room_view_value)
+        # if room_scent_value:
+        #     room_query = room_query.filter(room_scent_id = room_scent_value)
+        # if room_light_value:
+        #     room_query = room_query.filter(room_light_id = room_light_value)
+        # if room_humidity_value:
+        #     room_query = room_query.filter(room_humidity_id = room_humidity_value)
+        # if room_temprature_value:
+        #     room_query = room_query.filter(room_temprature_id = room_temprature_value)
         # End One Check
 
         # # Begin Two Check
@@ -1018,24 +1081,22 @@ def filterRooms(request):
         
 
         # print("Query - >", raw_query)
-        for room in room_query:
-            room_obj = {
-                    'uid': room.uid,
-                    'floor' : room.floor,
-                    'hotel' : room.hotel_id,                    
-                    'created_on' : room.created_on,
-                    'availability': room.availability,
-                    'room_number': room.room_number,
-                    'room_type' : room.room_type_id,
-                    'cost_per_night': room.cost_per_night,
-                    'room_element' : room.room_element_id,                    
-                }
-            print("Captured Room No: ->",room.room_number)
-            room_response.append(room_obj)
+        # for room in room_query:
+        #     room_obj = {
+        #             'uid': room.uid,
+        #             'floor' : room.floor,
+        #             'hotel' : room.hotel_id,                    
+        #             'created_on' : room.created_on,
+        #             'availability': room.availability,
+        #             'room_number': room.room_number,
+        #             'room_type' : room.room_type_id,
+        #             'cost_per_night': room.cost_per_night,
+        #             'room_element' : room.room_element_id,                    
+        #         }
+        #     print("Captured Room No: ->",room.room_number)
+        #     room_response.append(room_obj)
 
         context = {
-            # "raw_query": raw_query,
-            "room_response": room_response,            
+            "room_response": room_response
         }
-        print("Return Response")
         return Response(context)

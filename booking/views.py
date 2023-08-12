@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.utils.dateparse import parse_datetime
 
+from neomodel import db
+
 from room.models import Room
 from room.models import RoomType
 from room.models import RoomLight
@@ -22,7 +24,23 @@ from user_manager.models import UserManager
 # Create your views here.
 def booking(request):
     if request.user:
+        query = (
+        "MATCH (room:Room)-[:`Room Type`]->(roomType:RoomType {uid: '4bc0352a5e3544459f3f322f1647adf7'}) "
+        "MATCH (room)-[:`View visible while in room`]->(roomView:RoomViewPreference {uid: '24cee014fc9d4b1f98b7f5510daa748e'})"
+        # "MATCH (room)-[:`Element in a Room`]->(element1:RoomElement {name: 'television'}) "
+        # "MATCH (room)-[:`Element in a Room`]->(element2:RoomElement {name: 'Music system'}) "
+        # "WHERE ANY(view IN room.views WHERE view.name = 'sunset view') "
+        "RETURN room"
+        )
+
+        # results, meta = db.cypher_query(query)
+        # room_nodes = []
+        # for row in results:
+        #     room_row = Room.inflate(row[0])
+        #     print("Room -> {}".format(room_row.room_number))
         
+       
+
         # Get User Information
         email = request.user.email
         user_obj = UserNode.nodes.get(email=email)
@@ -92,7 +110,6 @@ def booking(request):
         room_access_response = []        
 
         for room_access in room_accesses:
-            print("Room Access Name ->{}".format(room_access.accessibility_name))
             data = {
                 "uid" : room_access.uid,
                 "accessibility_name": room_access.accessibility_name,

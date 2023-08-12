@@ -67,10 +67,7 @@
                                                         <address class="mb-0 font-14 address-lg">
                                                             <abbr title=""><b>{{guest.title}} .</b></abbr> {{guest.first_name}} {{guest.middle_name}} {{guest.last_name}}  <br />
                                                             <abbr title=""><b> <i class="fa fa-mosque" ></i> </b></abbr> {{guest.religion}} <br />                                                            
-                                                            <abbr title=""><b> <i class="fa fa-envelope" ></i> </b></abbr> {{guest.email}} <br />
-                                                            <!-- <abbr title=""><b> <i class="fa fa-address-card"></i> </b></abbr> {{guest.address}} - {{guest.area_code}} <br />                                                    
-                                                            <abbr title=""><b> <i class="fa fa-location-dot"></i> </b></abbr> {{guest.town}} <br /> -->
-                                                            <!-- <br> -->
+                                                            <abbr title=""><b> <i class="fa fa-envelope" ></i> </b></abbr> {{guest.email}} <br />                                                            
                                                         </address>
                                                         <input type="text" hidden value="{{guest.uid}}" name="guest_uid" id="guest_uid">
                                                     </div>
@@ -86,7 +83,6 @@
                                                             <abbr title=""><b> <i class="fa fa-address-card"></i> </b></abbr> {{guest.address}} - {{guest.area_code}} <br />                                                    
                                                             <abbr title=""><b> <i class="fa fa-location-dot"></i> </b></abbr> {{guest.town}} <br />
                                                             <abbr title=""><b> <i class="fa fa-earth-americas" ></i> </b></abbr> {{guest.nationality}} <br /> 
-                                                            <!-- <br> -->
                                                         </address>
                                                         <input type="text" hidden value="{{guest.uid}}" name="guest_uid" id="guest_uid">
                                                     </div>
@@ -97,6 +93,16 @@
                                     </div>
 
                                     <br>
+
+                                    <!-- begin query -->
+                                    <div class="col-md-12" >
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="txtQuery" id="txtQuery">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end query -->
 
                                     <!-- Begin Room Preference -->
                                     
@@ -175,7 +181,7 @@
                                                 <div class="col-md-4">                                        
                                                     <div class="input-group">
                                                         <label style="margin-right: .2rem; border: solid #ced4da 1px; border-radius: .25rem; line-height: 1.5; font-weight: 400; font-size: 1rem; padding: .375rem .75rem; height: calc(1.5em + .75rem + 2px)">From</label>
-                                                        <input type="date" class="form-control"  name="date_from">                                                        
+                                                        <input type="date" class="form-control"  name="date_from" id="date_from">                                                        
                                                     </div>
                                                 </div>
                                                 <!-- end date from-->
@@ -184,7 +190,7 @@
                                                 <div class="col-md-4">                                        
                                                     <div class="input-group">
                                                         <label style="margin-right: .2rem; border: solid #ced4da 1px; border-radius: .25rem; line-height: 1.5; font-weight: 400; font-size: 1rem; padding: .375rem .75rem; height: calc(1.5em + .75rem + 2px)">To</label>
-                                                        <input type="date" class="form-control"  name="date_to">                                                        
+                                                        <input type="date" class="form-control"  name="date_to" id="date_to">                                                        
                                                     </div>
                                                 </div>
                                                 <!-- end date to-->
@@ -194,13 +200,13 @@
                                                 <!-- begin room light-->
                                                 <div class="form-group col-md-2">
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Min Room Lighting" name="min_light">
+                                                        <input type="number" class="form-control" placeholder="Min Room Lighting" name="min_light" id="min_light">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-2">
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Max Room Lighting" name="max_light">
+                                                        <input type="number" class="form-control" placeholder="Max Room Lighting" name="max_light" id="max_light">
                                                     </div>
                                                 </div>
                                                 <!-- end room light-->
@@ -208,13 +214,13 @@
                                                 <!-- begin room humidity-->
                                                 <div class="form-group col-md-2">
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Min Room Humidity" name="min_humidity">
+                                                        <input type="number" class="form-control" placeholder="Min Room Humidity" name="min_humidity" id="min_humidity">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-2">
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Max Room Humidity" name="max_humidity">
+                                                        <input type="number" class="form-control" placeholder="Max Room Humidity" name="max_humidity" id="max_humidity">
                                                     </div>
                                                 </div>
                                                 <!-- end room humidity-->
@@ -222,13 +228,13 @@
                                                 <!-- begin room temprature-->
                                                 <div class="form-group col-md-2">
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Min Room Temprature" name="min_temprature">
+                                                        <input type="number" class="form-control" placeholder="Min Room Temprature" name="min_temprature" id="min_temprature">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group col-md-2">
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Max Room Temprature" name="max_temprature">
+                                                        <input type="number" class="form-control" placeholder="Max Room Temprature" name="max_temprature" id="max_temprature">
                                                     </div>
                                                 </div>
                                                 <!-- end room temprature-->
@@ -284,15 +290,8 @@
                                                         {% endfor %}
                                                     </div>
                                                 </div>                                                    
-                                                <!-- end room elements -->                                                    
-                                                <!-- begin room temprature-->
-                                                <div class="form-group col-md-3">
-                                                    <!-- <label>Room Temprature Range</label> -->
-                                                    <div class="input-group">
-                                                        <input type="submit" name="submit" id="submit" class="btn btn-primary" value="Search Rooms">
-                                                    </div>
-                                                </div>
-                                                <!-- end room temprature-->
+                                                <!-- end room elements -->
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -316,39 +315,21 @@
                                     <h5> Available Rooms </h5> 
                                     <p> Select a Room Number form available rooms.</p>                                   
                                     <div class="row" id="available_rooms">
-                                        <!-- <div class="form-group col-md-2">
-                                            Room 1 - <input type="checkbox" class="col-md-2" value="" name="checks" />
-                                        </div>
-
-                                        <div class="form-group col-md-2">
-                                            Room 4 - <input type="checkbox" class="col-md-2" value="" name="checks" />
-                                        </div>
-
-                                        <div class="form-group col-md-2">
-                                            Room 5 - <input type="checkbox" class="col-md-2" value="" name="checks" />
-                                        </div>
-
-                                        <div class="form-group col-md-2">
-                                            Room 6 - <input type="checkbox" class="col-md-2" value="" name="checks" />
-                                        </div>
-
-                                        <div class="form-group col-md-2">
-                                            Room 9 - <input type="checkbox" class="col-md-2" value="" name="checks" />
-                                        </div> -->
-
-                                        <div class="form-group col-md-2">
-                                            Room 11 - <input type="checkbox" class="col-md-2" value="" name="checks" />
-                                        </div>
-
-                                        <div class="form-group col-md-2">
-                                            Room 16 - <input type="checkbox" class="col-md-2" value="" name="checks" />
-                                        </div>
-
-                                        <div class="form-group col-md-2">
-                                            Room 22 - <input type="checkbox" class="col-md-2" value="" name="checks" />
-                                        </div>
+                                        
                                                         
                                     </div>
+
+                                    <div class="col-md-12">  
+                                        <hr>
+                                    </div>
+
+                                    <!-- begin submit-->
+                                    <div class="form-group col-md-3">                                                    
+                                        <div class="input-group">
+                                            <input type="submit" name="submit" id="submit" class="btn btn-primary" value="Book">
+                                        </div>
+                                    </div>
+                                    <!-- end submit-->
                                 </div>
                             </div>
                         </div>
@@ -363,14 +344,161 @@
 <script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
 <script>
     $(document).ready(function(){
-        let geust_uid = document.getElementById("guest_uid");
+        
+        let date_to = document.getElementById("date_to");
+        let date_from = document.getElementById("date_from");
+        let min_light = document.getElementById("min_light");
+        let max_light = document.getElementById("max_light");
+        let guest_uid = document.getElementById("guest_uid");
         let room_view = document.getElementById("room_view");
         let room_type = document.getElementById("room_type");
         let room_scent = document.getElementById("room_scent");
-        let room_light = document.getElementById("room_light");
-        let room_humidity = document.getElementById("room_humidity");
-        let room_temprature = document.getElementById("room_temprature");
+        let room_access = document.getElementById("room_access");        
+        let min_humidity = document.getElementById("min_humidity");
+        let max_humidity = document.getElementById("max_humidity");
+        let min_temprature = document.getElementById("min_temprature");
+        let max_temprature = document.getElementById("max_temprature");
         
+
+        let date_to_value = "";
+        let date_from_value = "";
+        let max_light_value = "";
+        let min_light_value = "";
+        let room_type_value = "";
+        let room_view_value = "";
+        let room_scent_value = "";
+        let room_access_value = "";
+        let min_humidity_value = "";
+        let max_humidity_value = "";
+        let min_temprature_value = "";
+        let max_temprature_value = "";
+        
+
+        if (room_type != null) {
+            room_type.addEventListener('change', function () {                
+                room_type_value = room_type.value; 
+                query_results();
+
+            });
+        }
+
+        if (room_view != null) {
+            room_view.addEventListener('change', function () {                
+                room_view_value = room_view.value;
+                query_results();
+            });
+        }
+
+        if (room_scent != null) {
+            room_scent.addEventListener('change', function () {                
+                room_scent_value = room_scent.value;
+                query_results();
+            });
+        }
+
+        if (room_access != null) {
+            room_access.addEventListener('change', function () {                
+                room_access_value = room_access.value;
+                query_results();
+            });
+        }
+
+        if (date_to != null) {
+            date_to.addEventListener('change', function () {                
+                date_to_value = date_to.value;
+            });
+        }
+
+        if (date_from != null) {
+            date_from.addEventListener('change', function () {                
+                date_from_value = date_from.value;
+            });
+        }
+        
+        if (max_light != null) {
+            max_light.addEventListener('change', function () {                
+                max_light_value = max_light.value;
+                query_results();
+            });
+        }
+
+        if (min_light != null) {
+            min_light.addEventListener('change', function () {                
+                min_light_value = min_light.value;
+                query_results();
+            });
+        }
+        
+        if (min_humidity != null) {
+            min_humidity.addEventListener('change', function () {                
+                min_humidity_value = min_humidity.value;
+                query_results();
+            });
+        }
+
+        if (max_humidity != null) {
+            max_humidity.addEventListener('change', function () {                
+                max_humidity_value = max_humidity.value;
+                query_results();
+            });
+        }
+
+        if (min_temprature != null) {
+            min_temprature.addEventListener('change', function () {                
+                min_temprature_value = min_temprature.value;
+                query_results();
+            });
+        }
+
+        if (max_temprature != null) {
+            max_temprature.addEventListener('change', function () {                
+                max_temprature_value = max_temprature.value;
+                query_results();
+            });
+        }
+
+        function query_results(){          
+
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'filter-rooms' %}",
+                data: {       
+                    "date_to_value": date_to_value,
+                    "date_from_value": date_from_value,
+                    "max_light_value": max_light_value,
+                    "min_light_value": min_light_value,
+                    "room_type_value": room_type_value,
+                    "room_view_value": room_view_value,
+                    "room_scent_value": room_scent_value,
+                    "room_access_value": room_access_value,
+                    "min_humidity_value": min_humidity_value,
+                    "max_humidity_value": max_humidity_value,
+                    "min_temprature_value": min_temprature_value,
+                    "max_temprature_value": max_temprature_value,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+
+                success: function (response) {
+                    let available_rooms = document.getElementById("available_rooms");
+                    
+                    var raw_query = response.raw_query;
+                    var roomResponse = response.room_response;
+                    var html = '';
+                    
+                    for (var i = 0; i < roomResponse.length; i++) {
+                        var item = roomResponse[i];                        
+                        html += '<div class="form-group col-md-2">';
+                        html += 'Room '+ item.room_number +'- <input type="checkbox" class="col-md-2" value="' + item.uid + '" name="selected_room">';
+                        html += '</div>';                      
+                    }
+                    available_rooms.innerHTML = html;
+                    // $('#available_rooms').html(html);
+
+                },
+            });
+
+
+        }
         
        
         $('#submit').click(function(event){
@@ -417,12 +545,12 @@
                     for (var i = 0; i < roomResponse.length; i++) {
                         var item = roomResponse[i];                        
                         html += '<div class="form-group col-md-1">';
-                        html += '<div class="row">';
-                        html += '<div class="col-md-1 ">';
-                        html += '<a href="/booking/room/'+ guest_uid_value +'/'+ item.uid +'" class="btn btn-primary">'+ item.room_number + ' </a>';
-                        html += '</div>';
-                        // html += '<div class="col-md-10"><input type="radio" class="col-md-2" value="' + item.uid + '" name="selected_room"></div>';
-                        html += '</div>';
+                        // html += '<div class="row">';
+                        // html += '<div class="col-md-1 ">';
+                        // html += '<a href="/booking/room/'+ guest_uid_value +'/'+ item.uid +'" class="btn btn-primary">'+ item.room_number + ' </a>';
+                        // html += '</div>';
+                        // // html += '<div class="col-md-10"><input type="radio" class="col-md-2" value="' + item.uid + '" name="selected_room"></div>';
+                        // html += '</div>';
                         html += '</div>';                        
                     }
 
