@@ -21,6 +21,8 @@ from room.models import RoomViewPreference
 from user_manager.models import UserNode
 from user_manager.models import UserManager
 
+from booking.models import Reservation
+
 # Create your views here.
 def booking(request):
     if request.user:
@@ -97,7 +99,7 @@ def booking(request):
         for room_access in room_accesses:
             data = {
                 "uid" : room_access.uid,
-                "accessibility_name": room_access.accessibility_name,
+                "name": room_access.accessibility_name,
             }
 
             room_access_response.append(data)
@@ -345,4 +347,13 @@ def booking_room(request, guest_uid, room_uid):
         "guest": guest,
     }
 
+    return render(request, 'core/reserve_room.html', context=context)
+
+def view_guest_booking(request, guest_uid):
+    guest = UserNode.nodes.get(uid = guest_uid)
+    context = {
+        "guest": guest,
+    }
+
+    reservation = 
     return render(request, 'core/reserve_room.html', context=context)

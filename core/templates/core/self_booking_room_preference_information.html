@@ -164,13 +164,12 @@
                                                 <!-- begin room access-->
                                                 <div class="col-md-4">                                        
                                                     <div class="input-group">
-                                                        <select id="room_access" name="room_access" class="select2 form-control">
+                                                        <select id="disability_features" name="disability_features" class="select2 form-control">
                                                             <option value="" selected disabled hidden>
-                                                                Room Accessibility
+                                                                Room with Disability Features
                                                             </option>
-                                                            {% for access in room_access_response %}
-                                                            <option value="{{access.uid}}"> {{access.accessibility_name}} </option>
-                                                            {% endfor %}
+                                                            <option value="No"> No </option>
+                                                            <option value="Yes"> Yes </option>                                                            
                                                         </select>
                                                     </div>
                                                 </div>
@@ -262,7 +261,17 @@
                                                         </div>
 
                                                         <div class="form-group col-md-2">
-                                                            <input type="text" class="form-control" placeholder="Pet type if any" name="pet_type" id="pet_type">
+                                                            <select id="pet_room" name="pet_room" class="select2 form-control">
+                                                                <option value="" selected disabled hidden>
+                                                                    Pet Room
+                                                                </option>
+                                                                <option value="No"> No </option>
+                                                                <option value="Yes"> Yes </option>                                                            
+                                                            </select>
+                                                        </div>                                                   
+
+                                                        <div class="form-group col-md-2">
+                                                            <input type="text" class="form-control" placeholder="Pet Type" name="pet_type" id="pet_type">
                                                         </div>
 
                                                         <div class="form-group col-md-2">
@@ -272,6 +281,24 @@
                                                     </div>
                                                 </div>                                                    
                                                 <!-- end room elements -->   
+                                                
+                                                <!-- begin room accessibility -->
+                                                <div class="col-md-12">
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-12" style="background: #eeeeee; padding: 5px; margin-bottom: 10px;">
+                                                            <h5>Room Accessibility</h5>
+                                                        </div>
+                                                        
+                                                        {% for item in room_access_response %}
+                                                            <div class="form-group col-md-2">
+                                                                <!-- <label class="control-label">{{item.name}}</label>  -->
+                                                                {{item.name}} - <input type="checkbox" class="col-md-2" value="{{item.uid}}" name="room_access_checks" name="room_element_checks" />
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>                                                    
+                                                <!-- end room accessibility -->
 
                                                 <!-- begin room elements -->
                                                 <div class="col-md-12">
@@ -344,9 +371,10 @@
 <script>
     $(document).ready(function(){
         
+        let date_to = document.getElementById("date_to");
         let pet_name = document.getElementById("pet_name");
         let pet_type = document.getElementById("pet_type");
-        let date_to = document.getElementById("date_to");
+        let pet_room = document.getElementById("pet_room");
         let date_from = document.getElementById("date_from");
         let min_light = document.getElementById("min_light");
         let max_light = document.getElementById("max_light");
@@ -359,9 +387,14 @@
         let max_humidity = document.getElementById("max_humidity");
         let min_temprature = document.getElementById("min_temprature");
         let max_temprature = document.getElementById("max_temprature");
-                
+        let disability_features = document.getElementById("disability_features");
+        
+        pet_name.style.display = 'none';
+        pet_type.style.display = 'none';
+
         let date_to_value = "";
         let date_from_value = "";
+        let pet_room_value = "";
         let max_light_value = "";
         let min_light_value = "";
         let room_type_value = "";
@@ -371,11 +404,36 @@
         let min_humidity_value = "";
         let max_humidity_value = "";
         let min_temprature_value = "";
-        let max_temprature_value = "";        
+        let max_temprature_value = "";
+        let disability_features_value = "";     
         let guest_uid_value = guest_uid.value;
 
         
-        
+        if (pet_room != null) {
+            pet_room.addEventListener('change', function () {                                
+                pet_room_value = pet_room.value;
+                if (pet_room_value =="Yes"){
+                    pet_name.style.display = 'block';
+                    pet_type.style.display = 'block';
+                }else{
+                    pet_name.value = '';
+                    pet_type.value = '';
+                    pet_name.style.display = 'none';
+                    pet_type.style.display = 'none';                    
+                }
+                
+                query_results();
+
+            });
+        }
+
+        if (disability_features != null) {
+            disability_features.addEventListener('change', function () {                
+                disability_features_value = disability_features.value; 
+                query_results();
+
+            });
+        }
 
         if (room_type != null) {
             room_type.addEventListener('change', function () {                
@@ -465,8 +523,10 @@
             $.ajax({
                 type: 'POST',
                 url: "{% url 'filter-rooms' %}",
-                data: {       
+                data: {
+                           
                     "date_to_value": date_to_value,
+                    "pet_room_value": pet_room_value,
                     "date_from_value": date_from_value,
                     "max_light_value": max_light_value,
                     "min_light_value": min_light_value,
@@ -478,6 +538,7 @@
                     "max_humidity_value": max_humidity_value,
                     "min_temprature_value": min_temprature_value,
                     "max_temprature_value": max_temprature_value,
+                    "disability_features_value": disability_features_value,
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 },
 
@@ -535,7 +596,7 @@
                     "room_view_value": room_view_value,
                     "guest_uid_value": guest_uid_value,
                     "room_scent_value": room_scent_value,
-                    "room_access_value": room_access_value,
+                    // "room_access_value": room_access_value,
                     "min_humidity_value": min_humidity_value,
                     "max_humidity_value": max_humidity_value,
                     "selectedRoomValues": selectedRoomValues,
@@ -546,7 +607,8 @@
                 },
 
                 success: function (response) {
-                    alert("Successfully Saved");
+                    // alert("Successfully Saved");
+                    window.location.href = '/view/guest/bookings/'+guest_uid_value;
                 },
 
             });

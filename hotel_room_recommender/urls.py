@@ -22,6 +22,7 @@ from booking.views import booking
 from booking.views import booking_self
 from booking.views import booking_room
 from booking.views import capture_guest_data
+from booking.views import view_guest_booking
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -32,6 +33,7 @@ urlpatterns = [
     path('booking/self', booking_self, name='booking_self'),
     path('booking/room/<str:guest_uid>/<str:room_uid>', booking_room, name='booking_room'),
     path('capture/guest/information', capture_guest_data, name="capture_guest_information"),
+    path('view/guest/bookings/<str:guest_uid>', view_guest_booking, name='view_guest_booking' ),
     
     
     path('room/', include('room.urls')),    

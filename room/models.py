@@ -92,6 +92,11 @@ class Room(StructuredNode):
         ('Yes', 'Yes'),
     ]
 
+    DISABILITYFEATURES_CHOICES = [
+        ('No', 'No'),
+        ('Yes', 'Yes'),
+    ]
+
     uid = UniqueIdProperty()
     floor = StringProperty()
     created_on = DateProperty()
@@ -100,7 +105,7 @@ class Room(StructuredNode):
     cost_per_night = FloatProperty()    
     pet_room = StringProperty(choices=PETROOM_CHOICES)    
     availability = StringProperty(choices=AVAILABILITY_CHOICES)
-    disability_features = StringProperty(choices=PETROOM_CHOICES)
+    disability_features = StringProperty(choices=DISABILITYFEATURES_CHOICES)
 
     room_view_id = StringProperty()
     room_type_id = StringProperty()
