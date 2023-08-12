@@ -12,7 +12,8 @@ from neomodel import(
 )
 
 from room.models import Room
-from guest.models import Pet
+from user_manager.models import UserNode
+
 from guest.models import Guest
 from guest.models import Allergy
 from guest.models import Illness
@@ -22,4 +23,15 @@ from guest.models import GuestAttributes
 # Create your models here.
 
 class Reservation(StructuredNode):
-    pass
+    uid = UniqueIdProperty()    
+    date_to = DateProperty()
+    date_from = DateProperty()
+    amount_paid = StringProperty()
+    religious_book = StringProperty()    
+
+    pet = RelationshipTo(Pet, 'Pet in the room')
+    room = RelationshipTo(Room, 'Guest made Reservation')
+    guest = RelationshipTo(UserNode, 'Guest made Reservation')
+
+    updated_on = DateProperty()
+    created_on = DateProperty()
