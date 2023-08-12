@@ -5,7 +5,7 @@
 <style>
     .booking_background{
         width: 100%;
-        height: 110vh;
+        height: 150vh;
         background-image: url('{% static 'assets/img/background/room.jpg' %}');
         background-position: center;
         background-repeat: no-repeat;
@@ -156,6 +156,41 @@
                                                 </div>
                                                 <!-- end room scent-->
 
+                                                <!-- begin room access-->
+                                                <div class="col-md-4">                                        
+                                                    <div class="input-group">
+                                                        <select id="room_access" name="room_access" class="select2 form-control">
+                                                            <option value="" selected disabled hidden>
+                                                                Room Accessibility
+                                                            </option>
+                                                            {% for access in room_access_response %}
+                                                            <option value="{{access.uid}}"> {{access.accessibility_name}} </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- end room access-->
+
+                                                <!-- begin date from-->
+                                                <div class="col-md-4">                                        
+                                                    <div class="input-group">
+                                                        <label style="margin-right: .2rem; border: solid #ced4da 1px; border-radius: .25rem; line-height: 1.5; font-weight: 400; font-size: 1rem; padding: .375rem .75rem; height: calc(1.5em + .75rem + 2px)">From</label>
+                                                        <input type="date" class="form-control"  name="date_from">                                                        
+                                                    </div>
+                                                </div>
+                                                <!-- end date from-->
+
+                                                <!-- begin date to-->
+                                                <div class="col-md-4">                                        
+                                                    <div class="input-group">
+                                                        <label style="margin-right: .2rem; border: solid #ced4da 1px; border-radius: .25rem; line-height: 1.5; font-weight: 400; font-size: 1rem; padding: .375rem .75rem; height: calc(1.5em + .75rem + 2px)">To</label>
+                                                        <input type="date" class="form-control"  name="date_to">                                                        
+                                                    </div>
+                                                </div>
+                                                <!-- end date to-->
+                                                <div class="col-md-12">  
+                                                    <hr>
+                                                </div>
                                                 <!-- begin room light-->
                                                 <div class="form-group col-md-2">
                                                     <div class="input-group">
@@ -207,20 +242,7 @@
                                                             <h5>Guest Information</h5>
                                                         </div>
 
-                                                        <!-- begin room access-->
-                                                        <div class="col-md-2">                                        
-                                                            <div class="input-group">
-                                                                <select id="room_access" name="room_access" class="select2 form-control">
-                                                                    <option value="" selected disabled hidden>
-                                                                        Room Accessibility
-                                                                    </option>
-                                                                    {% for access in room_access_response %}
-                                                                    <option value="{{access.uid}}"> {{access.accessibility_name}} </option>
-                                                                    {% endfor %}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end room access-->
+                                                        
 
                                                         <div class="form-group col-md-2">
                                                             <input type="text" class="form-control" placeholder="Number of Guests" name="num_of_guests">
