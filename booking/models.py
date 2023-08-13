@@ -47,7 +47,7 @@ class Reservation(StructuredNode):
     religious_book = StringProperty()
 
     pet = RelationshipTo(Pet, 'Pet in the room')
-    room = RelationshipTo(Room, 'Guest made Reservation')
+    room = RelationshipTo(Room, 'Room Reserved')
     room_type = RelationshipTo(RoomType, 'Room type chosen')
     guest = RelationshipTo(UserNode, 'Guest made Reservation')
     room_scent = RelationshipTo(RoomScent, 'Room scent chosen')

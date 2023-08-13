@@ -350,6 +350,7 @@ def booking_room(request, guest_uid, room_uid):
     return render(request, 'core/reserve_room.html', context=context)
 
 def view_guest_booking(request, guest_uid):
+    room_response = []
     reservation_response = []
     guest = UserNode.nodes.get(uid = guest_uid)    
 
@@ -371,12 +372,25 @@ def view_guest_booking(request, guest_uid):
             'min_temprature': reservation_row.min_temprature,
             'max_temprature': reservation_row.max_temprature,
             'religious_book': reservation_row.religious_book,
-        }
-        
+        }        
         reservation_response.append(reservation_obj)
+
+        room_query = "MATCH(room:Room)-[:`Room Reserved`]->(reservation:Reservation WHERE reservation.uid = '%s') " %reservation_row.uid
+        room_query = room_query + "RETURN room"
+
+        room_results, meta = db.cypher_query(reservation_query)
+        for room_row in room_results:
+            rm_row = Room.inflate(row[0])
+            room_obj = {
+                'uid': rm_row.uid,    
+                'room_number': rm_row.room_number,
+                'floor': rm_row.floor,
+            }        
+            room_response.append(room_obj)
 
     context = {
         "guest": guest,
+        "room_response": room_response,
         "reservation_response": reservation_response,
     }
     return render(request, 'core/reserve_room.html', context=context)
