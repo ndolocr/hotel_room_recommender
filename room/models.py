@@ -58,6 +58,7 @@ class RoomHumidity(StructuredNode):
     created_on = DateProperty()
 
 class RoomLight(StructuredNode):
+    score = FloatProperty()
     uid = UniqueIdProperty()
     max_light = FloatProperty()
     min_light = FloatProperty()

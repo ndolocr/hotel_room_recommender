@@ -793,10 +793,12 @@ def viewAllRoomHumidity(request):
 def addRooLight(request):
     if request.method == "POST":
         try:
+            score = request.POST["score"]
             maximum_humidity = request.POST["maximum"]
             minimum_humidity = request.POST["minimum"]
 
             query = RoomLight(
+                score = score,
                 max_light = maximum_humidity,
                 min_light = minimum_humidity,
                 created_on = datetime.now()
@@ -818,9 +820,10 @@ def viewAllRoomLight(request):
 
         for record in query:
             record_dictionary = {
-                'created_on': record.created_on,
+                'score': record.score,
                 'min_light': record.min_light,
                 'max_light': record.max_light,
+                'created_on': record.created_on,
             }
 
             response_data.append(record_dictionary)
