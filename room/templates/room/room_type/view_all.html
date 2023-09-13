@@ -22,7 +22,8 @@
                         <tr>
                             <th> # </th>
                             <th> Name </th>
-                            <th> Maximum Capacity </th>                          
+                            <th> Maximum Capacity </th>
+                            <th> Score </th>                          
                             <th> Created On </th>
                             <th> view </th>
                         </tr>
@@ -33,6 +34,7 @@
                             <td> {{ forloop.counter }} </td>
                             <td> {{ record.Name }} </td>
                             <td> {{ record.Maximum_Capacity }} </td>
+                            <td> {{ record.Score }} </td>
                             <td> {{ record.created_on }} </td>
                             <td style="text-align: center;"> <a href="{% url 'room-type-view-single' record.uid %}"> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td>
                         </tr>

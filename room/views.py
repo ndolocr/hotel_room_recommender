@@ -472,6 +472,7 @@ def addRoomType(request):
         try:
             room_type = RoomType(
                 name = request.POST['name'],
+                score = request.POST['score'],
                 description = request.POST['description'],
                 max_capacity = request.POST['max_capacity'],
                 created_on = datetime.today()
@@ -481,6 +482,7 @@ def addRoomType(request):
 
             response = {
                 "name" : room_type.name,
+                "score": room_type.score,
                 "description" : room_type.description,
                 "max_capacity" : room_type.max_capacity,
                 "created_on" : room_type.created_on
@@ -505,6 +507,7 @@ def getAllRoomTypes(request):
                 room_type_data = {
                     "uid" : room_type.uid,
                     "Name": room_type.name,
+                    "Score": room_type.score,
                     "Maximum_Capacity": room_type.max_capacity,
                     "created_on": room_type.created_on,
                     "Description": room_type.description,
@@ -528,6 +531,7 @@ def getSingleRoomType(request, uid):
             response = {
                 "uid" : record.uid,
                 "Name": record.name,
+                "Score": record.score,
                 "Maximum_Capacity": record.max_capacity,
                 "created_on": record.created_on,
                 "Description": record.description,
@@ -623,6 +627,7 @@ def addRoomViewPreference(request):
         try:
             query = RoomViewPreference(
                 name = request.POST['name'],
+                score = request.POST['score'],
                 description = request.POST['description'],
                 created_on = datetime.today()
             )
@@ -631,6 +636,7 @@ def addRoomViewPreference(request):
 
             response = {
                 "name" : query.name,
+                "score" : query.score,
                 "description" : query.description,
                 "created_on" : query.created_on
             }
@@ -672,6 +678,7 @@ def viewAllRoomViewPreferences(request):
             record_dictionary = {
                 "uid": record.uid,
                 "name": record.name,
+                "score": record.score,
                 "created_on": record.created_on
             }
 

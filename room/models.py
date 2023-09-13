@@ -23,6 +23,7 @@ class RoomElement(StructuredNode):
     updated_on = DateProperty()
     created_on = DateProperty()
 class RoomType(StructuredNode):
+    score = FloatProperty()
     uid = UniqueIdProperty()
     name = StringProperty()
     description = StringProperty()
@@ -32,6 +33,7 @@ class RoomType(StructuredNode):
     created_on = DateProperty()
 
 class RoomViewPreference(StructuredNode):
+    score = FloatProperty()
     uid = UniqueIdProperty()
     name = StringProperty()   
     description = StringProperty()
