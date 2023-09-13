@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Neo4j Graph Visualization</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+    <div id="graph"></div>
+    <script>
+        var room_data = {{ rooms | safe }};
+        console.log(room_data)
+
+
+        var svg = d3.select("#graph").append("svg")
+            .attr("width", 800)
+            .attr("height", 600);
+
+        var nodes = svg.selectAll(".node")
+            .data(room_data)
+            .enter().append("circle")
+            .attr("class", "node")
+            .attr("r", 10)
+            .attr("cx", function(d, i) { return i * 50 + 30; })
+            .attr("cy", 50);
+        // Create your D3.js graph visualization using the 'persons' data
+        // For example, use D3's force-directed layout to visualize relationships
+    </script>
+    
+</body>
+</html>

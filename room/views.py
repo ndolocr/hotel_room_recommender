@@ -383,15 +383,9 @@ def editRoom(request):
 
 @csrf_exempt
 def addRoomElement(request):
-    if request.method =="POST":
-        # json_data = json.loads(request.body)
-
-        # name = json_data['name']
-        # description = json_data['description']
-        # elementType = json_data['elementType']
-        # created_on = datetime.today()
-
+    if request.method =="POST":    
         name = request.POST['name']
+        score = request.POST['score'] 
         description = request.POST['description']
         elementType = request.POST['elementType']
         created_on = datetime.today()
@@ -399,6 +393,7 @@ def addRoomElement(request):
         try:
             room_element = RoomElement(
                 name=name, 
+                score=score,
                 description=description,
                 elementType=elementType,
                 created_on=created_on
@@ -407,13 +402,13 @@ def addRoomElement(request):
             room_element.save()
 
             response = {
-                'name': room_element.name, 
+                'name': room_element.name,
+                'score': score,
                 'description': room_element.description,
                 'elementType': room_element.elementType,
                 'created_on': room_element.created_on
             }
 
-            # return JsonResponse(response, safe=False)
             return render(request, 'room/room_element/add.html')
         except Exception as e:
             response = {"error": "Error Saving Room Element - {}".format(e)}
@@ -432,6 +427,7 @@ def getAllRoomElements(request):
                 room_type_data = {
                     "uid" : room_type.uid,
                     "Name": room_type.name,
+                    "Score": room_type.score,
                     "Element_type": room_type.elementType,
                     "created_on": room_type.created_on,
                     "Description": room_type.description,
@@ -455,6 +451,7 @@ def getSingleRoomElement(request, uid):
             response = {
                 "uid" : record.uid,
                 "Name": record.name,
+                "Score": record.score,
                 "Element_type": record.elementType,
                 "created_on": record.created_on,
                 "Description": record.description,
@@ -1151,3 +1148,21 @@ def getReligiousBook(religion):
         return "GUITAR"
     else:
         return "None"
+
+from django.core import serializers
+def createGraph(request):
+    all_rooms = Room.nodes.all()
+    room_response = []
+    for room in all_rooms:
+        room_obj = {
+            'uid': room.uid,
+            'floor' : room.floor,
+            'hotel' : room.hotel_id,                    
+            'availability': room.availability,
+            'room_number': room.room_number,
+            'room_type' : room.room_type_id,
+            'cost_per_night': room.cost_per_night,
+            'room_element' : room.room_element_id,                    
+        }
+        room_response.append(room_obj)
+    return render(request, 'room/room_pages/graph_template.html', {'rooms': json.dumps(room_response)})

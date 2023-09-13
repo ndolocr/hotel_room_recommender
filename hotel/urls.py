@@ -8,4 +8,5 @@ urlpatterns = [
     path('update/<str:uid>', views.updateHotel, name='hotel-update'),
     path('delete/<str:uid>', views.deleteHotel, name='hotel-delete'),
     path('get/single/<str:uid>', views.getSingleHotel, name='hotel-get-single'),
+    
 ]

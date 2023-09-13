@@ -169,3 +169,4 @@ def getAllHotels(request):
         except Exception as e:
             response = { "ERROR": "Error getting all hotel records - {}".format(e)}
             return JsonResponse(response, safe=False)
+

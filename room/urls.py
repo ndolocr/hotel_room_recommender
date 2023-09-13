@@ -54,4 +54,6 @@ urlpatterns = [
 
     # Book a room
     path('book/room', views.bookRoom, name='book-room'),
+
+    path('graph/view', views.createGraph, name='view_graph')
 ]
