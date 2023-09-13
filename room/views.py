@@ -844,10 +844,12 @@ def viewAllRoomLight(request):
 def addAccessibilityFeature(request):
     if request.method == "POST":
         try:
+            score = request.POST["score"]
             accessibility_name = request.POST["name"]
             description = request.POST["description"]
 
-            query = RoomAccessibility(                
+            query = RoomAccessibility( 
+                score = score,               
                 description = description,
                 created_on = datetime.now(),
                 accessibility_name = accessibility_name
@@ -869,6 +871,7 @@ def getAllAccessibilityFeatures(request):
 
         for record in query:
             record_dictionary = {
+                'score': score,
                 'created_on': record.created_on,
                 'description': record.description,
                 'accessibility_name': record.accessibility_name,                

@@ -77,6 +77,7 @@ class RoomScent(StructuredNode):
     created_on = DateProperty()
 
 class RoomAccessibility(StructuredNode):
+    score = FloatProperty()
     uid = UniqueIdProperty()
     description = StringProperty()
     accessibility_name = StringProperty()
