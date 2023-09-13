@@ -21,9 +21,10 @@
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> Scent Name </th>                         
+                            <th> Scent Name </th>   
+                            <th> Score </th>                         
                             <th> Created On </th>
-                            <th> view </th>
+                            <!-- <th> view </th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -31,8 +32,9 @@
                         <tr>
                             <td> {{ forloop.counter }} </td>
                             <td> {{ record.scent_name }} </td>
+                            <td> {{ record.score }} </td>
                             <td> {{ record.created_on }} </td>
-                            <td style="text-align: center;"> <a href=""> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td>
+                            <!-- <td style="text-align: center;"> <a href=""> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td> -->
                         </tr>
                         {% endfor %}
                         

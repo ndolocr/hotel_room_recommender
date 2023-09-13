@@ -67,6 +67,7 @@ class RoomLight(StructuredNode):
     created_on = DateProperty()
 
 class RoomScent(StructuredNode):
+    score = FloatProperty()
     uid = UniqueIdProperty()
     scent_name = StringProperty()
     description = StringProperty()

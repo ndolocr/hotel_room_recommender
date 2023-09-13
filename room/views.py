@@ -886,10 +886,12 @@ def getAllAccessibilityFeatures(request):
 def addRoomScent(request):
     if request.method == 'POST':
         try:
+            score = request.POST["score"]
             scent_name = request.POST["name"]
             description = request.POST["description"]
             
             query = RoomScent(
+                score = score,
                 scent_name = scent_name,
                 description = description,
                 created_on = datetime.now()
@@ -913,6 +915,7 @@ def viewAllRoomScent(request):
         for record in query:
             record_dictionary = {
                 "uid": record.uid,
+                "score": record.score,
                 "scent_name": record.scent_name,
                 "created_on": record.created_on,
                 "description": record.description,                
