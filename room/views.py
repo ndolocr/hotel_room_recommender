@@ -751,8 +751,10 @@ def addRoomHumidity(request):
         try:
             maximum_humidity = request.POST["maximum"]
             minimum_humidity = request.POST["minimum"]
+            score = request.POST["score"]
 
             query = RoomHumidity(
+                score = score,
                 max_humidity = maximum_humidity,
                 min_humidity = minimum_humidity,
                 created_on = datetime.today()
@@ -774,6 +776,7 @@ def viewAllRoomHumidity(request):
 
         for record in query:
             record_dictionary = {
+                'score': record.score,
                 'created_on': record.created_on,
                 'min_humidity': record.min_humidity,
                 'max_humidity': record.max_humidity,
