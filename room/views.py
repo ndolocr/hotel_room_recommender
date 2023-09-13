@@ -698,13 +698,12 @@ def viewAllRoomViewPreferences(request):
 def addRoomTemprature(request):
     if request.method == 'POST':
         try:
+            score = request.POST['score']
             maximum_temprature = request.POST['maximum_temprature']
             minimum_temprature = request.POST['minimum_temprature']
 
-            print('Maximum Temp --> ', maximum_temprature)
-            print('Minimum Temp ==>', minimum_temprature)
-
             query = RoomTemprature(
+                score = score,
                 max_temprature = maximum_temprature,
                 min_temprature = minimum_temprature,
                 created_on = datetime.today()
@@ -727,6 +726,7 @@ def getAllRoomTemprature(request):
         
         for record in query:
             record_dict = {
+                'score': record.score,
                 'created_on': record.created_on,
                 'min_temprature': record.min_temprature,
                 'max_temprature': record.max_temprature,

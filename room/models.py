@@ -42,6 +42,7 @@ class RoomViewPreference(StructuredNode):
     created_on = DateProperty()
 
 class RoomTemprature(StructuredNode):
+    score = FloatProperty()
     uid = UniqueIdProperty()
     max_temprature = FloatProperty()
     min_temprature = FloatProperty()
