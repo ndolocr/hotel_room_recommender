@@ -28,6 +28,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', index, name="login-page"),
     path('', dashboard, name='home-page'),
+    path('score/', include('score.urls')),
     path('dashboard/', dashboard, name="dashboard"),
     path('booking', booking, name='customer-booking'),
     path('booking/self', booking_self, name='booking_self'),
