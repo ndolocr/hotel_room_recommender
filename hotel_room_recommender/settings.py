@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Apps
-    'core',
+    'core',    
     'room',
     'hotel',
+    'score',
     'user_manager',
     'rest_framework',
     'django_neomodel', 
