@@ -1,0 +1,57 @@
+{% extends 'app/layout.html' %}
+{% load static %}
+
+{% block title %} Hotels {% endblock %}
+{% block page_breadcrumb %} Add Score {% endblock %}
+{% block content %}
+<div class="col-md-12">
+    <div class="portlet box blue-hoki">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-university"></i>Add New Score </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"> </a>
+                <!-- <a href="javascript:;" class="remove"> </a> -->
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form action="{% url 'score-add' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-body">
+                    <div class="form-group">
+                        <label class="control-label">Code</label>
+                        <input type="text" class="form-control" placeholder="Enter Code" name="code">                        
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Score</label>
+                        <input type="text" class="form-control" placeholder="Enter Score" name="score">                        
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Score For</label>
+                        <select class="form-control" name="score_for">
+                            <option value="none" selected disabled hidden >------ Score for ---------</option>                            
+                                <option value="room_type" > Room Type </option>  
+                                <option value="room_view" > Room View </option>
+                                <option value="room_light" > Room Light </option>
+                                <option value="room_scent" > Room Scent </option>
+                                <option value="room_element" > Room Element </option>
+                                <option value="room_humidity" > Room Humidity </option>
+                                <option value="room_temprature" > Room Temprature </option>
+                                <option value="room_accessibility" > Room Accessibility </option>
+                        </select>                        
+                    </div>
+
+                    
+                <div class="form-actions">
+                    <button type="submit" class="btn green">Submit</button>
+                    <button type="button" class="btn default">Cancel</button>
+                </div>
+            </form>
+            <!-- END FORM-->
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -784,7 +784,7 @@ def getAllRoomTemprature(request):
                 'data':response_data,
             }
 
-            return render(request, 'room/room_temprature/view_all.html', context=context)
+        return render(request, 'room/room_temprature/view_all.html', context=context)
     except Exception as e:
         response = { "ERROR": "Error while getting all room temprature records - {}".format(e)}
         return JsonResponse(response, safe=False)
@@ -822,7 +822,7 @@ def viewAllRoomHumidity(request):
 
         for record in query:
             record_dictionary = {
-                'score': record.score,
+                # 'score': record.score,
                 'created_on': record.created_on,
                 'min_humidity': record.min_humidity,
                 'max_humidity': record.max_humidity,
@@ -917,7 +917,7 @@ def getAllAccessibilityFeatures(request):
 
         for record in query:
             record_dictionary = {
-                'score': score,
+                'score': record.score,
                 'created_on': record.created_on,
                 'description': record.description,
                 'accessibility_name': record.accessibility_name,                

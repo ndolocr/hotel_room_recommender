@@ -21,23 +21,23 @@
                 <div class="form-body">
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label class="control-label">Room Number</label>
+                            <label class="control-label">Room Number - <i class="fa fa-home" aria-hidden="true"></i></label>
                             <input type="text" class="form-control" placeholder="Enter Room Number" name="room_number">                        
                         </div>
 
                         <div class="form-group col-md-4">
-                            <label class="control-label">Floor</label>
+                            <label class="control-label">Floor - <i class="fa fa-building-o" aria-hidden="true"></i></label>
                             <input type="text" class="form-control" placeholder="Floor" name="floor">                        
                         </div>
 
                         <div class="form-group col-md-4">
-                            <label class="control-label">Cost Per Night</label>
+                            <label class="control-label">Cost Per Night - <i class="fa fa-money" aria-hidden="true"></i> </label>
                             <input type="number" class="form-control" placeholder="Enter Cost per Night" name="cost_per_night">                                          
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="form-group col-md-4">
+                        <!-- <div class="form-group col-md-4">
                             <label class="control-label">Hotel</label>
                             <select class="form-control" name="hotel">
                                 <option value="none" selected disabled hidden >------ Hotel ---------</option>
@@ -45,7 +45,7 @@
                                     <option value="{{ hotel.uid }}" > {{ hotel.Name }} </option>
                                 {% endfor %}
                             </select>                        
-                        </div>
+                        </div> -->
                         
                         <!-- <div class="form-group col-md-4">
                             <label class="control-label">Availablity</label>
@@ -59,7 +59,7 @@
                         </div> -->
 
                         <div class="form-group col-md-4">
-                            <label class="control-label">Room Type</label>
+                            <label class="control-label">Room Type - <i class="fa fa-bed" aria-hidden="true"></i> </label>
                             <select class="form-control" name="room_type">
                                 <option value="none" selected disabled hidden >------ Room Type ---------</option>
                                 {% for room_type in room_types %}
@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="form-group col-md-4">
-                            <label class="control-label">Room View</label>
+                            <label class="control-label">Room View - <i class="fa fa-mountain-sun" aria-hidden="true"></i></label>
                             <select class="form-control" name="room_view">
                                 <option value="none" selected disabled hidden >------ Room View ---------</option>
                                 {% for room_view in room_views %}
@@ -82,7 +82,7 @@
                     <hr>
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label class="control-label">Room Temprature Range</label>
+                            <label class="control-label">Room Temprature Range (°C) - <i class="fa fa-thermometer-empty" aria-hidden="true"></i> </label>
                             <select class="form-control" name="room_temprature">
                                 <option value="none" selected disabled hidden >------ Temprature Range ---------</option>
                                 {% for room_temprature in room_tempratures %}
@@ -92,7 +92,7 @@
                         </div>                                            
 
                         <div class="form-group col-md-4">
-                            <label class="control-label">Room Humidity Range</label>
+                            <label class="control-label">Room Humidity Range (g.m-3) - <i class="fa fa-tint" aria-hidden="true"></i></label>
                             <select class="form-control" name="room_humidity">
                                 <option value="none" selected disabled hidden >------ Humidity Range ---------</option>
                                 {% for room_humidity in room_humidities %}
@@ -102,7 +102,7 @@
                         </div>  
 
                         <div class="form-group col-md-4">
-                            <label class="control-label">Room Lighting Range</label>
+                            <label class="control-label">Room Lighting Range (lux) - <i class="fa fa-lightbulb-o" aria-hidden="true"></i></label>
                             <select class="form-control" name="room_light">
                                 <option value="none" selected disabled hidden >------ Lighting Range ---------</option>
                                 {% for room_light in room_lights %}
@@ -115,7 +115,7 @@
                     <hr>
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label class="control-label">Room scent</label>
+                            <label class="control-label">Room scent - <i class="fa fa-cog" aria-hidden="true"></i> </label>
                             <select class="form-control" name="room_scent">
                                 <option value="none" selected disabled hidden >------ Scent Types ---------</option>
                                 {% for room_scent in room_scents %}
@@ -135,7 +135,7 @@
                         </div>  -->
 
                         <div class="form-group col-md-4">
-                            <label class="control-label">Disability Features Available</label>
+                            <label class="control-label">Disability Features Available - <i class="fa fa-wheelchair" aria-hidden="true"></i> </label>
                             <select class="form-control" name="disability_features">
                                 <option value="none" selected disabled hidden >------ Availability ---------</option>                            
                                     <option value="No" > No </option>  
@@ -144,7 +144,7 @@
                         </div> 
                         
                         <div class="form-group col-md-4">
-                            <label class="control-label">Pet Room</label>
+                            <label class="control-label">Pet Room - <i class="fa fa-paw" aria-hidden="true"></i></label>
                             <select class="form-control" name="pet_room">
                                 <option value="none" selected disabled hidden >------ Availability ---------</option>                            
                                     <option value="No" > No </option>  
@@ -156,12 +156,12 @@
 
                     <hr>
                     <div style="background: #555555; color: #ffffff; padding:5px 0; margin-bottom: 2px;">
-                        Room Accessibility
+                        Room Accessibility - <i class="fa fa-stairs" aria-hidden="true"></i>
                     </div>                    
                     
                     <div class="row">                        
                         {% for item in room_accessibility %}
-                            <div class="form-group col-md-1">
+                            <div class="form-group col-md-2">
                                 <label class="control-label">{{item.name}}</label>                        
                                 <input type="checkbox" class="form-control" value="{{item.uid}}" name="acess_checks[]" />                                                 
                             </div>
@@ -171,7 +171,7 @@
                     <hr>
                      
                     <div style="background: #555555; color: #ffffff; padding:5px 0; margin-bottom: 2px;">
-                        Room Element
+                        Room Element - <i class="fa fa-television" aria-hidden="true"></i>
                     </div>                                         
                     
                     <div class="row">                        

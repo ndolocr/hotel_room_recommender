@@ -14,7 +14,7 @@ from neomodel import (
 # Create your models here.
 
 class Score(StructuredNode):
-    code = FloatProperty()
+    code = StringProperty()
     score = FloatProperty()    
     uid = UniqueIdProperty()
     score_for = StringProperty()
