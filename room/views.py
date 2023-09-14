@@ -15,6 +15,7 @@ from datetime import datetime
 from neomodel import db
 
 from room.models import Room
+from score.models import Score
 from hotel.models import Hotel
 from room.models import RoomType
 from room.models import RoomScent
@@ -43,7 +44,7 @@ def getAllRooms(request):
                 room_obj = {
                     'uid': room.uid,
                     'floor' : room.floor,
-                    'hotel' : room.hotel_id,                    
+                    # 'hotel' : room.hotel_id,                    
                     'created_on' : room.created_on,
                     'availability': room.availability,
                     'room_number': room.room_number,
@@ -73,11 +74,11 @@ def getSingleRoom(request, uid):
             }
             
             # Get Hotel
-            hotel = Hotel.nodes.get(uid=room.hotel_id)
-            hotel_response = {
-                'hotel_uid': hotel.uid,
-                'hotel_name': hotel.name,                
-            }
+            # hotel = Hotel.nodes.get(uid=room.hotel_id)
+            # hotel_response = {
+            #     'hotel_uid': hotel.uid,
+            #     'hotel_name': hotel.name,                
+            # }
             
             # Get Room Type
             room_type =RoomType.nodes.get(uid=room.room_type_id)
@@ -101,7 +102,7 @@ def getSingleRoom(request, uid):
 
             context = {
                 'room': room_response,
-                'hotel': hotel_response,
+                # 'hotel': hotel_response,
                 'room_type': room_type_response,
                 'room_element': all_room_element_list,
             }
@@ -116,26 +117,60 @@ def addRoom(request):
     if request.method == 'POST':
 
         availability = 'available'
-        floor = request.POST['floor']                        
-        hotel = request.POST['hotel']
-        pet_room = request.POST.get('pet_room')
-        room_type = request.POST['room_type']        
-        room_view = request.POST['room_view']
-        room_scent = request.POST['room_scent']
-        room_light = request.POST['room_light']
-        room_number  =request.POST['room_number']        
-        room_humidity = request.POST['room_humidity']
-        room_temprature = request.POST['room_temprature']
-        room_element_list = request.POST.getlist('checks[]')
-        cost_per_night = float(request.POST['cost_per_night'])
-        disability_features = request.POST['disability_features']
-        room_accessibility_list = request.POST.getlist('acess_checks[]')
+        floor = request.POST.get('floor', None)
+        # hotel = request.POST['hotel']
+        pet_room = request.POST.get('pet_room', None)
+        room_type = request.POST.get('room_type', None)
+        room_view = request.POST.get('room_view', None)
+        room_scent = request.POST.get('room_scent', None)
+        room_light = request.POST.get('room_light', None)
+        room_number  =request.POST.get('room_number', None)
+        room_humidity = request.POST.get('room_humidity', None)
+        room_temprature = request.POST.get('room_temprature', None)        
+        cost_per_night = float(request.POST.get('cost_per_night', None))
+        disability_features = request.POST.get('disability_features', None)
         
+        room_element_list = request.POST.getlist('checks[]', None)
+        room_accessibility_list = request.POST.getlist('acess_checks[]', None)
         
+        # get scores from the database
+        room_type_score = Score.nodes.get(score_for="room_type")
+        room_view_score = Score.nodes.get(score_for="room_view")
+        room_light_score = Score.nodes.get(score_for="room_light")
+        room_scent_score = Score.nodes.get(score_for="room_scent")
+        room_element_score = Score.nodes.get(score_for="room_element")
+        room_humidity_score = Score.nodes.get(score_for="room_humidity")
+        room_temprature_score = Score.nodes.get(score_for="room_temprature")        
+        room_accessibility_score = Score.nodes.get(score_for="room_accessibility")
+
+        score = {}
+        
+        if floor:
+            score["flr"] = 1000
+        if pet_room:
+            score["prm"] = 2000
+        if room_type:
+            score[room_type_score.code] = room_type_score.score
+        if room_view:
+            score[room_view_score.code] = room_view_score.score
+        if room_light:
+            score[room_light_score.code] = room_light_score.score
+        if room_scent:
+            score[room_scent_score.code] = room_scent_score.score
+        if room_humidity:
+            score[room_humidity_score.code] = room_humidity_score.score
+        if room_temprature:
+            score[room_temprature_score.code] = room_temprature_score.score
+        if room_element_list:
+            score[room_element_score.code] = room_element_score.score
+        if room_accessibility_list:
+            score[room_accessibility_score.code] = room_accessibility_score.score
+
         try:
             room = Room(
                 floor=floor,
-                hotel_id = hotel,
+                # hotel_id = hotel,
+                score = str(score),
                 pet_room = pet_room,
                 room_number=room_number,  
                 room_type_id = room_type,                                                                                            
@@ -153,11 +188,28 @@ def addRoom(request):
             )
             room.save()
 
+            if room_type:
+                room.room_score.connect(room_type_score)
+            if room_view:
+                room.room_score.connect(room_view_score)
+            if room_light:
+                room.room_score.connect(room_light_score)
+            if room_scent:
+                room.room_score.connect(room_scent_score)
+            if room_humidity:
+                room.room_score.connect(room_humidity_score)
+            if room_temprature:
+                room.room_score.connect(room_temprature_score)
+            if room_element_list:
+                room.room_score.connect(room_element_score)
+            if room_accessibility_list:
+                room.room_score.connect(room_accessibility_score)
+
             room_type_obj = RoomType.nodes.get(uid = room_type)
             room_type_connection = room.room_type.connect(room_type_obj)
 
-            hotel_obj = Hotel.nodes.get(uid = hotel)
-            hotel_room_connection = room.hotel.connect(hotel_obj)
+            # hotel_obj = Hotel.nodes.get(uid = hotel)
+            # hotel_room_connection = room.hotel.connect(hotel_obj)
 
             
             room_scent_obj = RoomScent.nodes.get(uid = room_scent)
@@ -219,20 +271,20 @@ def addRoom(request):
 
                 room_element_response.append(room_element_data)
             
-            hotels = Hotel.nodes.all()
-            hotel_response = []
+            # hotels = Hotel.nodes.all()
+            # hotel_response = []
 
-            for hotel in hotels:
-                hotel_data = {
-                    "uid" : hotel.uid,
-                    "Name": hotel.name,
-                    "City": hotel.city,
-                    "Address": hotel.address,
-                    "created_on": hotel.created_on,
-                    "Description": hotel.description,
-                }
+            # for hotel in hotels:
+            #     hotel_data = {
+            #         "uid" : hotel.uid,
+            #         "Name": hotel.name,
+            #         "City": hotel.city,
+            #         "Address": hotel.address,
+            #         "created_on": hotel.created_on,
+            #         "Description": hotel.description,
+            #     }
 
-                hotel_response.append(hotel_data)
+            #     hotel_response.append(hotel_data)
 
             room_view_query = RoomViewPreference.nodes.all()
             room_view_response = []
@@ -314,7 +366,7 @@ def addRoom(request):
 
 
             context = {
-                "hotels": hotel_response,
+                # "hotels": hotel_response,
                 "room_views": room_view_response,                
                 "room_types": room_type_response,
                 "room_lights": room_light_response,

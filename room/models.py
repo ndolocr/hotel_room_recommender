@@ -1,5 +1,7 @@
 from django.db import models
 from hotel.models import Hotel
+from score.models import Score
+
 from neomodel import (
     Relationship,
     StringProperty,
@@ -102,11 +104,11 @@ class Room(StructuredNode):
         ('No', 'No'),
         ('Yes', 'Yes'),
     ]
-    score = FloatProperty()
+    score = StringProperty()
     uid = UniqueIdProperty()
     floor = StringProperty()
     created_on = DateProperty()
-    hotel_id = StringProperty()    
+    # hotel_id = StringProperty()    
     room_number = StringProperty()
     cost_per_night = FloatProperty()    
     pet_room = StringProperty(choices=PETROOM_CHOICES)    
@@ -125,7 +127,8 @@ class Room(StructuredNode):
     updated_on = DateProperty()
     created_on = DateProperty()
 
-    hotel = RelationshipTo(Hotel, 'Room in a Hotel')
+    # hotel = RelationshipTo(Hotel, 'Room in a Hotel')
+    room_score = RelationshipTo(Score, "Score")
     room_type = RelationshipTo(RoomType, 'Room Type')
     room_scent = RelationshipTo(RoomScent, 'Scent in a Room')
     room_element = RelationshipTo(RoomElement, 'Element in a Room')
